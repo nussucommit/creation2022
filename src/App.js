@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import NavigationBar from "./components/NavigationBar";
+
 import Announcement from "./pages/Announcement";
 import Challenges from "./pages/Challenges";
 import Contact from "./pages/Contact";
@@ -19,18 +21,21 @@ import Submission from "./pages/Submission";
  */
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/Home" />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/announcement" element={<Announcement />} />
-      <Route path="/challenges" element={<Challenges />} />
-      <Route path="/rules" element={<Rules />} />
-      <Route path="/submission" element={<Submission />} />
-      <Route path="/faq" element={<FAQ />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div>
+      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/Home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/announcement" element={<Announcement />} />
+        <Route path="/challenges" element={<Challenges />} />
+        <Route path="/rules" element={<Rules />} />
+        <Route path="/submission" element={<Submission />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
