@@ -55,6 +55,10 @@ export default function NavigationBar() {
     setAnchorElNav(event.currentTarget);
   };
 
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -102,7 +106,7 @@ export default function NavigationBar() {
                 horizontal: "right",
               }}
               open={Boolean(anchorElNav)}
-              onClose={() => setAnchorElNav(null)}
+              onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
@@ -111,7 +115,12 @@ export default function NavigationBar() {
                 const { pageTitle, pageURL } = page;
 
                 return (
-                  <MenuItem key={pageTitle} component={NavLink} to={pageURL}>
+                  <MenuItem
+                    key={pageTitle}
+                    component={NavLink}
+                    to={pageURL}
+                    onClick={handleCloseNavMenu}
+                  >
                     <Typography textAlign="center">{pageTitle}</Typography>
                   </MenuItem>
                 );
