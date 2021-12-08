@@ -1,3 +1,6 @@
+import { useState, useRef, useContext } from "react";
+
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -5,14 +8,83 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
+import AuthContext from "../../store/auth-context";
+
 export default function AuthForm({ isSignin }) {
+  const history = useNavigate();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
+  const authCtx = useContext(AuthContext);
+
+  const [isLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
+    // optional: add validation here
+
+    setIsLoading(true);
+
+    let url;
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAktS28-TKaY3ICHKZWhFlXAM1ZYIpCR7M";
+    } else {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAktS28-TKaY3ICHKZWhFlXAM1ZYIpCR7M";
+    }
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        setIsLoading(false);
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            // Future improvement: using a snackbar instead
+            alert(errorMessage);
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authCtx.login(data.idToken, expirationTime.toISOString());
+        history.replace("/home");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
   return (
     <Card raised>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {isSignin ? "Sign in to continue" : "Sign up to continue"}
         </Typography>
-        <form>
+        <form onSubmit={submitHandler}>
           <TextField
             error={false}
             fullWidth
@@ -24,9 +96,16 @@ export default function AuthForm({ isSignin }) {
             error={false}
             fullWidth
             label="Password"
-            helperText="At least 7 characters"
             variant="outlined"
           />
+          {!isSignin && (
+            <TextField
+              error={false}
+              fullWidth
+              label="Confirm Password"
+              variant="outlined"
+            />
+          )}
         </form>
       </CardContent>
       <CardActions>
@@ -35,7 +114,8 @@ export default function AuthForm({ isSignin }) {
         </Button>
       </CardActions>
       <CardActions>
-        <Button>{isSignin ? "Login" : "Create Account"}</Button>
+        {!isLoading && <Button>{isSignin ? "Login" : "Create Account"}</Button>}
+        {isLoading && <p>Sending request...</p>}
       </CardActions>
     </Card>
   );
