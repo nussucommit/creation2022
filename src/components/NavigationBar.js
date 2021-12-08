@@ -85,17 +85,7 @@ export default function NavigationBar() {
           >
             CREATION 2022
           </Typography>
-          <Typography
-            variant="h6"
-            color="secondary"
-            noWrap
-            component={NavLink}
-            to="/home"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            CREATION 2022
-          </Typography>
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -111,12 +101,12 @@ export default function NavigationBar() {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "right",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
                 vertical: "top",
-                horizontal: "right",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -138,8 +128,24 @@ export default function NavigationBar() {
                   </MenuItem>
                 );
               })}
+              <MenuItem component={NavLink} to="/signin">
+                <Typography textAlign="center">Sign in</Typography>
+              </MenuItem>
+              <MenuItem component={NavLink} to="/signup">
+                <Typography textAlign="center">Sign up</Typography>
+              </MenuItem>
             </Menu>
           </Box>
+          <Typography
+            variant="h6"
+            color="secondary"
+            noWrap
+            component={NavLink}
+            to="/home"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            CREATION 2022
+          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {menuItems.map((page) => {
               const { pageTitle, pageURL } = page;
