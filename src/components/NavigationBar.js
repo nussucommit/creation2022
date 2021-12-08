@@ -55,6 +55,7 @@ export default function NavigationBar() {
         <Toolbar disableGutters>
           <Typography
             variant="h6"
+            color="secondary"
             noWrap
             component={NavLink}
             to="/home"
@@ -65,6 +66,7 @@ export default function NavigationBar() {
 
           <Typography
             variant="h6"
+            color="secondary"
             noWrap
             component={NavLink}
             to="/home"
@@ -133,7 +135,12 @@ export default function NavigationBar() {
             <MenuItem component={NavLink} to="/signin">
               <Typography textAlign="center">Sign in</Typography>
             </MenuItem>
-            <Button variant="outlined" color="secondary" component={NavLink} to="/signup">
+            <Button
+              variant="outlined"
+              color="secondary"
+              component={NavLink}
+              to="/signup"
+            >
               Sign Up
             </Button>
             <MenuItem component={NavLink} to="/profile">

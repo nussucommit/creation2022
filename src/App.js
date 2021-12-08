@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import NavigationBar from "./components/NavigationBar";
 
@@ -14,6 +15,14 @@ import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
 
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
+
 /**
  * React app for Creation 2022 organized by NUSSU commIT.
  *
@@ -22,22 +31,24 @@ import Submission from "./pages/Submission";
  */
 export default function App() {
   return (
-    <div>
-      <NavigationBar />
-      <Routes>
-        <Route path="/" element={<Navigate to="/Home" />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/announcement" element={<Announcement />} />
-        <Route path="/challenges" element={<Challenges />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/submission" element={<Submission />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<Navigate to="/Home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/announcement" element={<Announcement />} />
+          <Route path="/challenges" element={<Challenges />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/submission" element={<Submission />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
