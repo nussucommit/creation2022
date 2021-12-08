@@ -1,7 +1,5 @@
+import AuthForm from "../components/Authentication/AuthForm";
+
 export default function SignIn() {
-    return (
-        <div>
-            Sign In Page
-        </div>
-    )
+  return <AuthForm isSignin />;
 }
