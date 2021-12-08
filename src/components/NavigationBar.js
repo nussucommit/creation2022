@@ -37,7 +37,7 @@ const menuItems = [
   },
 ];
 
-const AccountMenuItems = [
+const AuthenticationMenuItems = [
   {
     pageTitle: "Sign In",
     pageURL: "/signin",
@@ -140,7 +140,7 @@ export default function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            {AccountMenuItems.map((page) => {
+            {AuthenticationMenuItems.map((page) => {
               const { pageTitle, pageURL } = page;
 
               return (
