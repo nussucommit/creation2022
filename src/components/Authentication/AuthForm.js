@@ -100,6 +100,7 @@ export default function AuthForm({ isSignin }) {
             fullWidth
             label="Password"
             required
+            type="password"
             variant="outlined"
             inputRef={passwordInputRef}
           />
@@ -109,6 +110,7 @@ export default function AuthForm({ isSignin }) {
               fullWidth
               label="Confirm Password"
               required
+              type="password"
               variant="outlined"
             />
           )}
