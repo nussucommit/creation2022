@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -14,6 +16,7 @@ import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
+import AuthContext from "./store/auth-context";
 
 const theme = createTheme({
   palette: {
@@ -30,12 +33,14 @@ const theme = createTheme({
  * @author [Desmond To](https://github.com/DesmondTo)
  */
 export default function App() {
+  const authCtx = useContext(AuthContext);
+
   return (
     <ThemeProvider theme={theme}>
       <div>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<Navigate to="/Home" />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
@@ -44,7 +49,10 @@ export default function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={authCtx.isLoggedIn ? <Profile /> : <Navigate to="/signin" />}
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
