@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 
-export default function AuthForm() {
+export default function AuthForm({ isSignin }) {
   return (
     <Card raised>
       <CardContent>
@@ -25,8 +25,12 @@ export default function AuthForm() {
         </form>
       </CardContent>
       <CardActions>
-        <Button>Create new account</Button>
-        <Button>Login</Button>
+        <Button>
+          {isSignin ? "Create new account" : "Login with existing account"}
+        </Button>
+      </CardActions>
+      <CardActions>
+        <Button>{isSignin ? "Login" : "Create Account"}</Button>
       </CardActions>
     </Card>
   );
