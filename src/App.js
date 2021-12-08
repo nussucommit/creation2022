@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./components/Layout/NavigationBar";
 
 import Announcement from "./pages/Announcement";
 import Challenges from "./pages/Challenges";
