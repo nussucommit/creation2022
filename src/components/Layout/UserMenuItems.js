@@ -56,7 +56,11 @@ function UserMenuItems() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem component={NavLink} to="/profile">
+        <MenuItem
+          component={NavLink}
+          to="/profile"
+          onClick={handleCloseUserMenu}
+        >
           <Typography textAlign="center">Profile</Typography>
         </MenuItem>
         <Button color="primary" onClick={logoutHandler}>
