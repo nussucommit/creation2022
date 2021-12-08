@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -34,21 +35,6 @@ const menuItems = [
   {
     pageTitle: "Contact",
     pageURL: "/contact",
-  },
-];
-
-const AuthenticationMenuItems = [
-  {
-    pageTitle: "Sign In",
-    pageURL: "/signin",
-  },
-  {
-    pageTitle: "Profile",
-    pageURL: "/profile",
-  },
-  {
-    pageTitle: "Sign Up",
-    pageURL: "/signup",
   },
 ];
 
@@ -144,15 +130,15 @@ export default function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            {AuthenticationMenuItems.map((page) => {
-              const { pageTitle, pageURL } = page;
-
-              return (
-                <MenuItem key={pageTitle} component={NavLink} to={pageURL}>
-                  <Typography textAlign="center">{pageTitle}</Typography>
-                </MenuItem>
-              );
-            })}
+            <MenuItem component={NavLink} to="/signin">
+              <Typography textAlign="center">Sign in</Typography>
+            </MenuItem>
+            <Button variant="outlined" color="secondary" component={NavLink} to="/signup">
+              Sign Up
+            </Button>
+            <MenuItem component={NavLink} to="/profile">
+              <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
           </Box>
         </Toolbar>
       </Container>
