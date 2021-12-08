@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -21,6 +21,7 @@ export default function AuthForm({ isSignin }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = (event) => {
+    console.log("submit");
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
@@ -90,33 +91,42 @@ export default function AuthForm({ isSignin }) {
             fullWidth
             helperText="Example: e1234567@u.nus.edu"
             label="NUS Email"
+            required
             variant="outlined"
+            inputRef={emailInputRef}
           />
           <TextField
             error={false}
             fullWidth
             label="Password"
+            required
             variant="outlined"
+            inputRef={passwordInputRef}
           />
           {!isSignin && (
             <TextField
               error={false}
               fullWidth
               label="Confirm Password"
+              required
               variant="outlined"
             />
           )}
+          <CardActions>
+            <Button component={NavLink} to={isSignin ? "/signup" : "/signin"}>
+              {isSignin ? "Create new account" : "Login with existing account"}
+            </Button>
+          </CardActions>
+          <CardActions>
+            {!isLoading && (
+              <Button type="submit">
+                {isSignin ? "Login" : "Create Account"}
+              </Button>
+            )}
+            {isLoading && <p>Sending request...</p>}
+          </CardActions>
         </form>
       </CardContent>
-      <CardActions>
-        <Button>
-          {isSignin ? "Create new account" : "Login with existing account"}
-        </Button>
-      </CardActions>
-      <CardActions>
-        {!isLoading && <Button>{isSignin ? "Login" : "Create Account"}</Button>}
-        {isLoading && <p>Sending request...</p>}
-      </CardActions>
     </Card>
   );
 }
