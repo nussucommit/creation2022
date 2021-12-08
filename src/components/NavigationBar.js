@@ -67,6 +67,7 @@ export default function NavigationBar() {
   };
 
   const logoutHandler = () => {
+    setAnchorElUser(null);
     authCtx.logout();
   };
 
@@ -84,7 +85,6 @@ export default function NavigationBar() {
           >
             CREATION 2022
           </Typography>
-
           <Typography
             variant="h6"
             color="secondary"
@@ -151,7 +151,6 @@ export default function NavigationBar() {
               );
             })}
           </Box>
-
           {!isLoggedIn && (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               <MenuItem component={NavLink} to="/signin">
@@ -167,37 +166,38 @@ export default function NavigationBar() {
               </Button>
             </Box>
           )}
-
-          {isLoggedIn && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {isLoggedIn && (
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem component={NavLink} to="/profile">
-                  <Typography textAlign="center">Profile</Typography>
-                </MenuItem>
-                <Button color="primary" onClick={logoutHandler}>Log out</Button>
-              </Menu>
-            </Box>
-          )}
+                )}
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem component={NavLink} to="/profile">
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <Button color="primary" onClick={logoutHandler}>
+                Log out
+              </Button>
+            </Menu>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
