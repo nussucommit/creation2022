@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Rules from "./pages/Rules";
 import SignIn from "./pages/SignIn";
+import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
 
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
