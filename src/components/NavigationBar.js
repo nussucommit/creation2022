@@ -66,6 +66,10 @@ export default function NavigationBar() {
     setAnchorElUser(null);
   };
 
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -190,7 +194,7 @@ export default function NavigationBar() {
                 <MenuItem component={NavLink} to="/profile">
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <Button color="primary">Log out</Button>
+                <Button color="primary" onClick={logoutHandler}>Log out</Button>
               </Menu>
             </Box>
           )}
