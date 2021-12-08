@@ -43,6 +43,10 @@ const AuthenticationMenuItems = [
     pageURL: "/signin",
   },
   {
+    pageTitle: "Profile",
+    pageURL: "/profile",
+  },
+  {
     pageTitle: "Sign Up",
     pageURL: "/signup",
   },
