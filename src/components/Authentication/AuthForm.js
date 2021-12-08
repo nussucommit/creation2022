@@ -11,22 +11,20 @@ import Typography from "@mui/material/Typography";
 import AuthContext from "../../store/auth-context";
 
 export default function AuthForm({ isSignin }) {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   const authCtx = useContext(AuthContext);
 
-  const [isLogin] = useState(true);
+  const [isLogin] = useState(isSignin);
   const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = (event) => {
-    console.log("submit");
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
     // optional: add validation here
 
     setIsLoading(true);
@@ -62,7 +60,6 @@ export default function AuthForm({ isSignin }) {
               errorMessage = data.error.message;
             }
             // Future improvement: using a snackbar instead
-            alert(errorMessage);
             throw new Error(errorMessage);
           });
         }
@@ -72,7 +69,7 @@ export default function AuthForm({ isSignin }) {
           new Date().getTime() + +data.expiresIn * 1000
         );
         authCtx.login(data.idToken, expirationTime.toISOString());
-        history.replace("/home");
+        navigate('/home', { replace: true });
       })
       .catch((err) => {
         alert(err.message);
@@ -104,7 +101,7 @@ export default function AuthForm({ isSignin }) {
             variant="outlined"
             inputRef={passwordInputRef}
           />
-          {!isSignin && (
+          {/* {!isSignin && (
             <TextField
               error={false}
               fullWidth
@@ -113,7 +110,7 @@ export default function AuthForm({ isSignin }) {
               type="password"
               variant="outlined"
             />
-          )}
+          )} */}
           <CardActions>
             <Button component={NavLink} to={isSignin ? "/signup" : "/signin"}>
               {isSignin ? "Create new account" : "Login with existing account"}
