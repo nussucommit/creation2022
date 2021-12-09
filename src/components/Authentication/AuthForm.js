@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
 import AuthContext from "../../store/auth-context";
+import authErrorResponses from "../../constants/Authentication/AuthErrorResponses";
 
 export default function AuthForm({ isSignin }) {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ export default function AuthForm({ isSignin }) {
               errorMessage = data.error.message;
             }
             // Future improvement: using a snackbar instead
-            throw new Error(errorMessage);
+            throw new Error(authErrorResponses[errorMessage]);
           });
         }
       })
