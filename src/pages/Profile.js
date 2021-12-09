@@ -1,7 +1,5 @@
 import { useRef, useState, useContext } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import AuthContext from "../store/auth-context";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -10,21 +8,27 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import validateInput from "../validations/InputValidation";
+import validateInput, { compareString } from "../validations/InputValidation";
 import inputPatterns from "../constants/Authentication/InputPatterns";
 
 export default function Profile() {
   const newPasswordInputRef = useRef();
+  const newConfirmPasswordInputRef = useRef();
   const authCtx = useContext(AuthContext);
 
   const [enteredNewPasswordIsValid, setEnteredNewPasswordIsValid] =
     useState(false);
+  const [
+    enteredNewConfirmPasswordIsValid,
+    setEnteredNewConfirmPasswordIsValid,
+  ] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     const enteredNewPassword = newPasswordInputRef.current.value;
+    const enteredNewConfirmPassword = newConfirmPasswordInputRef.current.value;
 
     setSubmitButtonClicked(true);
 
@@ -34,11 +38,21 @@ export default function Profile() {
       "The password must have minimum eight characters, at least one letter and one number!"
     );
 
+    const newConfirmPasswordIsMatched = compareString(
+      enteredNewPassword,
+      enteredNewConfirmPassword,
+      "Please make sure your password and confirm password match!"
+    );
+
     newPasswordIsValid
       ? setEnteredNewPasswordIsValid(true)
       : setEnteredNewPasswordIsValid(false);
 
-    if (!newPasswordIsValid) {
+    newConfirmPasswordIsMatched
+      ? setEnteredNewConfirmPasswordIsValid(true)
+      : setEnteredNewConfirmPasswordIsValid(false);
+
+    if (!newPasswordIsValid || !newConfirmPasswordIsMatched) {
       return;
     }
 
@@ -91,6 +105,15 @@ export default function Profile() {
             type="password"
             variant="outlined"
             inputRef={newPasswordInputRef}
+          />
+          <TextField
+            error={submitButtonClicked && !enteredNewConfirmPasswordIsValid}
+            fullWidth
+            label="Confirm New Password"
+            required
+            type="password"
+            variant="outlined"
+            inputRef={newConfirmPasswordInputRef}
           />
           <CardActions>
             <Button type="submit" variant="outlined">
