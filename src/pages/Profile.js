@@ -73,7 +73,6 @@ export default function Profile() {
       })
       .then((data) => {
         authCtx.logout();
-        navigate("/home", { replace: true });
       })
       .catch((err) => {
         alert(err.message);
