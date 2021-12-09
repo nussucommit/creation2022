@@ -1,7 +1,5 @@
+import AuthForm from "../components/Authentication/AuthForm";
+
 export default function SignUp() {
-    return (
-        <div>
-            Sign Up Page
-        </div>
-    )
+  return <AuthForm isSignin={false} />;
 }
