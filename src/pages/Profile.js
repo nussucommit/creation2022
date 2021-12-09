@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
+import authErrorResponses from "../constants/Authentication/AuthErrorResponses";
 import validateInput, { compareString } from "../validations/InputValidation";
 import inputPatterns from "../constants/Authentication/InputPatterns";
 
@@ -80,7 +81,7 @@ export default function Profile() {
               errorMessage = data.error.message;
             }
             // Future improvement: using a snackbar instead
-            throw new Error(errorMessage);
+            throw new Error(authErrorResponses[errorMessage]);
           });
         }
       })
