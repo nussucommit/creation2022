@@ -14,7 +14,6 @@ import validateInput from "../validations/InputValidation";
 import inputPatterns from "../constants/Authentication/InputPatterns";
 
 export default function Profile() {
-  const navigate = useNavigate();
   const newPasswordInputRef = useRef();
   const authCtx = useContext(AuthContext);
 
