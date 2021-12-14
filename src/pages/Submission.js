@@ -8,16 +8,18 @@ export default function Submission() {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState("");
 
-  const submitFileHandler = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
+  const submitFileHandler = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
     uploadFiles(file);
   };
 
   const uploadFiles = (file) => {
-    if (!file) return;
-    const sotrageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(sotrageRef, file);
+    if (!file) {
+      return;
+    }
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
       "state_changed",
@@ -27,7 +29,7 @@ export default function Submission() {
         );
         setProgress(prog);
       },
-      (error) => console.log(error),
+      (error) => alert(error.message),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageURL(downloadURL);
@@ -38,19 +40,13 @@ export default function Submission() {
 
   return (
     <div className="App">
-      <form onSubmit={submitFileHandler}>
-        <input type="file" className="input" />
-        <button type="submit">Upload</button>
+      <form>
+        <input type="file" onChange={submitFileHandler} />
       </form>
       <hr />
       <h2>Uploading done {progress}%</h2>
       {imageURL !== "" && (
         <img src={imageURL} alt="Submitted competition file" />
-      )}
-      {imageURL !== "" && (
-        <a download href={imageURL}>
-          Download image
-        </a>
       )}
     </div>
   );
