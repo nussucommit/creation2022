@@ -18,7 +18,7 @@ export default function Submission() {
     if (!file) {
       return;
     }
-    const storageRef = ref(storage, `files/${file.name}`);
+    const storageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
