@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+
+import { auth } from "../firebase/firebase";
+
 let logoutTimer;
 
 const AuthContext = React.createContext({
+  user: {},
   token: "",
   isLoggedIn: false,
   login: (token) => {},
@@ -44,10 +53,16 @@ export const AuthContextProvider = (props) => {
     initialToken = tokenData.token;
   }
 
+  const [user, setUser] = useState({});
   const [token, setToken] = useState(initialToken);
   const userIsLoggedIn = !!token;
 
-  const logoutHandler = useCallback(() => {
+  onAuthStateChanged(auth, (currentUser) =>{
+    setUser(currentUser);
+  });
+
+  const logoutHandler = useCallback(async () => {
+    await signOut(auth);
     setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
@@ -57,7 +72,8 @@ export const AuthContextProvider = (props) => {
     }
   }, []);
 
-  const loginHandler = (token, expirationTime) => {
+  const loginHandler = async (token, email, password, expirationTime) => {
+    await signInWithEmailAndPassword(auth, email, password); 
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
@@ -74,6 +90,7 @@ export const AuthContextProvider = (props) => {
   }, [tokenData, logoutHandler]);
 
   const contextValue = {
+    user: user,
     token: token,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
