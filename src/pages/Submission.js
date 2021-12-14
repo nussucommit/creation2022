@@ -6,7 +6,7 @@ import { storage } from "../firebase/firebase";
 
 export default function Submission() {
   const [progress, setProgress] = useState(0);
-  const [imageURL, setImageURL] = useState('');
+  const [imageURL, setImageURL] = useState("");
 
   const submitFileHandler = (e) => {
     e.preventDefault();
@@ -46,6 +46,11 @@ export default function Submission() {
       <h2>Uploading done {progress}%</h2>
       {imageURL !== "" && (
         <img src={imageURL} alt="Submitted competition file" />
+      )}
+      {imageURL !== "" && (
+        <a download href={imageURL}>
+          Download image
+        </a>
       )}
     </div>
   );
