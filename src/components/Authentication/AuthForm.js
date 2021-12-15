@@ -97,7 +97,7 @@ export default function AuthForm({ isSignin }) {
           )}
           {isSignin && (
             <CardActions>
-              <Button>Forgot password?</Button>
+              <Button component={NavLink} to="/reset-password">Forgot password?</Button>
             </CardActions>
           )}
           <CardActions>

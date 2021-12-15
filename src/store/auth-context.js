@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   reauthenticateWithCredential,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   updatePassword,
@@ -15,6 +16,7 @@ import { auth, emailProvider } from "../firebase/firebase";
 const AuthContext = React.createContext({
   user: {},
   isSignedIn: false,
+  resetPasswordByEmail: () => {},
   signup: () => {},
   signin: () => {},
   signout: () => {},
@@ -29,6 +31,17 @@ export const AuthContextProvider = (props) => {
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
+
+  const resetPasswordByEmailHandler = async (email) => {
+    try {
+      const actionCodeSettings = {
+        url: "http://localhost:3000/sign-in",
+      };
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const signupHandler = async (email, password) => {
     try {
@@ -74,7 +87,7 @@ export const AuthContextProvider = (props) => {
 
   const updateProfileHandler = (newDisplayName) => {
     try {
-      updateProfile(user, { displayName: newDisplayName});
+      updateProfile(user, { displayName: newDisplayName });
     } catch (error) {
       alert(error.message);
     }
@@ -83,11 +96,12 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     user: user,
     isSignedIn: userIsSignedIn,
+    resetPasswordByEmail: resetPasswordByEmailHandler,
     signup: signupHandler,
     signin: signinHandler,
     signout: signoutHandler,
     updatePassword: updatePasswordHandler,
-    updateProfile: updateProfileHandler
+    updateProfile: updateProfileHandler,
   };
 
   return (
