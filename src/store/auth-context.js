@@ -1,100 +1,95 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
+
+import authErrorResponses from "../constants/Authentication/AuthErrorResponses";
 
 import {
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
+  reauthenticateWithCredential,
+  signInWithEmailAndPassword,
   signOut,
+  updatePassword,
+  updateProfile,
 } from "firebase/auth";
 
-import { auth } from "../firebase/firebase";
-
-let logoutTimer;
+import { auth, emailProvider } from "../firebase/firebase";
 
 const AuthContext = React.createContext({
   user: {},
-  token: "",
-  isLoggedIn: false,
-  login: (token) => {},
-  logout: () => {},
+  isSignedIn: false,
+  signup: () => {},
+  signin: () => {},
+  signout: () => {},
+  updatePassword: () => {},
+  updateProfile: () => {},
 });
 
-const calculateRemainingTime = (expirationTime) => {
-  const currentTime = new Date().getTime();
-  const adjExpirationTime = new Date(expirationTime).getTime();
-
-  const remainingDuration = adjExpirationTime - currentTime;
-
-  return remainingDuration;
-};
-
-const retrievedStoredToken = () => {
-  const storedToken = localStorage.getItem("token");
-  const storedExpirationDate = localStorage.getItem("expirationTime");
-
-  const remainingTime = calculateRemainingTime(storedExpirationDate);
-
-  if (remainingTime <= 60000) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-    return null;
-  }
-
-  return {
-    token: storedToken,
-    duration: remainingTime,
-  };
-};
-
 export const AuthContextProvider = (props) => {
-  const tokenData = retrievedStoredToken();
+  const [user, setUser] = useState(null);
+  const userIsSignedIn = !!user;
 
-  let initialToken;
-  if (tokenData) {
-    initialToken = tokenData.token;
-  }
-
-  const [user, setUser] = useState({});
-  const [token, setToken] = useState(initialToken);
-  const userIsLoggedIn = !!token;
-
-  onAuthStateChanged(auth, (currentUser) =>{
+  onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
-  const logoutHandler = useCallback(async () => {
-    await signOut(auth);
-    setToken(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-
-    if (logoutTimer) {
-      clearTimeout(logoutTimer);
+  const signupHandler = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      alert(authErrorResponses[error.message]);
     }
-  }, []);
-
-  const loginHandler = async (token, email, password, expirationTime) => {
-    await signInWithEmailAndPassword(auth, email, password); 
-    setToken(token);
-    localStorage.setItem("token", token);
-    localStorage.setItem("expirationTime", expirationTime);
-
-    const remainingTime = calculateRemainingTime(expirationTime);
-
-    logoutTimer = setTimeout(loginHandler, remainingTime);
   };
 
-  useEffect(() => {
-    if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+  const signinHandler = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      alert(authErrorResponses[error.message]);
     }
-  }, [tokenData, logoutHandler]);
+  };
+
+  const signoutHandler = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert(authErrorResponses[error.message]);
+    }
+  };
+
+  const updatePasswordHandler = async (
+    currentEmail,
+    currentPassword,
+    newPassword
+  ) => {
+    try {
+      const credential = emailProvider.credential(
+        currentEmail,
+        currentPassword
+      );
+      reauthenticateWithCredential(user, credential).then(async () => {
+        await updatePassword(user, newPassword).then(() => signoutHandler());
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const updateProfileHandler = (newDisplayName) => {
+    try {
+      updateProfile(user, { displayName: newDisplayName});
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const contextValue = {
     user: user,
-    token: token,
-    isLoggedIn: userIsLoggedIn,
-    login: loginHandler,
-    logout: logoutHandler,
+    isSignedIn: userIsSignedIn,
+    signup: signupHandler,
+    signin: signinHandler,
+    signout: signoutHandler,
+    updatePassword: updatePasswordHandler,
+    updateProfile: updateProfileHandler
   };
 
   return (
