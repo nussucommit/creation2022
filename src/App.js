@@ -48,12 +48,20 @@ export default function App() {
           <Route path="/submission" element={<Submission />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/signin"
+            element={authCtx.isSignedIn ? <Navigate to="/home" /> : <SignIn />}
+          />
           <Route
             path="/profile"
-            element={authCtx.isLoggedIn ? <Profile /> : <Navigate to="/signin" />}
+            element={
+              authCtx.isSignedIn ? <Profile /> : <Navigate to="/signin" />
+            }
           />
-          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/signup"
+            element={authCtx.isSignedIn ? <Navigate to="/home" /> : <SignUp />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
