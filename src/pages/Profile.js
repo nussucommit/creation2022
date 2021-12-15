@@ -8,11 +8,10 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import authErrorResponses from "../constants/Authentication/AuthErrorResponses";
-import validateInput, { compareString } from "../validations/InputValidation";
-import inputPatterns from "../constants/Authentication/InputPatterns";
+import { validateInput } from "../validations/validate-input";
 
 export default function Profile() {
+  const currentPasswordInputRef = useRef();
   const newPasswordInputRef = useRef();
   const newConfirmPasswordInputRef = useRef();
   const authCtx = useContext(AuthContext);
@@ -20,77 +19,40 @@ export default function Profile() {
   const [enteredNewPasswordIsValid, setEnteredNewPasswordIsValid] =
     useState(false);
   const [
-    enteredNewConfirmPasswordIsValid,
-    setEnteredNewConfirmPasswordIsValid,
+    enteredNewConfirmPasswordIsMatch,
+    setEnteredNewConfirmPasswordIsMatch,
   ] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
+    const currentUserEmail = authCtx.user.email;
+    const enteredCurrentPassword = currentPasswordInputRef.current.value;
     const enteredNewPassword = newPasswordInputRef.current.value;
     const enteredNewConfirmPassword = newConfirmPasswordInputRef.current.value;
 
     setSubmitButtonClicked(true);
 
-    const newPasswordIsValid = validateInput(
-      enteredNewPassword,
-      inputPatterns["password"],
-      "The password must have minimum eight characters, at least one letter and one number!"
-    );
-
-    const newConfirmPasswordIsMatched = compareString(
+    const { passwordIsValid, confirmPasswordIsMatch } = validateInput(
+      currentUserEmail,
       enteredNewPassword,
       enteredNewConfirmPassword,
-      "Please make sure your password and confirm password match!"
+      false
     );
 
-    newPasswordIsValid
-      ? setEnteredNewPasswordIsValid(true)
-      : setEnteredNewPasswordIsValid(false);
+    setEnteredNewPasswordIsValid(passwordIsValid);
+    setEnteredNewConfirmPasswordIsMatch(confirmPasswordIsMatch);
 
-    newConfirmPasswordIsMatched
-      ? setEnteredNewConfirmPasswordIsValid(true)
-      : setEnteredNewConfirmPasswordIsValid(false);
-
-    if (!newPasswordIsValid || !newConfirmPasswordIsMatched) {
+    if (!passwordIsValid || !confirmPasswordIsMatch) {
       return;
     }
 
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBuRBQUOL9pRCG_uAPC6c-CBibziO4f7-w",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idToken: authCtx.token,
-          password: enteredNewPassword,
-          returnSecureToken: false,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Password changing failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            // Future improvement: using a snackbar instead
-            throw new Error(authErrorResponses[errorMessage]);
-          });
-        }
-      })
-      .then((data) => {
-        authCtx.logout();
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    authCtx.updatePassword(
+      currentUserEmail,
+      enteredCurrentPassword,
+      enteredNewPassword
+    );
   };
 
   return (
@@ -98,6 +60,14 @@ export default function Profile() {
       <CardContent>
         <Typography variant="h5">Enter Your New Password</Typography>
         <form onSubmit={submitHandler}>
+          <TextField
+            fullWidth
+            label="Current Password"
+            required
+            type="password"
+            variant="outlined"
+            inputRef={currentPasswordInputRef}
+          />
           <TextField
             error={submitButtonClicked && !enteredNewPasswordIsValid}
             fullWidth
@@ -108,7 +78,7 @@ export default function Profile() {
             inputRef={newPasswordInputRef}
           />
           <TextField
-            error={submitButtonClicked && !enteredNewConfirmPasswordIsValid}
+            error={submitButtonClicked && !enteredNewConfirmPasswordIsMatch}
             fullWidth
             label="Confirm New Password"
             required
