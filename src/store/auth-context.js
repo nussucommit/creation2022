@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import authErrorResponses from "../constants/Authentication/AuthErrorResponses";
-
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -36,7 +34,7 @@ export const AuthContextProvider = (props) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      alert(authErrorResponses[error.message]);
+      alert(error.message);
     }
   };
 
@@ -44,7 +42,7 @@ export const AuthContextProvider = (props) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      alert(authErrorResponses[error.message]);
+      alert(error.message);
     }
   };
 
@@ -52,7 +50,7 @@ export const AuthContextProvider = (props) => {
     try {
       await signOut(auth);
     } catch (error) {
-      alert(authErrorResponses[error.message]);
+      alert(error.message);
     }
   };
 
