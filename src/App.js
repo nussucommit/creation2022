@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import Rules from "./pages/Rules";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
+import ResetPassword from "./pages/ResetPassword";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
 import AuthContext from "./store/auth-context";
@@ -58,6 +59,7 @@ export default function App() {
               authCtx.isSignedIn ? <Profile /> : <Navigate to="/signin" />
             }
           />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/signup"
             element={authCtx.isSignedIn ? <Navigate to="/home" /> : <SignUp />}
