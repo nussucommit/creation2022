@@ -4,7 +4,7 @@ const authErrorResponses = {
   INVALID_EMAIL_PATTERN: "The email provided must be a valid NUS email.",
   INVALID_PASSWORD: "Wrong password, please try again.",
   INVALID_PASSWORD_PATTERN:
-    "The password must have minimum eight characters, at least one letter and one number.",
+    "The password must have minimum eight characters minimum eight characters and must not contain spaces.",
   PASSWORD_NOT_MATCH:
     "Please make sure your password and confirm password match.",
   CREDENTIAL_TOO_OLD_LOGIN_AGAIN:
