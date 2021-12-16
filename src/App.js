@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
+import VerifyEmail from "./pages/VerifyEmail";
 import AuthContext from "./store/auth-context";
 
 const theme = createTheme({
@@ -35,6 +36,8 @@ const theme = createTheme({
  */
 export default function App() {
   const authCtx = useContext(AuthContext);
+  const isSignedIn = authCtx.isSignedIn;
+  const isVerified = authCtx.isVerified;
 
   return (
     <ThemeProvider theme={theme}>
@@ -46,23 +49,36 @@ export default function App() {
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/rules" element={<Rules />} />
-          <Route path="/submission" element={<Submission />} />
+          <Route
+            path="/submission"
+            element={
+              isVerified ? (
+                <Submission />
+              ) : isSignedIn ? (
+                <VerifyEmail />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route
             path="/signin"
-            element={authCtx.isSignedIn ? <Navigate to="/home" /> : <SignIn />}
+            element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
           />
           <Route
             path="/profile"
-            element={
-              authCtx.isSignedIn ? <Profile /> : <Navigate to="/signin" />
-            }
+            element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
           />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/signup"
-            element={authCtx.isSignedIn ? <Navigate to="/home" /> : <SignUp />}
+            element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
+          />
+          <Route
+            path="/verify-email"
+            element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
