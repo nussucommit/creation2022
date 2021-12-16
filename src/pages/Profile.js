@@ -71,6 +71,7 @@ export default function Profile() {
           <TextField
             error={submitButtonClicked && !enteredNewPasswordIsValid}
             fullWidth
+            helperText="Tip: At least eight characters with no spaces. Allowed symbols: A-Z, a-z, 0-9, @$!%*#?&"
             label="New Password"
             required
             type="password"
