@@ -12,12 +12,14 @@ import AuthContext from "../../store/auth-context";
 import { validateInput } from "../../validations/validate-input";
 
 export default function AuthForm({ isSignin }) {
+  const usernameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
 
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
   const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
   const [enteredPasswordIsValid, setEnteredPasswordIsValid] = useState(false);
   const [enteredConfirmPasswordIsMatch, setEnteredConfirmPasswordIsMatch] =
@@ -27,6 +29,7 @@ export default function AuthForm({ isSignin }) {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    const enteredUsername = isSignin ? "" : usernameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     const enteredConfirmPassword = isSignin
@@ -35,26 +38,37 @@ export default function AuthForm({ isSignin }) {
 
     setSubmitButtonClicked(true);
 
-    const { emailIsValid, passwordIsValid, confirmPasswordIsMatch } =
-      validateInput(
-        enteredEmail,
-        enteredPassword,
-        enteredConfirmPassword,
-        isSignin
-      );
+    const {
+      usernameIsValid,
+      emailIsValid,
+      passwordIsValid,
+      confirmPasswordIsMatch,
+    } = validateInput(
+      enteredUsername,
+      enteredEmail,
+      enteredPassword,
+      enteredConfirmPassword,
+      isSignin
+    );
 
+    setEnteredUsernameIsValid(usernameIsValid);
     setEnteredEmailIsValid(emailIsValid);
     setEnteredPasswordIsValid(passwordIsValid);
     setEnteredConfirmPasswordIsMatch(confirmPasswordIsMatch);
 
-    if (!emailIsValid || !passwordIsValid || !confirmPasswordIsMatch) {
+    if (
+      !usernameIsValid ||
+      !emailIsValid ||
+      !passwordIsValid ||
+      !confirmPasswordIsMatch
+    ) {
       return;
     }
     setIsLoading(true);
 
     isSignin
       ? authCtx.signin(enteredEmail, enteredPassword)
-      : authCtx.signup(enteredEmail, enteredPassword);
+      : authCtx.signup(enteredUsername, enteredEmail, enteredPassword);
 
     setIsLoading(false);
   };
@@ -66,6 +80,17 @@ export default function AuthForm({ isSignin }) {
           {isSignin ? "Sign in to continue" : "Sign up to continue"}
         </Typography>
         <form onSubmit={submitHandler}>
+          {!isSignin && (
+            <TextField
+              error={submitButtonClicked && !enteredUsernameIsValid}
+              fullWidth
+              helperText="Tip: At least 5 to 20 characters"
+              label="Username"
+              required
+              variant="outlined"
+              inputRef={usernameInputRef}
+            />
+          )}
           <TextField
             error={submitButtonClicked && !enteredEmailIsValid}
             fullWidth

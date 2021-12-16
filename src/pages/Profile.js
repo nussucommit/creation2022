@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 
 import styled from "styled-components";
 import {
@@ -10,10 +10,12 @@ import {
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import TextField from "@mui/material/TextField";
 
 import AuthContext from "../store/auth-context";
 import { storage } from "../firebase/firebase";
 import CustomSnackbar from "../components/Messages/CustomSnackbar";
+import { validateInput } from "../validations/validate-input";
 
 function Profile() {
   const authCtx = useContext(AuthContext);
@@ -21,6 +23,13 @@ function Profile() {
   const [profilePhotoURL, setProfilePhotoURL] = useState(
     isSignedIn ? authCtx.user.photoURL : "./user_profile.png"
   );
+  const [username, setUsername] = useState(
+    isSignedIn ? authCtx.user.displayName : "user"
+  );
+
+  const usernameInputRef = useRef();
+  const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
+  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const uploadPhotoHandler = (event) => {
@@ -52,8 +61,35 @@ function Profile() {
     );
   };
 
+  const updateUsernameHandler = (event) => {
+    event.preventDefault();
+
+    setSubmitButtonClicked(true);
+
+    const enteredUsername = usernameInputRef.current.value;
+    const { usernameIsValid } = validateInput(
+      enteredUsername,
+      authCtx.user.email,
+      "",
+      "",
+      true
+    );
+
+    setEnteredUsernameIsValid(usernameIsValid);
+
+    if (!usernameIsValid) {
+      return;
+    }
+
+    usernameInputRef.current.value = "";
+    setUsername(enteredUsername);
+    setShowSnackbar(true);
+    authCtx.updateDisplayName(enteredUsername);
+  };
+
   return (
     <>
+      <h2>Hi there, {username}</h2>
       {isSignedIn && <Avatar alt="User Profile Photo" src={profilePhotoURL} />}
       <form>
         <label htmlFor="contained-button-profile-photo">
@@ -72,8 +108,22 @@ function Profile() {
           </Button>
         </label>
         {showSnackbar && (
-          <CustomSnackbar message="Profile photo updated" severity="success" />
+          <CustomSnackbar message="Profile updated" severity="success" />
         )}
+      </form>
+      <form onSubmit={updateUsernameHandler}>
+        <TextField
+          error={submitButtonClicked && !enteredUsernameIsValid}
+          fullWidth
+          helperText="Tip: At least 5 to 20 characters"
+          label="New Username"
+          required
+          variant="outlined"
+          inputRef={usernameInputRef}
+        />
+        <Button type="submit" variant="contained">
+          Change username
+        </Button>
       </form>
     </>
   );
