@@ -7,13 +7,14 @@ import NavigationBar from "./components/Layout/NavigationBar";
 
 import Announcement from "./pages/Announcement";
 import Challenges from "./pages/Challenges";
+import ChangePassword from "./pages/ChangePassword";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Rules from "./pages/Rules";
 import SignIn from "./pages/SignIn";
-import ChangePassword from "./pages/ChangePassword";
+import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
@@ -68,8 +69,14 @@ export default function App() {
             element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
           />
           <Route
+            path="/profile"
+            element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
+          />
+          <Route
             path="/change-password"
-            element={isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />}
+            element={
+              isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />
+            }
           />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route

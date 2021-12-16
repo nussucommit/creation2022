@@ -39,7 +39,7 @@ function UserMenuItems() {
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           {isSignedIn && (
-            <Avatar alt="Remy Sharp" src={profilePhotoURL} />
+            <Avatar alt="User Profile Photo" src={profilePhotoURL} />
           )}
         </IconButton>
       </Tooltip>
@@ -59,6 +59,13 @@ function UserMenuItems() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
+        <MenuItem
+          component={NavLink}
+          to="/profile"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography textAlign="center">Profile</Typography>
+        </MenuItem>
         <MenuItem
           component={NavLink}
           to="/change-password"
