@@ -4,11 +4,11 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   reauthenticateWithCredential,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   updatePassword,
-  updateProfile,
 } from "firebase/auth";
 
 import { auth, emailProvider } from "../firebase/firebase";
@@ -16,17 +16,19 @@ import { auth, emailProvider } from "../firebase/firebase";
 const AuthContext = React.createContext({
   user: {},
   isSignedIn: false,
+  isVerified: false,
   resetPasswordByEmail: () => {},
   signup: () => {},
   signin: () => {},
   signout: () => {},
   updatePassword: () => {},
-  updateProfile: () => {},
+  verifyEmail: () => {},
 });
 
 export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const userIsSignedIn = !!user;
+  const userIsVerified = userIsSignedIn && user.emailVerified;
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -77,17 +79,25 @@ export const AuthContextProvider = (props) => {
         currentEmail,
         currentPassword
       );
-      reauthenticateWithCredential(user, credential).then(async () => {
-        await updatePassword(user, newPassword).then(() => signoutHandler());
-      });
+
+      await reauthenticateWithCredential(user, credential).then( async () =>
+        await updatePassword(user, newPassword)
+          .then(signoutHandler)
+          .catch((error) => {
+            throw new Error(error);
+          })
+      );
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const updateProfileHandler = (newDisplayName) => {
+  const verifyEmailHandler = async () => {
     try {
-      updateProfile(user, { displayName: newDisplayName });
+      const actionCodeSettings = {
+        url: "http://localhost:3000/submission",
+      };
+      await sendEmailVerification(user, actionCodeSettings);
     } catch (error) {
       alert(error.message);
     }
@@ -96,12 +106,13 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     user: user,
     isSignedIn: userIsSignedIn,
+    isVerified: userIsVerified,
     resetPasswordByEmail: resetPasswordByEmailHandler,
     signup: signupHandler,
     signin: signinHandler,
     signout: signoutHandler,
     updatePassword: updatePasswordHandler,
-    updateProfile: updateProfileHandler,
+    verifyEmail: verifyEmailHandler,
   };
 
   return (
