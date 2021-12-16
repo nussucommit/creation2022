@@ -13,7 +13,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Rules from "./pages/Rules";
 import SignIn from "./pages/SignIn";
-import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
 import ResetPassword from "./pages/ResetPassword";
 import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
@@ -68,8 +68,8 @@ export default function App() {
             element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
           />
           <Route
-            path="/profile"
-            element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
+            path="/change-password"
+            element={isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />}
           />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
