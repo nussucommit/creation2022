@@ -23,8 +23,7 @@ const AuthContext = React.createContext({
   signin: () => {},
   signout: () => {},
   updatePassword: () => {},
-  updateProfilePhoto: () => {},
-  updateDisplayName: () => {},
+  updateProfile: () => {},
   verifyEmail: () => {},
 });
 
@@ -52,7 +51,9 @@ export const AuthContextProvider = (props) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
         async () => {
-          await updateDisplayNameHandler(username);
+          await updateProfileHandler({
+            displayName: username,
+          });
         }
       );
     } catch (error) {
@@ -100,21 +101,9 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  const updateProfilePhotoHandler = async (newPhotoURL) => {
+  const updateProfileHandler = async (newProfile) => {
     try {
-      await updateProfile(user, {
-        photoURL: newPhotoURL,
-      });
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const updateDisplayNameHandler = async (newDisplayName) => {
-    try {
-      await updateProfile(auth.currentUser, {
-        displayName: newDisplayName,
-      });
+      await updateProfile(auth.currentUser, newProfile);
     } catch (error) {
       alert(error.message);
     }
@@ -140,8 +129,7 @@ export const AuthContextProvider = (props) => {
     signin: signinHandler,
     signout: signoutHandler,
     updatePassword: updatePasswordHandler,
-    updateProfilePhoto: updateProfilePhotoHandler,
-    updateDisplayName: updateDisplayNameHandler,
+    updateProfile: updateProfileHandler,
     verifyEmail: verifyEmailHandler,
   };
 

@@ -15,9 +15,6 @@ import AuthContext from "../../store/auth-context";
 function UserMenuItems() {
   const authCtx = useContext(AuthContext);
   const isSignedIn = authCtx.isSignedIn;
-  const profilePhotoURL = isSignedIn
-    ? authCtx.user.photoURL
-    : "./user_profile.png";
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,7 +36,7 @@ function UserMenuItems() {
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           {isSignedIn && (
-            <Avatar alt="User Profile Photo" src={profilePhotoURL} />
+            <Avatar alt="User Profile Photo" src={authCtx.user.photoURL} />
           )}
         </IconButton>
       </Tooltip>
