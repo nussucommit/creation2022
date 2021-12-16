@@ -23,7 +23,7 @@ function ResetPassword() {
 
     setSubmitButtonClicked(true);
 
-    const { emailIsValid } = validateInput(enteredEmail, "", "", true);
+    const { emailIsValid } = validateInput(authCtx.user.displayName, enteredEmail, "", "", true);
     setEnteredEmailIsValid(emailIsValid);
 
     if (!emailIsValid) {

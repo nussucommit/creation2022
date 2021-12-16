@@ -35,6 +35,7 @@ function ChangePassword() {
     setSubmitButtonClicked(true);
 
     const { passwordIsValid, confirmPasswordIsMatch } = validateInput(
+      authCtx.user.displayName,
       currentUserEmail,
       enteredNewPassword,
       enteredNewConfirmPassword,
