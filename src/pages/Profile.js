@@ -2,7 +2,6 @@ import React, { useState, useRef, useContext } from "react";
 
 import styled from "styled-components";
 import {
-  deleteObject,
   getDownloadURL,
   ref,
   uploadBytesResumable,
@@ -19,13 +18,8 @@ import { validateInput } from "../validations/validate-input";
 
 function Profile() {
   const authCtx = useContext(AuthContext);
-  const isSignedIn = authCtx.isSignedIn;
-  const [profilePhotoURL, setProfilePhotoURL] = useState(
-    isSignedIn ? authCtx.user.photoURL : "./user_profile.png"
-  );
-  const [username, setUsername] = useState(
-    isSignedIn ? authCtx.user.displayName : "user"
-  );
+  const [profilePhotoURL, setProfilePhotoURL] = useState(authCtx.user.photoURL);
+  const [username, setUsername] = useState(authCtx.user.displayName);
 
   const usernameInputRef = useRef();
   const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
@@ -42,9 +36,13 @@ function Profile() {
     if (!file) {
       return;
     }
-    const storageRef = ref(storage, `profiles/${file.name}`);
+
+    const modifiedFileName = authCtx.user.uid
+      .concat(".")
+      .concat(file.name.split(".").pop());
+
+    const storageRef = ref(storage, `profiles/${modifiedFileName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    const currentPhotoStorageRef = ref(storage, profilePhotoURL);
 
     uploadTask.on(
       "state_changed",
@@ -52,10 +50,9 @@ function Profile() {
       (error) => alert(error.message),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          authCtx.updateProfilePhoto(url);
-          deleteObject(currentPhotoStorageRef);
-          setShowSnackbar(true);
+          authCtx.updateProfile({photoURL: url});
           setProfilePhotoURL(url);
+          setShowSnackbar(true);
         });
       }
     );
@@ -84,13 +81,13 @@ function Profile() {
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
     setShowSnackbar(true);
-    authCtx.updateDisplayName(enteredUsername);
+    authCtx.updateProfile({displayName: enteredUsername});
   };
 
   return (
     <>
       <h2>Hi there, {username}</h2>
-      {isSignedIn && <Avatar alt="User Profile Photo" src={profilePhotoURL} />}
+      <Avatar alt="User Profile Photo" src={profilePhotoURL} />
       <form>
         <label htmlFor="contained-button-profile-photo">
           <InvisibleInput
