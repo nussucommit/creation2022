@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updatePassword,
+  updateProfile,
 } from "firebase/auth";
 
 import { auth, emailProvider } from "../firebase/firebase";
@@ -22,6 +23,7 @@ const AuthContext = React.createContext({
   signin: () => {},
   signout: () => {},
   updatePassword: () => {},
+  updateProfilePhoto: () => {},
   verifyEmail: () => {},
 });
 
@@ -80,13 +82,24 @@ export const AuthContextProvider = (props) => {
         currentPassword
       );
 
-      await reauthenticateWithCredential(user, credential).then( async () =>
-        await updatePassword(user, newPassword)
-          .then(signoutHandler)
-          .catch((error) => {
-            throw new Error(error);
-          })
+      await reauthenticateWithCredential(user, credential).then(
+        async () =>
+          await updatePassword(user, newPassword)
+            .then(signoutHandler)
+            .catch((error) => {
+              throw new Error(error);
+            })
       );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const updateProfilePhotoHandler = async (newPhotoURL) => {
+    try {
+      await updateProfile(auth.currentUser, {
+        photoURL: newPhotoURL,
+      }).then(() => setUser(user));
     } catch (error) {
       alert(error.message);
     }
@@ -112,6 +125,7 @@ export const AuthContextProvider = (props) => {
     signin: signinHandler,
     signout: signoutHandler,
     updatePassword: updatePasswordHandler,
+    updateProfilePhoto: updateProfilePhotoHandler,
     verifyEmail: verifyEmailHandler,
   };
 
