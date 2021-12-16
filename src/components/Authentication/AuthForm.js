@@ -69,7 +69,7 @@ export default function AuthForm({ isSignin }) {
           <TextField
             error={submitButtonClicked && !enteredEmailIsValid}
             fullWidth
-            helperText="Example: e1234567@u.nus.edu"
+            helperText="Example: e1234567@u.nus.edu or nus.friendly.mail_99@u.nus.edu"
             label="NUS Email"
             required
             variant="outlined"
@@ -80,6 +80,11 @@ export default function AuthForm({ isSignin }) {
             fullWidth
             label="Password"
             required
+            helperText={
+              isSignin
+                ? ""
+                : "Tip: At least eight characters with no spaces. Allowed symbols: A-Z, a-z, 0-9, @$!%*#?&"
+            }
             type="password"
             variant="outlined"
             inputRef={passwordInputRef}
@@ -97,7 +102,9 @@ export default function AuthForm({ isSignin }) {
           )}
           {isSignin && (
             <CardActions>
-              <Button component={NavLink} to="/reset-password">Forgot password?</Button>
+              <Button component={NavLink} to="/reset-password">
+                Forgot password?
+              </Button>
             </CardActions>
           )}
           <CardActions>
