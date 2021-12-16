@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 import { validateInput } from "../validations/validate-input";
 
-export default function Profile() {
+function ChangePassword() {
   const currentPasswordInputRef = useRef();
   const newPasswordInputRef = useRef();
   const newConfirmPasswordInputRef = useRef();
@@ -58,8 +58,8 @@ export default function Profile() {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5">Enter Your New Password</Typography>
         <form onSubmit={submitHandler}>
+          <Typography variant="h5">Enter Your Current Password</Typography>
           <TextField
             fullWidth
             label="Current Password"
@@ -68,6 +68,7 @@ export default function Profile() {
             variant="outlined"
             inputRef={currentPasswordInputRef}
           />
+          <Typography variant="h5">Enter Your New Password</Typography>
           <TextField
             error={submitButtonClicked && !enteredNewPasswordIsValid}
             fullWidth
@@ -97,3 +98,5 @@ export default function Profile() {
     </Card>
   );
 }
+
+export default ChangePassword;

@@ -61,10 +61,10 @@ function UserMenuItems() {
       >
         <MenuItem
           component={NavLink}
-          to="/profile"
+          to="/change-password"
           onClick={handleCloseUserMenu}
         >
-          <Typography textAlign="center">Profile</Typography>
+          <Typography textAlign="center">Change password</Typography>
         </MenuItem>
         <Button color="primary" onClick={signoutHandler}>
           Log out
