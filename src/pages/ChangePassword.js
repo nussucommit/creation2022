@@ -34,13 +34,10 @@ function ChangePassword() {
 
     setSubmitButtonClicked(true);
 
-    const { passwordIsValid, confirmPasswordIsMatch } = validateInput(
-      authCtx.user.displayName,
-      currentUserEmail,
-      enteredNewPassword,
-      enteredNewConfirmPassword,
-      false
-    );
+    const { passwordIsValid, confirmPasswordIsMatch } = validateInput({
+      enteredPassword: enteredNewPassword,
+      enteredConfirmPassword: enteredNewConfirmPassword,
+    });
 
     setEnteredNewPasswordIsValid(passwordIsValid);
     setEnteredNewConfirmPasswordIsMatch(confirmPasswordIsMatch);

@@ -12,10 +12,10 @@ import AuthContext from "../../store/auth-context";
 import { validateInput } from "../../validations/validate-input";
 
 export default function AuthForm({ isSignin }) {
-  const usernameInputRef = useRef();
+  const usernameInputRef = useRef("");
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
+  const confirmPasswordInputRef = useRef("");
 
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,12 +29,10 @@ export default function AuthForm({ isSignin }) {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const enteredUsername = isSignin ? "" : usernameInputRef.current.value;
+    const enteredUsername = usernameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    const enteredConfirmPassword = isSignin
-      ? ""
-      : confirmPasswordInputRef.current.value;
+    const enteredConfirmPassword = confirmPasswordInputRef.current.value;
 
     setSubmitButtonClicked(true);
 
@@ -43,13 +41,14 @@ export default function AuthForm({ isSignin }) {
       emailIsValid,
       passwordIsValid,
       confirmPasswordIsMatch,
-    } = validateInput(
-      enteredUsername,
-      enteredEmail,
-      enteredPassword,
-      enteredConfirmPassword,
-      isSignin
-    );
+    } = isSignin
+      ? validateInput({ enteredEmail })
+      : validateInput({
+          enteredUsername,
+          enteredEmail,
+          enteredPassword,
+          enteredConfirmPassword,
+        });
 
     setEnteredUsernameIsValid(usernameIsValid);
     setEnteredEmailIsValid(emailIsValid);
@@ -84,7 +83,7 @@ export default function AuthForm({ isSignin }) {
             <TextField
               error={submitButtonClicked && !enteredUsernameIsValid}
               fullWidth
-              helperText="Tip: At least 5 to 20 characters, with no spaces"
+              helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
               label="Username"
               required
               variant="outlined"
@@ -108,7 +107,7 @@ export default function AuthForm({ isSignin }) {
             helperText={
               isSignin
                 ? ""
-                : "Tip: At least eight characters with no spaces. Allowed symbols: A-Z, a-z, 0-9, @$!%*#?&"
+                : "Tip: At least eight characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, @$!%*#?&"
             }
             type="password"
             variant="outlined"
