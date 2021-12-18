@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 import AuthContext from "../../store/auth-context";
+import SnackbarContext from "../../store/snackbar-context";
 import InputTextField from "../Input/InputTextField";
 import { validateInput } from "../../validations/validate-input";
 import {
@@ -20,6 +21,7 @@ import {
 export default function AuthForm({ isSignin }) {
   /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
+  const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
   const [isLoading, setIsLoading] = useState(false);
@@ -61,13 +63,19 @@ export default function AuthForm({ isSignin }) {
       passwordIsValid,
       confirmPasswordIsMatch,
     } = isSignin
-      ? validateInput({ enteredEmail })
-      : validateInput({
-          enteredUsername,
-          enteredEmail,
-          enteredPassword,
-          enteredConfirmPassword,
-        });
+      ? validateInput({ enteredEmail }, (message) =>
+          snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+        )
+      : validateInput(
+          {
+            enteredUsername,
+            enteredEmail,
+            enteredPassword,
+            enteredConfirmPassword,
+          },
+          (message) =>
+            snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+        );
 
     setEnteredUsernameIsValid(usernameIsValid);
     setEnteredEmailIsValid(emailIsValid);

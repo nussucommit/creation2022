@@ -64,7 +64,9 @@ function Profile() {
     setSubmitButtonClicked(true);
 
     const enteredUsername = usernameInputRef.current.value;
-    const { usernameIsValid } = validateInput({ enteredUsername });
+    const { usernameIsValid } = validateInput({ enteredUsername }, (message) =>
+      snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+    );
 
     setEnteredUsernameIsValid(usernameIsValid);
 
