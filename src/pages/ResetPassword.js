@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Typography from "@mui/material/Typography";
 
 import AuthContext from "../store/auth-context";
+import SnackbarContext from "../store/snackbar-context";
 import InputTextField from "../components/Input/InputTextField";
 import { validateInput } from "../validations/validate-input";
 import { INPUT_HELPERTEXT_EMAIL } from "../constants/input/helper_text";
@@ -17,6 +18,7 @@ import { INPUT_HELPERTEXT_EMAIL } from "../constants/input/helper_text";
 function ResetPassword() {
   /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
+  const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
   const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
@@ -34,9 +36,10 @@ function ResetPassword() {
 
     setSubmitButtonClicked(true);
 
-    const { emailIsValid } = validateInput({ enteredEmail });
+    const { emailIsValid } = validateInput({ enteredEmail }, (message) =>
+      snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+    );
     setEnteredEmailIsValid(emailIsValid);
-
     if (!emailIsValid) {
       return;
     }
@@ -67,7 +70,7 @@ function ResetPassword() {
             </Button>
           )}
           {emailIsSent && (
-            <Typography variant="button" sx={{marginLeft: '10px'}}>
+            <Typography variant="button" sx={{ marginLeft: "10px" }}>
               Email sent
             </Typography>
           )}

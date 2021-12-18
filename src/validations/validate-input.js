@@ -12,7 +12,7 @@ const matchPattern = (input, regex) => {
 };
 
 export const validateInput = (
-  enteredInput
+  enteredInput, setSnackbarMessage
 ) => {
 
   const {enteredUsername, enteredEmail, enteredPassword, enteredConfirmPassword}
@@ -25,24 +25,24 @@ export const validateInput = (
   const usernamePatternIsValid =
     !enteredUsername || matchPattern(enteredUsername, validUsernamePattern);
   if (!usernamePatternIsValid) {
-    alert(WARNING_INVALID_USERNAME);
+    setSnackbarMessage(WARNING_INVALID_USERNAME);
   }
 
   const emailPatternIsValid = !enteredEmail || matchPattern(enteredEmail, validEmailPattern);
   if (!emailPatternIsValid) {
-    alert(WARNING_INVALID_EMAIL);
+    setSnackbarMessage(WARNING_INVALID_EMAIL);
   }
 
   const passwordPatternIsValid =
     !enteredPassword || matchPattern(enteredPassword, validPasswordPattern);
   if (!passwordPatternIsValid) {
-    alert(WARNING_INVALID_PASSWORD);
+    setSnackbarMessage(WARNING_INVALID_PASSWORD);
   }
 
   const confirmPasswordIsMatch =
     !enteredConfirmPassword || enteredPassword === enteredConfirmPassword;
   if (!confirmPasswordIsMatch) {
-    alert(WARNING_UNMATCH_CONFIRM_PASSWORD);
+    setSnackbarMessage(WARNING_UNMATCH_CONFIRM_PASSWORD);
   }
 
   return {
