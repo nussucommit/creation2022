@@ -84,7 +84,7 @@ export default function AuthForm({ isSignin }) {
             <TextField
               error={submitButtonClicked && !enteredUsernameIsValid}
               fullWidth
-              helperText="Tip: At least 5 to 20 characters"
+              helperText="Tip: At least 5 to 20 characters, with no spaces"
               label="Username"
               required
               variant="outlined"
