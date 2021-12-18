@@ -24,7 +24,7 @@ export const validateInput = (
   const usernamePatternIsValid =
     isSigningIn ||
     (enteredUsername.trim() !== "" &&
-      enteredUsername.length > 5 &&
+      enteredUsername.length >= 5 &&
       enteredUsername.length <= 20);
   if (!usernamePatternIsValid) {
     alert(WARNING_INVALID_USERNAME);
