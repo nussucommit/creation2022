@@ -7,12 +7,12 @@ import { AuthContextProvider } from "./store/auth-context";
 import { SnackbarContextProvider } from "./store/snackbar-context";
 
 ReactDOM.render(
-  <AuthContextProvider>
-    <SnackbarContextProvider>
+  <SnackbarContextProvider>
+    <AuthContextProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </SnackbarContextProvider>
-  </AuthContextProvider>,
+    </AuthContextProvider>
+  </SnackbarContextProvider>,
   document.getElementById("root")
 );

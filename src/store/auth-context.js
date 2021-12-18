@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import {
   createUserWithEmailAndPassword,
@@ -13,8 +13,9 @@ import {
 } from "firebase/auth";
 
 import { auth, emailProvider } from "../firebase/firebase";
+import SnackbarContext from "../store/snackbar-context";
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
   user: {},
   isSignedIn: false,
   isVerified: false,
@@ -28,6 +29,7 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
+  const snackbarCtx = useContext(SnackbarContext);
   const [user, setUser] = useState(null);
   const userIsSignedIn = !!user;
   const userIsVerified = userIsSignedIn && user.emailVerified;
@@ -43,7 +45,11 @@ export const AuthContextProvider = (props) => {
       };
       await sendPasswordResetEmail(auth, email, actionCodeSettings);
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -57,7 +63,11 @@ export const AuthContextProvider = (props) => {
         }
       );
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -65,7 +75,11 @@ export const AuthContextProvider = (props) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -73,7 +87,11 @@ export const AuthContextProvider = (props) => {
     try {
       await signOut(auth);
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -97,7 +115,11 @@ export const AuthContextProvider = (props) => {
             })
       );
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -105,7 +127,11 @@ export const AuthContextProvider = (props) => {
     try {
       await updateProfile(auth.currentUser, newProfile);
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -116,7 +142,11 @@ export const AuthContextProvider = (props) => {
       };
       await sendEmailVerification(user, actionCodeSettings);
     } catch (error) {
-      alert(error.message);
+      snackbarCtx.setSnackbar({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
