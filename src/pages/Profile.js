@@ -1,60 +1,64 @@
-import React, { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext } from "react";
 
-import styled from "styled-components";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
 
 import AuthContext from "../store/auth-context";
+import SnackbarContext from "../store/snackbar-context";
+import AvatarChooser from "../components/Input/AvatarChooser";
+import InputTextField from "../components/Input/InputTextField";
 import { storage } from "../firebase/firebase";
-import CustomSnackbar from "../components/Messages/CustomSnackbar";
 import { validateInput } from "../validations/validate-input";
 
 function Profile() {
+  /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
+  const snackbarCtx = useContext(SnackbarContext);
+
+  /* ------------------------------ State ------------------------------ */
   const [profilePhotoURL, setProfilePhotoURL] = useState(authCtx.user.photoURL);
   const [username, setUsername] = useState(authCtx.user.displayName);
-
-  const usernameInputRef = useRef();
   const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-  const [showSnackbar, setShowSnackbar] = useState(false);
 
+  /* ------------------------------ Input Reference ------------------------------ */
+  const usernameInputRef = useRef();
+
+  /* ------------------------------ Method ------------------------------ */
   const uploadPhotoHandler = (event) => {
     event.preventDefault();
-    const file = event.target.files[0];
-    uploadFile(file);
-  };
 
-  const uploadFile = (file) => {
-    if (!file) {
+    const uploadedPhoto = event.target.files[0];
+    if (!uploadedPhoto) {
+      alert("No photo uploaded.");
       return;
     }
 
-    const modifiedFileName = authCtx.user.uid
-      .concat(".")
-      .concat(file.name.split(".").pop());
+    const photoType = uploadedPhoto.name.split(".").pop();
+    const validPhotoTypes = ["gif", "jpg", "png"];
+    if (!validPhotoTypes.includes(photoType)) {
+      alert("Photo type is invalid. Make sure it is jpg/png/gif.");
+      return;
+    }
 
-    const storageRef = ref(storage, `profiles/${modifiedFileName}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const userUID = authCtx.user.uid;
+    const modifiedPhotoName = `profile_${userUID}.${photoType}`;
+    const storageRef = ref(storage, `profiles/${modifiedPhotoName}`);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => alert(error.message),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          authCtx.updateProfile({ photoURL: url });
-          setProfilePhotoURL(url);
-          setShowSnackbar(true);
-        });
-      }
-    );
+    uploadBytes(storageRef, uploadedPhoto).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        snackbarCtx.setSnackbar({ open: true, message: "Photo uploaded!" });
+        authCtx.updateProfile({ photoURL: url });
+        setProfilePhotoURL(url);
+      });
+    });
   };
 
-  const updateUsernameHandler = (event) => {
+  const updateProfileHandler = (event) => {
     event.preventDefault();
 
     setSubmitButtonClicked(true);
@@ -70,54 +74,31 @@ function Profile() {
 
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
-    setShowSnackbar(true);
+    snackbarCtx.setSnackbar({ open: true, message: "Username updated!" });
     authCtx.updateProfile({ displayName: enteredUsername });
   };
 
   return (
-    <>
-      <h2>Hi there, {username}</h2>
-      <Avatar alt="User Profile Photo" src={profilePhotoURL} />
-      <form>
-        <label htmlFor="contained-button-profile-photo">
-          <InvisibleInput
-            accept="image/*"
-            id="contained-button-profile-photo"
-            type="file"
-            onChange={uploadPhotoHandler}
+    <Card raised>
+      <CardHeader title={`Hi there, ${username}`} />
+      <form onSubmit={updateProfileHandler}>
+        <CardContent>
+          <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />
+          <InputTextField
+            error={submitButtonClicked && !enteredUsernameIsValid}
+            helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
+            label="New Username"
+            inputRef={usernameInputRef}
           />
-          <Button
-            component="span"
-            variant="contained"
-            endIcon={<PhotoCamera />}
-          >
-            Change profile picture
+        </CardContent>
+        <CardActions>
+          <Button type="submit" variant="contained">
+            Update username
           </Button>
-        </label>
-        {showSnackbar && (
-          <CustomSnackbar message="Profile updated" severity="success" />
-        )}
+        </CardActions>
       </form>
-      <form onSubmit={updateUsernameHandler}>
-        <TextField
-          error={submitButtonClicked && !enteredUsernameIsValid}
-          fullWidth
-          helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
-          label="New Username"
-          required
-          variant="outlined"
-          inputRef={usernameInputRef}
-        />
-        <Button type="submit" variant="contained">
-          Change username
-        </Button>
-      </form>
-    </>
+    </Card>
   );
 }
 
 export default Profile;
-
-const InvisibleInput = styled.input`
-  display: none;
-`;
