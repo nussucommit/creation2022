@@ -20,6 +20,7 @@ import SignUp from "./pages/SignUp";
 import Submission from "./pages/Submission";
 import VerifyEmail from "./pages/VerifyEmail";
 import AuthContext from "./store/auth-context";
+import CustomSnackbar from "./components/Messages/CustomSnackbar";
 
 const theme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ const theme = createTheme({
  */
 export default function App() {
   const authCtx = useContext(AuthContext);
+
   const isSignedIn = authCtx.isSignedIn;
   const isVerified = authCtx.isVerified;
 
@@ -44,6 +46,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <div>
         <NavigationBar />
+        <CustomSnackbar />
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
