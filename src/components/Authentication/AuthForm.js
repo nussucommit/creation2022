@@ -4,20 +4,24 @@ import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
+import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
 import AuthContext from "../../store/auth-context";
+import InputTextField from "../Input/InputTextField";
 import { validateInput } from "../../validations/validate-input";
+import {
+  INPUT_HELPERTEXT_USERNAME,
+  INPUT_HELPERTEXT_EMAIL,
+  INPUT_HELPERTEXT_PASSWORD,
+} from "../../constants/input/helper_text";
 
 export default function AuthForm({ isSignin }) {
-  const usernameInputRef = useRef("");
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef("");
-
+  /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
+
+  /* ------------------------------ State ------------------------------ */
   const [isLoading, setIsLoading] = useState(false);
   const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
   const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
@@ -26,6 +30,21 @@ export default function AuthForm({ isSignin }) {
     useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
+  /* ------------------------------ Input Reference ------------------------------ */
+  const usernameInputRef = useRef("");
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const confirmPasswordInputRef = useRef("");
+
+  /* ------------------------------ Text ------------------------------ */
+  const formTitle = `Sign ${isSignin ? "in" : "up"} to continue`;
+  const switchButtonText = `${
+    isSignin ? "Create new" : "Login with existing"
+  } account`;
+  const submitButtonText = isSignin ? "Login" : "Create Account";
+  const loadingText = isSignin ? "Logging in..." : "Creating account...";
+
+  /* ------------------------------ Method ------------------------------ */
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -74,76 +93,66 @@ export default function AuthForm({ isSignin }) {
 
   return (
     <Card raised>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {isSignin ? "Sign in to continue" : "Sign up to continue"}
-        </Typography>
-        <form onSubmit={submitHandler}>
+      <CardHeader title={formTitle} />
+      <form onSubmit={submitHandler}>
+        <CardContent>
           {!isSignin && (
-            <TextField
+            <InputTextField
               error={submitButtonClicked && !enteredUsernameIsValid}
-              fullWidth
-              helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
+              helperText={INPUT_HELPERTEXT_USERNAME}
               label="Username"
-              required
-              variant="outlined"
               inputRef={usernameInputRef}
             />
           )}
-          <TextField
+          <InputTextField
             error={submitButtonClicked && !enteredEmailIsValid}
-            fullWidth
-            helperText="Example: e1234567@u.nus.edu or nus.friendly.mail_99@u.nus.edu"
+            helperText={INPUT_HELPERTEXT_EMAIL}
             label="NUS Email"
-            required
-            variant="outlined"
             inputRef={emailInputRef}
           />
-          <TextField
+          <InputTextField
             error={submitButtonClicked && !enteredPasswordIsValid}
-            fullWidth
             label="Password"
-            required
-            helperText={
-              isSignin
-                ? ""
-                : "Tip: At least eight characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, @$!%*#?&"
-            }
+            helperText={isSignin ? "" : INPUT_HELPERTEXT_PASSWORD}
             type="password"
-            variant="outlined"
             inputRef={passwordInputRef}
           />
           {!isSignin && (
-            <TextField
+            <InputTextField
               error={submitButtonClicked && !enteredConfirmPasswordIsMatch}
-              fullWidth
               label="Confirm Password"
-              required
               type="password"
-              variant="outlined"
               inputRef={confirmPasswordInputRef}
             />
           )}
-          {isSignin && (
-            <CardActions>
-              <Button component={NavLink} to="/reset-password">
-                Forgot password?
-              </Button>
-            </CardActions>
-          )}
+        </CardContent>
+        {isSignin && (
           <CardActions>
-            <Button component={NavLink} to={isSignin ? "/signup" : "/signin"}>
-              {isSignin ? "Create new account" : "Login with existing account"}
+            <Button component={NavLink} to="/reset-password">
+              Forgot password?
             </Button>
-            {!isLoading && (
-              <Button type="submit">
-                {isSignin ? "Login" : "Create Account"}
-              </Button>
-            )}
-            {isLoading && <p>Sending request...</p>}
           </CardActions>
-        </form>
-      </CardContent>
+        )}
+        <CardActions>
+          <Button
+            component={NavLink}
+            to={isSignin ? "/signup" : "/signin"}
+            variant="outlined"
+          >
+            {switchButtonText}
+          </Button>
+          {!isLoading && (
+            <Button type="submit" variant="contained">
+              {submitButtonText}
+            </Button>
+          )}
+          {isLoading && (
+            <Typography variant="button" sx={{ marginLeft: "10px" }}>
+              {loadingText}
+            </Typography>
+          )}
+        </CardActions>
+      </form>
     </Card>
   );
 }
