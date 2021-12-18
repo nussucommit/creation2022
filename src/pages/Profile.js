@@ -51,7 +51,11 @@ function Profile() {
 
     uploadBytes(storageRef, uploadedPhoto).then(() => {
       getDownloadURL(storageRef).then((url) => {
-        snackbarCtx.setSnackbar({ open: true, message: "Photo uploaded!" });
+        snackbarCtx.setSnackbar({
+          open: true,
+          message: "Photo uploaded!",
+          type: "success",
+        });
         authCtx.updateProfile({ photoURL: url });
         setProfilePhotoURL(url);
       });
@@ -76,7 +80,11 @@ function Profile() {
 
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
-    snackbarCtx.setSnackbar({ open: true, message: "Username updated!" });
+    snackbarCtx.setSnackbar({
+      open: true,
+      message: "Username updated!",
+      type: "success",
+    });
     authCtx.updateProfile({ displayName: enteredUsername });
   };
 
