@@ -1,11 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 
 import styled from "styled-components";
-import {
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -50,7 +46,7 @@ function Profile() {
       (error) => alert(error.message),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          authCtx.updateProfile({photoURL: url});
+          authCtx.updateProfile({ photoURL: url });
           setProfilePhotoURL(url);
           setShowSnackbar(true);
         });
@@ -64,13 +60,7 @@ function Profile() {
     setSubmitButtonClicked(true);
 
     const enteredUsername = usernameInputRef.current.value;
-    const { usernameIsValid } = validateInput(
-      enteredUsername,
-      authCtx.user.email,
-      "",
-      "",
-      true
-    );
+    const { usernameIsValid } = validateInput({ enteredUsername });
 
     setEnteredUsernameIsValid(usernameIsValid);
 
@@ -81,7 +71,7 @@ function Profile() {
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
     setShowSnackbar(true);
-    authCtx.updateProfile({displayName: enteredUsername});
+    authCtx.updateProfile({ displayName: enteredUsername });
   };
 
   return (
@@ -112,7 +102,7 @@ function Profile() {
         <TextField
           error={submitButtonClicked && !enteredUsernameIsValid}
           fullWidth
-          helperText="Tip: At least 5 to 20 characters"
+          helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
           label="New Username"
           required
           variant="outlined"

@@ -23,7 +23,7 @@ function ResetPassword() {
 
     setSubmitButtonClicked(true);
 
-    const { emailIsValid } = validateInput("a valid username", enteredEmail, "", "", true);
+    const { emailIsValid } = validateInput({enteredEmail});
     setEnteredEmailIsValid(emailIsValid);
 
     if (!emailIsValid) {
@@ -41,7 +41,7 @@ function ResetPassword() {
             error={submitButtonClicked && !enteredEmailIsValid}
             variant="standard"
             label="Enter your email here"
-            placeholder="e1234567@u.nus.edu"
+            helperText="Example: e1234567@u.nus.edu or nus.friendly.mail_99@u.nus.edu"
             required
             fullWidth
             inputRef={emailInputRef}

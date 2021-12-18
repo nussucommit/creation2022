@@ -12,37 +12,35 @@ const matchPattern = (input, regex) => {
 };
 
 export const validateInput = (
-  enteredUsername,
-  enteredEmail,
-  enteredPassword,
-  enteredConfirmPassword,
-  isSigningIn
+  enteredInput
 ) => {
+
+  const {enteredUsername, enteredEmail, enteredPassword, enteredConfirmPassword}
+  = enteredInput;
+
+  const validUsernamePattern = inputPatterns["username"];
   const validEmailPattern = inputPatterns["email"];
   const validPasswordPattern = inputPatterns["password"];
 
   const usernamePatternIsValid =
-    isSigningIn ||
-    (enteredUsername.trim() !== "" &&
-      enteredUsername.length >= 5 &&
-      enteredUsername.length <= 20);
+    !enteredUsername || matchPattern(enteredUsername, validUsernamePattern);
   if (!usernamePatternIsValid) {
     alert(WARNING_INVALID_USERNAME);
   }
 
-  const emailPatternIsValid = matchPattern(enteredEmail, validEmailPattern);
+  const emailPatternIsValid = !enteredEmail || matchPattern(enteredEmail, validEmailPattern);
   if (!emailPatternIsValid) {
     alert(WARNING_INVALID_EMAIL);
   }
 
   const passwordPatternIsValid =
-    isSigningIn || matchPattern(enteredPassword, validPasswordPattern);
+    !enteredPassword || matchPattern(enteredPassword, validPasswordPattern);
   if (!passwordPatternIsValid) {
     alert(WARNING_INVALID_PASSWORD);
   }
 
   const confirmPasswordIsMatch =
-    isSigningIn || enteredPassword === enteredConfirmPassword;
+    !enteredConfirmPassword || enteredPassword === enteredConfirmPassword;
   if (!confirmPasswordIsMatch) {
     alert(WARNING_UNMATCH_CONFIRM_PASSWORD);
   }
