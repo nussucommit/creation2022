@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import SendIcon from "@mui/icons-material/Send";
 import Typography from "@mui/material/Typography";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
@@ -55,8 +56,9 @@ function ResetPassword() {
         <CardContent>
           <InputTextField
             error={submitButtonClicked && !enteredEmailIsValid}
-            label="Enter your email here"
+            placeholder="NUS Email"
             helperText={INPUT_HELPERTEXT_EMAIL}
+            icon={<MailOutlineIcon />}
             inputRef={emailInputRef}
           />
         </CardContent>
