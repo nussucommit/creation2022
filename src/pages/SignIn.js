@@ -1,5 +1,12 @@
 import AuthForm from "../components/Authentication/AuthForm";
+import FormContainer from "../components/Input/FormContainer";
 
-export default function SignIn() {
-  return <AuthForm isSignin />;
+function SignIn() {
+  return (
+    <FormContainer>
+      <AuthForm isSignin />
+    </FormContainer>
+  );
 }
+
+export default SignIn;
