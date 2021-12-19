@@ -74,9 +74,9 @@ export const AuthContextProvider = (props) => {
 
   const signinHandler = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password).then(
-        setSnackbar(`Welcome back, ${auth.currentUser.displayName}!`, "success")
-      );
+      await signInWithEmailAndPassword(auth, email, password);
+      const username = auth.currentUser.displayName;
+      setSnackbar(`Welcome back, ${username}!`, "success");
     } catch (error) {
       setSnackbar(error.message, "error");
     }
