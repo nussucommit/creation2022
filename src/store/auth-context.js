@@ -1,83 +1,159 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState } from "react";
 
-let logoutTimer;
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  reauthenticateWithCredential,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
 
-const AuthContext = React.createContext({
-  token: "",
-  isLoggedIn: false,
-  login: (token) => {},
-  logout: () => {},
+import { auth, emailProvider } from "../firebase/firebase";
+import SnackbarContext from "../store/snackbar-context";
+
+const AuthContext = createContext({
+  user: {},
+  isSignedIn: false,
+  isVerified: false,
+  resetPasswordByEmail: () => {},
+  signup: () => {},
+  signin: () => {},
+  signout: () => {},
+  updatePassword: () => {},
+  updateProfile: () => {},
+  verifyEmail: () => {},
 });
 
-const calculateRemainingTime = (expirationTime) => {
-  const currentTime = new Date().getTime();
-  const adjExpirationTime = new Date(expirationTime).getTime();
-
-  const remainingDuration = adjExpirationTime - currentTime;
-
-  return remainingDuration;
-};
-
-const retrievedStoredToken = () => {
-  const storedToken = localStorage.getItem("token");
-  const storedExpirationDate = localStorage.getItem("expirationTime");
-
-  const remainingTime = calculateRemainingTime(storedExpirationDate);
-
-  if (remainingTime <= 60000) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-    return null;
-  }
-
-  return {
-    token: storedToken,
-    duration: remainingTime,
-  };
-};
-
 export const AuthContextProvider = (props) => {
-  const tokenData = retrievedStoredToken();
+  const snackbarCtx = useContext(SnackbarContext);
+  const [user, setUser] = useState(null);
+  const userIsSignedIn = !!user;
+  const userIsVerified = userIsSignedIn && user.emailVerified;
 
-  let initialToken;
-  if (tokenData) {
-    initialToken = tokenData.token;
-  }
+  const setSnackbar = (message, type) =>
+    snackbarCtx.setSnackbar({
+      open: true,
+      message: message,
+      type: type,
+    });
 
-  const [token, setToken] = useState(initialToken);
-  const userIsLoggedIn = !!token;
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
 
-  const logoutHandler = useCallback(() => {
-    setToken(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-
-    if (logoutTimer) {
-      clearTimeout(logoutTimer);
+  const resetPasswordByEmailHandler = async (email) => {
+    try {
+      const actionCodeSettings = {
+        url: "http://localhost:3000/sign-in",
+      };
+      await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
+        setSnackbar("Password reset email sent!", "success")
+      );
+    } catch (error) {
+      setSnackbar(error.message, "error");
     }
-  }, []);
-
-  const loginHandler = (token, expirationTime) => {
-    setToken(token);
-    localStorage.setItem("token", token);
-    localStorage.setItem("expirationTime", expirationTime);
-
-    const remainingTime = calculateRemainingTime(expirationTime);
-
-    logoutTimer = setTimeout(loginHandler, remainingTime);
   };
 
-  useEffect(() => {
-    if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+  const signupHandler = async (username, email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then(
+          await updateProfileHandler({
+            displayName: username,
+          })
+        )
+        .then(setSnackbar("Account created!", "success"));
+    } catch (error) {
+      setSnackbar(error.message, "error");
     }
-  }, [tokenData, logoutHandler]);
+  };
+
+  const signinHandler = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password).then(
+        setSnackbar(`Welcome back, ${auth.currentUser.displayName}!`, "success")
+      );
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
+  };
+
+  const signoutHandler = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
+  };
+
+  const updatePasswordHandler = async (
+    currentEmail,
+    currentPassword,
+    newPassword
+  ) => {
+    try {
+      const credential = emailProvider.credential(
+        currentEmail,
+        currentPassword
+      );
+
+      await reauthenticateWithCredential(user, credential).then(
+        await updatePassword(user, newPassword)
+          .then(signoutHandler)
+          .catch((error) => {
+            throw new Error(error);
+          })
+          .then(
+            setSnackbar(
+              "Password updated! Please sign in again using the new password.",
+              "success"
+            )
+          )
+      );
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
+  };
+
+  const updateProfileHandler = async (newProfile) => {
+    try {
+      await updateProfile(auth.currentUser, newProfile);
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
+  };
+
+  const verifyEmailHandler = async () => {
+    try {
+      const actionCodeSettings = {
+        url: "http://localhost:3000/submission",
+      };
+      await sendEmailVerification(user, actionCodeSettings).then(
+        setSnackbar(
+          "Verification email sent! Please check your mailbox.",
+          "success"
+        )
+      );
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
+  };
 
   const contextValue = {
-    token: token,
-    isLoggedIn: userIsLoggedIn,
-    login: loginHandler,
-    logout: logoutHandler,
+    user: user,
+    isSignedIn: userIsSignedIn,
+    isVerified: userIsVerified,
+    resetPasswordByEmail: resetPasswordByEmailHandler,
+    signup: signupHandler,
+    signin: signinHandler,
+    signout: signoutHandler,
+    updatePassword: updatePasswordHandler,
+    updateProfile: updateProfileHandler,
+    verifyEmail: verifyEmailHandler,
   };
 
   return (
