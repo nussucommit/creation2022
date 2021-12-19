@@ -14,7 +14,7 @@ import AuthContext from "../../store/auth-context";
 
 function UserMenuItems() {
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  const isSignedIn = authCtx.isSignedIn;
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -26,17 +26,17 @@ function UserMenuItems() {
     setAnchorElUser(null);
   };
 
-  const logoutHandler = () => {
+  const signoutHandler = () => {
     setAnchorElUser(null);
-    authCtx.logout();
+    authCtx.signout();
   };
 
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          {isLoggedIn && (
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          {isSignedIn && (
+            <Avatar alt="User Profile Photo" src={authCtx.user.photoURL} />
           )}
         </IconButton>
       </Tooltip>
@@ -63,7 +63,14 @@ function UserMenuItems() {
         >
           <Typography textAlign="center">Profile</Typography>
         </MenuItem>
-        <Button color="primary" onClick={logoutHandler}>
+        <MenuItem
+          component={NavLink}
+          to="/change-password"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography textAlign="center">Change password</Typography>
+        </MenuItem>
+        <Button color="primary" onClick={signoutHandler}>
           Log out
         </Button>
       </Menu>
