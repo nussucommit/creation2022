@@ -6,7 +6,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import SendIcon from "@mui/icons-material/Send";
-import Typography from "@mui/material/Typography";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import AuthContext from "../store/auth-context";
@@ -24,7 +23,6 @@ function ResetPassword() {
   /* ------------------------------ State ------------------------------ */
   const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-  const [emailIsSent, setEmailIsSent] = useState(false);
 
   /* ------------------------------ Input Reference ------------------------------ */
   const emailInputRef = useRef();
@@ -46,7 +44,6 @@ function ResetPassword() {
     }
 
     authCtx.resetPasswordByEmail(enteredEmail);
-    setEmailIsSent(true);
   };
 
   return (
@@ -69,21 +66,14 @@ function ResetPassword() {
               icon={<MailOutlineIcon />}
               inputRef={emailInputRef}
             />
-            {!emailIsSent && (
-              <Button
-                type="submit"
-                variant="contained"
-                endIcon={<SendIcon />}
-                fullWidth
-              >
-                Send reset password email
-              </Button>
-            )}
-            {emailIsSent && (
-              <Typography variant="button" sx={{ textAlign: "center" }}>
-                Email sent, please check your mailbox
-              </Typography>
-            )}
+            <Button
+              type="submit"
+              variant="contained"
+              endIcon={<SendIcon />}
+              fullWidth
+            >
+              Send reset password email
+            </Button>
             <Button component={NavLink} to={"/signin"} fullWidth>
               Cancel
             </Button>

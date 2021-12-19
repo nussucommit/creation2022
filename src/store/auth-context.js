@@ -34,6 +34,13 @@ export const AuthContextProvider = (props) => {
   const userIsSignedIn = !!user;
   const userIsVerified = userIsSignedIn && user.emailVerified;
 
+  const setSnackbar = (message, type) =>
+    snackbarCtx.setSnackbar({
+      open: true,
+      message: message,
+      type: type,
+    });
+
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
@@ -43,43 +50,35 @@ export const AuthContextProvider = (props) => {
       const actionCodeSettings = {
         url: "http://localhost:3000/sign-in",
       };
-      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+      await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
+        setSnackbar("Password reset email sent!", "success")
+      );
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
   const signupHandler = async (username, email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        async () => {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then(
           await updateProfileHandler({
             displayName: username,
-          });
-        }
-      );
+          })
+        )
+        .then(setSnackbar("Account created!", "success"));
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
   const signinHandler = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password).then(
+        setSnackbar(`Welcome back, ${auth.currentUser.displayName}!`, "success")
+      );
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
@@ -87,11 +86,7 @@ export const AuthContextProvider = (props) => {
     try {
       await signOut(auth);
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
@@ -107,19 +102,20 @@ export const AuthContextProvider = (props) => {
       );
 
       await reauthenticateWithCredential(user, credential).then(
-        async () =>
-          await updatePassword(user, newPassword)
-            .then(signoutHandler)
-            .catch((error) => {
-              throw new Error(error);
-            })
+        await updatePassword(user, newPassword)
+          .then(signoutHandler)
+          .catch((error) => {
+            throw new Error(error);
+          })
+          .then(
+            setSnackbar(
+              "Password updated! Please sign in again using the new password.",
+              "success"
+            )
+          )
       );
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
@@ -127,11 +123,7 @@ export const AuthContextProvider = (props) => {
     try {
       await updateProfile(auth.currentUser, newProfile);
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
@@ -140,13 +132,14 @@ export const AuthContextProvider = (props) => {
       const actionCodeSettings = {
         url: "http://localhost:3000/submission",
       };
-      await sendEmailVerification(user, actionCodeSettings);
+      await sendEmailVerification(user, actionCodeSettings).then(
+        setSnackbar(
+          "Verification email sent! Please check your mailbox.",
+          "success"
+        )
+      );
     } catch (error) {
-      snackbarCtx.setSnackbar({
-        open: true,
-        message: error.message,
-        type: "error",
-      });
+      setSnackbar(error.message, "error");
     }
   };
 
