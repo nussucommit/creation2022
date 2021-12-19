@@ -100,7 +100,7 @@ function AuthForm({ isSignin }) {
     isSignin
       ? authCtx.signin(enteredEmail, enteredPassword)
       : authCtx.signup(enteredUsername, enteredEmail, enteredPassword);
-
+    
     setIsLoading(false);
   };
 
