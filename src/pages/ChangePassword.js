@@ -10,6 +10,7 @@ import CardHeader from "@mui/material/CardHeader";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import InputTextField from "../components/Input/InputTextField";
+import FormContainer from "../components/Input/FormContainer";
 import { validateInput } from "../validations/validate-input";
 import { INPUT_HELPERTEXT_PASSWORD } from "../constants/input/helper_text";
 
@@ -35,21 +36,23 @@ function ChangePassword() {
   /* ------------------------------ Method ------------------------------ */
   const submitHandler = (event) => {
     event.preventDefault();
+    setSubmitButtonClicked(true);
 
     const currentUserEmail = authCtx.user.email;
     const enteredCurrentPassword = currentPasswordInputRef.current.value;
     const enteredNewPassword = newPasswordInputRef.current.value;
     const enteredNewConfirmPassword = newConfirmPasswordInputRef.current.value;
 
-    setSubmitButtonClicked(true);
+    const inputToValidate = {
+      enteredPassword: enteredNewPassword,
+      enteredConfirmPassword: enteredNewConfirmPassword,
+    };
+    const setWarningSnackbar = (message) =>
+      snackbarCtx.setSnackbar({ open: true, message, type: "warning" });
 
     const { passwordIsValid, confirmPasswordIsMatch } = validateInput(
-      {
-        enteredPassword: enteredNewPassword,
-        enteredConfirmPassword: enteredNewConfirmPassword,
-      },
-      (message) =>
-        snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+      inputToValidate,
+      setWarningSnackbar
     );
 
     setEnteredNewPasswordIsValid(passwordIsValid);
@@ -67,39 +70,41 @@ function ChangePassword() {
   };
 
   return (
-    <Card>
-      <form onSubmit={submitHandler}>
+    <FormContainer>
+      <Card raised>
         <CardHeader title="Change Password" />
-        <CardContent>
-          <InputTextField
-            placeholder="Current Password"
-            type="password"
-            icon={<LockOutlinedIcon />}
-            inputRef={currentPasswordInputRef}
-          />
-          <InputTextField
-            error={submitButtonClicked && !enteredNewPasswordIsValid}
-            helperText={INPUT_HELPERTEXT_PASSWORD}
-            placeholder="New Password"
-            type="password"
-            icon={<LockOutlinedIcon />}
-            inputRef={newPasswordInputRef}
-          />
-          <InputTextField
-            error={submitButtonClicked && !enteredNewConfirmPasswordIsMatch}
-            placeholder="Confirm New Password"
-            type="password"
-            icon={<LockOutlinedIcon />}
-            inputRef={newConfirmPasswordInputRef}
-          />
-        </CardContent>
-        <CardActions>
-          <Button type="submit" variant="contained">
-            Change Password
-          </Button>
-        </CardActions>
-      </form>
-    </Card>
+        <form onSubmit={submitHandler}>
+          <CardContent>
+            <InputTextField
+              placeholder="Current Password"
+              type="password"
+              icon={<LockOutlinedIcon />}
+              inputRef={currentPasswordInputRef}
+            />
+            <InputTextField
+              error={submitButtonClicked && !enteredNewPasswordIsValid}
+              helperText={INPUT_HELPERTEXT_PASSWORD}
+              placeholder="New Password"
+              type="password"
+              icon={<LockOutlinedIcon />}
+              inputRef={newPasswordInputRef}
+            />
+            <InputTextField
+              error={submitButtonClicked && !enteredNewConfirmPasswordIsMatch}
+              placeholder="Confirm New Password"
+              type="password"
+              icon={<LockOutlinedIcon />}
+              inputRef={newConfirmPasswordInputRef}
+            />
+          </CardContent>
+          <CardActions>
+            <Button type="submit" variant="contained" fullWidth>
+              Change Password
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
+    </FormContainer>
   );
 }
 

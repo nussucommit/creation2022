@@ -10,6 +10,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
+import FormContainer from "../components/Input/FormContainer";
 import AvatarChooser from "../components/Input/AvatarChooser";
 import InputTextField from "../components/Input/InputTextField";
 import { storage } from "../firebase/firebase";
@@ -90,26 +91,32 @@ function Profile() {
   };
 
   return (
-    <Card raised>
-      <CardHeader title={`Hi there, ${username}`} />
-      <form onSubmit={updateProfileHandler}>
-        <CardContent>
-          <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />
-          <InputTextField
-            error={submitButtonClicked && !enteredUsernameIsValid}
-            helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
-            placeholder="New Username"
-            icon={<AccountCircleOutlinedIcon />}
-            inputRef={usernameInputRef}
-          />
-        </CardContent>
-        <CardActions>
-          <Button type="submit" variant="contained">
-            Update username
-          </Button>
-        </CardActions>
-      </form>
-    </Card>
+    <FormContainer>
+      <Card raised>
+        <CardHeader title={`Hi there, ${username}`} />
+        <form onSubmit={updateProfileHandler}>
+          <CardContent>
+            <AvatarChooser
+              src={profilePhotoURL}
+              onChange={uploadPhotoHandler}
+            />
+
+            <InputTextField
+              error={submitButtonClicked && !enteredUsernameIsValid}
+              helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
+              placeholder="New Username"
+              icon={<AccountCircleOutlinedIcon />}
+              inputRef={usernameInputRef}
+            />
+          </CardContent>
+          <CardActions>
+            <Button type="submit" variant="contained" fullWidth>
+              Update username
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
+    </FormContainer>
   );
 }
 
