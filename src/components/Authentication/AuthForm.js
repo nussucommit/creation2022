@@ -3,10 +3,12 @@ import { useState, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
@@ -18,7 +20,7 @@ import {
   INPUT_HELPERTEXT_PASSWORD,
 } from "../../constants/input/helper_text";
 
-export default function AuthForm({ isSignin }) {
+function AuthForm({ isSignin }) {
   /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
@@ -44,38 +46,41 @@ export default function AuthForm({ isSignin }) {
     isSignin ? "Create new" : "Login with existing"
   } account`;
   const submitButtonText = isSignin ? "Login" : "Create Account";
+  const resetPasswordButtonText = "Forgot password?";
   const loadingText = isSignin ? "Logging in..." : "Creating account...";
+
+  /* ------------------------------ Path Link ------------------------------ */
+  const switchButtonLink = isSignin ? "/signup" : "/signin";
+  const resetPasswordButtonLink = "/reset-password";
 
   /* ------------------------------ Method ------------------------------ */
   const submitHandler = (event) => {
     event.preventDefault();
+
+    setSubmitButtonClicked(true);
 
     const enteredUsername = usernameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     const enteredConfirmPassword = confirmPasswordInputRef.current.value;
 
-    setSubmitButtonClicked(true);
+    const inputTovalidate = isSignin
+      ? { enteredEmail }
+      : {
+          enteredUsername,
+          enteredEmail,
+          enteredPassword,
+          enteredConfirmPassword,
+        };
+    const setWarningSnackbar = (message) =>
+      snackbarCtx.setSnackbar({ open: true, message, type: "warning" });
 
     const {
       usernameIsValid,
       emailIsValid,
       passwordIsValid,
       confirmPasswordIsMatch,
-    } = isSignin
-      ? validateInput({ enteredEmail }, (message) =>
-          snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
-        )
-      : validateInput(
-          {
-            enteredUsername,
-            enteredEmail,
-            enteredPassword,
-            enteredConfirmPassword,
-          },
-          (message) =>
-            snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
-        );
+    } = validateInput(inputTovalidate, setWarningSnackbar);
 
     setEnteredUsernameIsValid(usernameIsValid);
     setEnteredEmailIsValid(emailIsValid);
@@ -104,63 +109,59 @@ export default function AuthForm({ isSignin }) {
       <CardHeader title={formTitle} />
       <form onSubmit={submitHandler}>
         <CardContent>
+          {/* ------------------------- Text fields --------------------- */}
           {!isSignin && (
             <InputTextField
               error={submitButtonClicked && !enteredUsernameIsValid}
               helperText={INPUT_HELPERTEXT_USERNAME}
-              label="Username"
+              placeholder="Username"
+              icon={<AccountCircleOutlinedIcon />}
               inputRef={usernameInputRef}
             />
           )}
           <InputTextField
             error={submitButtonClicked && !enteredEmailIsValid}
             helperText={INPUT_HELPERTEXT_EMAIL}
-            label="NUS Email"
+            placeholder="NUS Email"
+            icon={<MailOutlineIcon />}
             inputRef={emailInputRef}
           />
           <InputTextField
             error={submitButtonClicked && !enteredPasswordIsValid}
-            label="Password"
+            placeholder="Password"
             helperText={isSignin ? "" : INPUT_HELPERTEXT_PASSWORD}
             type="password"
+            icon={<LockOutlinedIcon />}
             inputRef={passwordInputRef}
           />
           {!isSignin && (
             <InputTextField
               error={submitButtonClicked && !enteredConfirmPasswordIsMatch}
-              label="Confirm Password"
+              placeholder="Confirm Password"
               type="password"
+              icon={<LockOutlinedIcon />}
               inputRef={confirmPasswordInputRef}
             />
           )}
-        </CardContent>
-        {isSignin && (
-          <CardActions>
-            <Button component={NavLink} to="/reset-password">
-              Forgot password?
-            </Button>
-          </CardActions>
-        )}
-        <CardActions>
-          <Button
-            component={NavLink}
-            to={isSignin ? "/signup" : "/signin"}
-            variant="outlined"
-          >
-            {switchButtonText}
-          </Button>
+          {/* ------------------------- Buttons --------------------- */}
           {!isLoading && (
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" fullWidth>
               {submitButtonText}
             </Button>
           )}
-          {isLoading && (
-            <Typography variant="button" sx={{ marginLeft: "10px" }}>
-              {loadingText}
-            </Typography>
+          <Button component={NavLink} to={switchButtonLink} fullWidth>
+            {switchButtonText}
+          </Button>
+          {isSignin && (
+            <Button component={NavLink} to={resetPasswordButtonLink} fullWidth>
+              {resetPasswordButtonText}
+            </Button>
           )}
-        </CardActions>
+          {isLoading && <Typography variant="button">{loadingText}</Typography>}
+        </CardContent>
       </form>
     </Card>
   );
 }
+
+export default AuthForm;

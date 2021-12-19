@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
@@ -97,7 +98,8 @@ function Profile() {
           <InputTextField
             error={submitButtonClicked && !enteredUsernameIsValid}
             helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
-            label="New Username"
+            placeholder="New Username"
+            icon={<AccountCircleOutlinedIcon />}
             inputRef={usernameInputRef}
           />
         </CardContent>

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormControl } from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import InputAdornment from "@mui/material/InputAdornment";
 
 function TextFieldHelperText({ focusText }) {
   const { focused } = useFormControl() || {};
@@ -18,14 +19,21 @@ function TextFieldHelperText({ focusText }) {
   return <FormHelperText>{helperText}</FormHelperText>;
 }
 
-function InputTextField({ error, helperText, inputRef, label, type }) {
+function InputTextField({ error, helperText, inputRef, icon, placeholder, type }) {
   return (
     <TextField
       error={error}
       fullWidth
       helperText={<TextFieldHelperText focusText={helperText} />}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            {icon}
+          </InputAdornment>
+        ),
+      }}
       inputRef={inputRef}
-      label={label}
+      placeholder={placeholder}
       margin="normal"
       required
       type={type}

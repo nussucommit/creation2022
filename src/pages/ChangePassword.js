@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import InputTextField from "../components/Input/InputTextField";
 import { validateInput } from "../validations/validate-input";
@@ -71,21 +72,24 @@ function ChangePassword() {
         <CardHeader title="Change Password" />
         <CardContent>
           <InputTextField
-            label="Current Password"
+            placeholder="Current Password"
             type="password"
+            icon={<LockOutlinedIcon />}
             inputRef={currentPasswordInputRef}
           />
           <InputTextField
             error={submitButtonClicked && !enteredNewPasswordIsValid}
             helperText={INPUT_HELPERTEXT_PASSWORD}
-            label="New Password"
+            placeholder="New Password"
             type="password"
+            icon={<LockOutlinedIcon />}
             inputRef={newPasswordInputRef}
           />
           <InputTextField
             error={submitButtonClicked && !enteredNewConfirmPasswordIsMatch}
-            label="Confirm New Password"
+            placeholder="Confirm New Password"
             type="password"
+            icon={<LockOutlinedIcon />}
             inputRef={newConfirmPasswordInputRef}
           />
         </CardContent>
