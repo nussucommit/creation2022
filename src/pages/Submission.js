@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 
-import { ref, uploadBytes } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,14 +10,19 @@ import CardActions from "@mui/material/CardActions";
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
+import FormContainer from "../components/Input/FormContainer";
+import ChallengeSelect from "../components/Submission/ChallengeSelect";
+import SubmittedFileList from "../components/Submission/SubmittedFileList";
 import FileUploadForm from "../components/Submission/FileUploadForm";
-import { storage } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
 
+/* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
   "Please make sure the file uploaded has the correct format(jpg/png, psd, pdf)!";
 
+/* ------------------------------ Helper functions ------------------------------ */
 const getFileTypes = (uploadedFiles) =>
   uploadedFiles.map((file) => file.name.split(".").pop());
 
@@ -35,11 +41,16 @@ function Submission() {
   const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
+  const [challengeSelected, setChallengeSelected] = useState();
   const [imageFile, setImageFile] = useState(null);
   const [psdFile, setPSDFile] = useState(null);
   const [pdfFile, setPDFFile] = useState(null);
 
   /* ------------------------------ Method ------------------------------ */
+  const selectChallengeHandler = (challenge) => {
+    setChallengeSelected(challenge);
+  };
+
   const uploadImageHandler = (image) => {
     setImageFile(image);
   };
@@ -57,7 +68,7 @@ function Submission() {
       type,
     });
 
-  const submitFileHandler = (event) => {
+  const submitFileHandler = async (event) => {
     event.preventDefault();
 
     if (!imageFile || !psdFile || !pdfFile) {
@@ -79,35 +90,60 @@ function Submission() {
     const modifiedPSDName = `${userEmailPrefix}.${fileTypes[1]}`;
     const modifiedPDFName = `${userEmailPrefix}.${fileTypes[2]}`;
 
-    const imageStorageLocation = `submissions/${userEmailPrefix}/${modifiedImageName}`;
-    const psdStorageLocation = `submissions/${userEmailPrefix}/${modifiedPSDName}`;
-    const pdfStorageLocation = `submissions/${userEmailPrefix}/${modifiedPDFName}`;
+    const imageStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedImageName}`;
+    const psdStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPSDName}`;
+    const pdfStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPDFName}`;
 
     const imageStorageRef = ref(storage, imageStorageLocation);
     const psdStorageRef = ref(storage, psdStorageLocation);
     const pdfStorageRef = ref(storage, pdfStorageLocation);
 
-    uploadBytes(imageStorageRef, imageFile);
-    uploadBytes(psdStorageRef, psdFile);
-    uploadBytes(pdfStorageRef, pdfFile);
+    /* ------------------------------ File submission ------------------------------ */
+    await uploadBytes(imageStorageRef, imageFile);
+    await uploadBytes(psdStorageRef, psdFile);
+    await uploadBytes(pdfStorageRef, pdfFile);
+
+    /* ------------------------------ Record submission link ------------------------------ */
+    const submissionCollectionRef = collection(
+      db,
+      `submissions/challenges/challenge${challengeSelected}`
+    );
+    const userUID = authCtx.user.uid;
+    getDownloadURL(imageStorageRef).then(async (imageURL) => {
+      getDownloadURL(psdStorageRef).then(async (psdURL) => {
+        getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
+          await addDoc(submissionCollectionRef, {
+            uid: userUID,
+            challenge: challengeSelected,
+            imageURL,
+            psdURL,
+            pdfURL,
+          });
+        });
+      });
+    });
   };
 
   return (
-    <Card raised>
-      <CardHeader title="My submission" />
-      <form onSubmit={submitFileHandler}>
-        <CardContent>
-          <FileUploadForm fileType="image/*" onUpload={uploadImageHandler} />
-          <FileUploadForm fileType=".psd" onUpload={uploadPSDHandler} />
-          <FileUploadForm fileType=".pdf" onUpload={uploadPDFHandler} />
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </CardActions>
-      </form>
-    </Card>
+    <FormContainer>
+      <Card raised>
+        <CardHeader title="My submission" />
+        <SubmittedFileList />
+        <form onSubmit={submitFileHandler}>
+          <CardContent>
+            <ChallengeSelect onSelect={selectChallengeHandler} />
+            <FileUploadForm fileType="image/*" onUpload={uploadImageHandler} />
+            <FileUploadForm fileType=".psd" onUpload={uploadPSDHandler} />
+            <FileUploadForm fileType=".pdf" onUpload={uploadPDFHandler} />
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
+    </FormContainer>
   );
 }
 
