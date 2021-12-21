@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import AuthContext from "../../store/auth-context";
+import SnackbarContext from "../../store/snackbar-context";
 import { db, storage } from "../../firebase/firebase";
 
 const styles = {
@@ -28,9 +29,13 @@ const styles = {
 
 function SubmittedFileList({ checkSubmit }) {
   const authCtx = useContext(AuthContext);
-  const userUID = authCtx.user.uid;
+  const snackbarCtx = useContext(SnackbarContext);
+
   const [challengeSubmitted, setChallengeSubmitted] = useState([]);
   const [challengeSubmission, setChallengeSubmission] = useState([]);
+
+  const userUID = authCtx.user.uid;
+  const SNACKBAR_MESSAGE_SUCCESS_DELETE = "File successfully deleted!";
 
   useEffect(() => {
     const challengeIndexes = [1, 2, 3, 4];
@@ -62,6 +67,13 @@ function SubmittedFileList({ checkSubmit }) {
     [checkSubmit, challengeSubmitted]
   );
 
+  const setSnackbar = (message, type) =>
+    snackbarCtx.setSnackbar({
+      open: true,
+      message,
+      type,
+    });
+
   const deleteSubmission = async (
     challengeIndex,
     imageURL,
@@ -81,7 +93,9 @@ function SubmittedFileList({ checkSubmit }) {
     await deleteObject(imageStorageRef).then(
       deleteObject(psdStorageRef).then(deleteObject(pdfStorageRef))
     );
-    await deleteDoc(submissionDoc);
+    await deleteDoc(submissionDoc).then(
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, "success")
+    );
   };
 
   return (
