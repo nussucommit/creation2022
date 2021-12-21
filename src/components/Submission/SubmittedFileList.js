@@ -8,6 +8,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { deleteObject, ref } from "firebase/storage";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -27,15 +28,17 @@ const styles = {
   },
 };
 
-function SubmittedFileList({ checkSubmit }) {
+function SubmittedFileList({ render, checkSubmit }) {
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
 
+  const navigate = useNavigate();
   const [challengeSubmitted, setChallengeSubmitted] = useState([]);
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   const userUID = authCtx.user.uid;
-  const SNACKBAR_MESSAGE_SUCCESS_DELETE = "File successfully deleted!";
+  const SNACKBAR_MESSAGE_SUCCESS_DELETE =
+    "File successfully deleted!";
 
   useEffect(() => {
     const challengeIndexes = [1, 2, 3, 4];
@@ -60,11 +63,11 @@ function SubmittedFileList({ checkSubmit }) {
     };
 
     getSubmittedFiles();
-  }, [userUID]);
+  }, [render, userUID]);
 
   useEffect(
     () => checkSubmit(challengeSubmitted),
-    [checkSubmit, challengeSubmitted]
+    [render, checkSubmit, challengeSubmitted]
   );
 
   const setSnackbar = (message, type) =>
@@ -96,13 +99,14 @@ function SubmittedFileList({ checkSubmit }) {
     await deleteDoc(submissionDoc).then(
       setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, "success")
     );
+    navigate("/refresh", { replace: true });
   };
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
-          <Grid key={file.id} item>
+          <Grid key={`${file.id}_${render}`} item>
             <Card raised>
               <CardHeader
                 title={`Challenge ${file.challenge} Submission`}
