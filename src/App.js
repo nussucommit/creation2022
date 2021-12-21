@@ -53,6 +53,7 @@ export default function App() {
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/rules" element={<Rules />} />
+          <Route path="/refresh" element={<Navigate to="/submission" />} />
           <Route
             path="/submission"
             element={
