@@ -1,13 +1,23 @@
 import { useContext, useState, useEffect } from "react";
 
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import AuthContext from "../../store/auth-context";
-import { db } from "../../firebase/firebase";
+import { db, storage } from "../../firebase/firebase";
 
 const styles = {
   media: {
@@ -47,7 +57,32 @@ function SubmittedFileList({ checkSubmit }) {
     getSubmittedFiles();
   }, [userUID]);
 
-  checkSubmit(challengeSubmitted);
+  useEffect(
+    () => checkSubmit(challengeSubmitted),
+    [checkSubmit, challengeSubmitted]
+  );
+
+  const deleteSubmission = async (
+    challengeIndex,
+    imageURL,
+    psdURL,
+    pdfURL,
+    docID
+  ) => {
+    const imageStorageRef = await ref(storage, imageURL);
+    const psdStorageRef = await ref(storage, psdURL);
+    const pdfStorageRef = await ref(storage, pdfURL);
+    const submissionDoc = doc(
+      db,
+      `submissions/challenges/challenge${challengeIndex}`,
+      docID
+    );
+
+    await deleteObject(imageStorageRef).then(
+      deleteObject(psdStorageRef).then(deleteObject(pdfStorageRef))
+    );
+    await deleteDoc(submissionDoc);
+  };
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -55,7 +90,24 @@ function SubmittedFileList({ checkSubmit }) {
         return file !== undefined ? (
           <Grid key={file.id} item>
             <Card raised>
-              <CardHeader title={`Challenge ${file.challenge} Submission`} />
+              <CardHeader
+                title={`Challenge ${file.challenge} Submission`}
+                action={
+                  <IconButton
+                    onClick={() =>
+                      deleteSubmission(
+                        file.challenge,
+                        file.imageURL,
+                        file.psdURL,
+                        file.pdfURL,
+                        file.id
+                      )
+                    }
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              />
               <CardMedia
                 component="img"
                 image={file.imageURL}

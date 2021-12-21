@@ -23,7 +23,9 @@ function ChallengeSelect({ submittedChallenge, onSelect }) {
         {submittedChallenge.map((isNotSubmitted, index) => {
           const challengeIndex = index + 1;
           return isNotSubmitted ? (
-            <MenuItem value={challengeIndex}>{challengeIndex}</MenuItem>
+            <MenuItem key={challengeIndex} value={challengeIndex}>
+              {challengeIndex}
+            </MenuItem>
           ) : null;
         })}
       </Select>
