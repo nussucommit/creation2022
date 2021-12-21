@@ -7,6 +7,8 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
@@ -18,7 +20,7 @@ import { db, storage } from "../firebase/firebase";
 
 /* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
-  "All files are submitted successfully! Thank you for your participation";
+  "All files are submitted successfully! Click the reload button to see changes";
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
@@ -43,6 +45,7 @@ function Submission() {
   const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
+  const [render, setRender] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeSelected, setChallengeSelected] = useState();
   const [challengeSubmitStatus, setChallengeSubmitStatus] = useState([]);
@@ -140,8 +143,18 @@ function Submission() {
   return (
     <FormContainer>
       <Card raised>
-        <CardHeader title="My submission" />
-        <SubmittedFileList checkSubmit={changeSubmittedChallengeHandler} />
+        <CardHeader
+          title="My submission"
+          action={
+            <IconButton onClick={() => setRender((render) => !render)}>
+              <RefreshIcon />
+            </IconButton>
+          }
+        />
+        <SubmittedFileList
+          render={render}
+          checkSubmit={changeSubmittedChallengeHandler}
+        />
         <form onSubmit={submitFileHandler}>
           <CardContent>
             <ChallengeSelect
