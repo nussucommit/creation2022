@@ -16,9 +16,10 @@ const styles = {
   },
 };
 
-function SubmittedFileList() {
+function SubmittedFileList({ checkSubmit }) {
   const authCtx = useContext(AuthContext);
   const userUID = authCtx.user.uid;
+  const [challengeSubmitted, setChallengeSubmitted] = useState([]);
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   useEffect(() => {
@@ -32,15 +33,21 @@ function SubmittedFileList() {
     const getSubmittedFiles = () => {
       challengeRefs.map(async (ref) => {
         const challengeData = await getDocs(ref);
-        setChallengeSubmission((prev) => [
-          ...prev,
-          challengeData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
-        ]);
+        const docIsEmpty = challengeData.docs.length === 0;
+        setChallengeSubmitted((prev) => [...prev, docIsEmpty]);
+        if (!docIsEmpty) {
+          setChallengeSubmission((prev) => [
+            ...prev,
+            challengeData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
+          ]);
+        }
       });
     };
 
     getSubmittedFiles();
   }, [userUID]);
+
+  checkSubmit(challengeSubmitted);
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">

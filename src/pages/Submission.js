@@ -42,11 +42,16 @@ function Submission() {
 
   /* ------------------------------ State ------------------------------ */
   const [challengeSelected, setChallengeSelected] = useState();
+  const [challengeSubmitStatus, setChallengeSubmitStatus] = useState([]);
   const [imageFile, setImageFile] = useState(null);
   const [psdFile, setPSDFile] = useState(null);
   const [pdfFile, setPDFFile] = useState(null);
 
   /* ------------------------------ Method ------------------------------ */
+  const changeSubmittedChallengeHandler = (submissionStatus) => {
+    setChallengeSubmitStatus(submissionStatus);
+  }
+
   const selectChallengeHandler = (challenge) => {
     setChallengeSelected(challenge);
   };
@@ -128,10 +133,13 @@ function Submission() {
     <FormContainer>
       <Card raised>
         <CardHeader title="My submission" />
-        <SubmittedFileList />
+        <SubmittedFileList checkSubmit={changeSubmittedChallengeHandler} />
         <form onSubmit={submitFileHandler}>
           <CardContent>
-            <ChallengeSelect onSelect={selectChallengeHandler} />
+            <ChallengeSelect
+              onSelect={selectChallengeHandler}
+              submittedChallenge={challengeSubmitStatus}
+            />
             <FileUploadForm fileType="image/*" onUpload={uploadImageHandler} />
             <FileUploadForm fileType=".psd" onUpload={uploadPSDHandler} />
             <FileUploadForm fileType=".pdf" onUpload={uploadPDFHandler} />
