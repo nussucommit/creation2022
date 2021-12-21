@@ -17,6 +17,8 @@ import FileUploadForm from "../components/Submission/FileUploadForm";
 import { db, storage } from "../firebase/firebase";
 
 /* ------------------------------ Constants ------------------------------ */
+const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
+  "All files are submitted successfully! Thank you for your participation";
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
@@ -41,6 +43,7 @@ function Submission() {
   const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeSelected, setChallengeSelected] = useState();
   const [challengeSubmitStatus, setChallengeSubmitStatus] = useState([]);
   const [imageFile, setImageFile] = useState(null);
@@ -50,7 +53,7 @@ function Submission() {
   /* ------------------------------ Method ------------------------------ */
   const changeSubmittedChallengeHandler = (submissionStatus) => {
     setChallengeSubmitStatus(submissionStatus);
-  }
+  };
 
   const selectChallengeHandler = (challenge) => {
     setChallengeSelected(challenge);
@@ -88,6 +91,8 @@ function Submission() {
       setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
       return;
     }
+
+    setIsSubmitting(true);
 
     /* ------------------------------ File name modification ------------------------------ */
     const userEmailPrefix = authCtx.user.email.replace("@u.nus.edu", "");
@@ -127,6 +132,9 @@ function Submission() {
         });
       });
     });
+
+    setIsSubmitting(false);
+    setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
   };
 
   return (
@@ -145,8 +153,13 @@ function Submission() {
             <FileUploadForm fileType=".pdf" onUpload={uploadPDFHandler} />
           </CardContent>
           <CardActions>
-            <Button variant="contained" type="submit">
-              Submit
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={isSubmitting}
+              fullWidth
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
           </CardActions>
         </form>
