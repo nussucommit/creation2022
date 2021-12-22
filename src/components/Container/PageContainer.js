@@ -12,7 +12,7 @@ function PageContainer({ childComponents }) {
               key={index}
               item
               textAlign={isFirtstItem && "center"}
-              // sx={isFirtstItem && { m: "2rem" }}
+              sx={{ m: "2rem" }}
             >
               {component}
             </Grid>
