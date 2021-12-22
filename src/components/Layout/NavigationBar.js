@@ -12,7 +12,12 @@ import UserMenuItems from "./UserMenuItems";
 
 export default function NavigationBar() {
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      style={{
+        backgroundColor: "#323232",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ResponsiveLogoLink isDesktop />
