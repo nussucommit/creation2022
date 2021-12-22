@@ -6,7 +6,7 @@ export default function Prize({ imageURL, title }) {
           <img
             src={require(`../../images/${imageURL}`)}
             alt={"prize"}
-            style={{ width: "150px" }}
+            style={{ width: "151px" }}
           />
         </div>
 
