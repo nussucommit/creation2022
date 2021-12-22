@@ -2,8 +2,7 @@ import { useState, useRef, useContext } from "react";
 
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
+import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -41,7 +40,6 @@ function AuthForm({ isSignin }) {
   const confirmPasswordInputRef = useRef("");
 
   /* ------------------------------ Text ------------------------------ */
-  const formTitle = `Sign ${isSignin ? "in" : "up"} to continue`;
   const switchButtonText = `${
     isSignin ? "Create new" : "Login with existing"
   } account`;
@@ -100,67 +98,70 @@ function AuthForm({ isSignin }) {
     isSignin
       ? authCtx.signin(enteredEmail, enteredPassword)
       : authCtx.signup(enteredUsername, enteredEmail, enteredPassword);
-    
+
     setIsLoading(false);
   };
 
   return (
-    <Card raised>
-      <CardHeader title={formTitle} />
-      <form onSubmit={submitHandler}>
-        <CardContent>
-          {/* ------------------------- Text fields --------------------- */}
-          {!isSignin && (
-            <InputTextField
-              error={submitButtonClicked && !enteredUsernameIsValid}
-              helperText={INPUT_HELPERTEXT_USERNAME}
-              placeholder="Username"
-              icon={<AccountCircleOutlinedIcon />}
-              inputRef={usernameInputRef}
-            />
-          )}
+    <form onSubmit={submitHandler}>
+      <CardContent>
+        {/* ------------------------- Text fields --------------------- */}
+        {!isSignin && (
           <InputTextField
-            error={submitButtonClicked && !enteredEmailIsValid}
-            helperText={INPUT_HELPERTEXT_EMAIL}
-            placeholder="NUS Email"
-            icon={<MailOutlineIcon />}
-            inputRef={emailInputRef}
+            error={submitButtonClicked && !enteredUsernameIsValid}
+            helperText={INPUT_HELPERTEXT_USERNAME}
+            placeholder="Username"
+            icon={<AccountCircleOutlinedIcon />}
+            inputRef={usernameInputRef}
           />
+        )}
+        <InputTextField
+          error={submitButtonClicked && !enteredEmailIsValid}
+          helperText={INPUT_HELPERTEXT_EMAIL}
+          placeholder="NUS Email"
+          icon={<MailOutlineIcon />}
+          inputRef={emailInputRef}
+        />
+        <InputTextField
+          error={submitButtonClicked && !enteredPasswordIsValid}
+          placeholder="Password"
+          helperText={isSignin ? "" : INPUT_HELPERTEXT_PASSWORD}
+          type="password"
+          icon={<LockOutlinedIcon />}
+          inputRef={passwordInputRef}
+        />
+        {!isSignin && (
           <InputTextField
-            error={submitButtonClicked && !enteredPasswordIsValid}
-            placeholder="Password"
-            helperText={isSignin ? "" : INPUT_HELPERTEXT_PASSWORD}
+            error={submitButtonClicked && !enteredConfirmPasswordIsMatch}
+            placeholder="Confirm Password"
             type="password"
             icon={<LockOutlinedIcon />}
-            inputRef={passwordInputRef}
+            inputRef={confirmPasswordInputRef}
           />
-          {!isSignin && (
-            <InputTextField
-              error={submitButtonClicked && !enteredConfirmPasswordIsMatch}
-              placeholder="Confirm Password"
-              type="password"
-              icon={<LockOutlinedIcon />}
-              inputRef={confirmPasswordInputRef}
-            />
-          )}
-          {/* ------------------------- Buttons --------------------- */}
-          {!isLoading && (
-            <Button type="submit" variant="contained" fullWidth>
-              {submitButtonText}
-            </Button>
-          )}
-          <Button component={NavLink} to={switchButtonLink} fullWidth>
-            {switchButtonText}
+        )}
+      </CardContent>
+      {/* ------------------------- Buttons --------------------- */}
+      {!isLoading && (
+        <CardActions>
+          <Button type="submit" variant="contained" fullWidth>
+            {submitButtonText}
           </Button>
-          {isSignin && (
-            <Button component={NavLink} to={resetPasswordButtonLink} fullWidth>
-              {resetPasswordButtonText}
-            </Button>
-          )}
-          {isLoading && <Typography variant="button">{loadingText}</Typography>}
-        </CardContent>
-      </form>
-    </Card>
+        </CardActions>
+      )}
+      <CardActions>
+        <Button component={NavLink} to={switchButtonLink} fullWidth>
+          {switchButtonText}
+        </Button>
+      </CardActions>
+      {isSignin && (
+        <CardActions>
+          <Button component={NavLink} to={resetPasswordButtonLink} fullWidth>
+            {resetPasswordButtonText}
+          </Button>
+        </CardActions>
+      )}
+      {isLoading && <Typography variant="button">{loadingText}</Typography>}
+    </form>
   );
 }
 
