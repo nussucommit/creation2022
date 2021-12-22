@@ -9,9 +9,10 @@ function PageContainer({ childComponents }) {
           const isFirtstItem = index === 0;
           return (
             <Grid
+              key={index}
               item
               textAlign={isFirtstItem && "center"}
-              sx={isFirtstItem && { m: "2rem" }}
+              // sx={isFirtstItem && { m: "2rem" }}
             >
               {component}
             </Grid>
