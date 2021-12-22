@@ -15,7 +15,7 @@ function RightMenuItems() {
   return isLoggedIn ? null : (
     <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
       <MenuItem component={NavLink} to="/signin">
-        <Typography textAlign="center">Sign in</Typography>
+        <Typography style={{fontFamily:"Poppins", fontWeight:400}} textAlign="center">Sign in</Typography>
       </MenuItem>
       <Button
         variant="outlined"
