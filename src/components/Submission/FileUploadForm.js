@@ -10,7 +10,7 @@ import CardActions from "@mui/material/CardActions";
 
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
-import FormContainer from "../Input/FormContainer";
+import FormContainer from "../Container/FormContainer";
 import ChallengeSelect from "../Submission/ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 import { db, storage } from "../../firebase/firebase";
@@ -139,47 +139,51 @@ function FileUploadForm({ challengeSubmitStatus, onCancel }) {
   ];
 
   return (
-    <FormContainer>
-      <Card raised>
-        <CardHeader title="Submit your files here" />
-        <form onSubmit={submitFileHandler}>
-          <CardContent>
-            <ChallengeSelect
-              onSelect={setChallengeSelected}
-              submittedChallenge={challengeSubmitStatus}
-            />
-            {uploadButtonProps.map((prop) => {
-              return (
-                <FileUploadButtonGroup
-                  key={prop.type}
-                  buttonLabel={prop.label}
-                  fileType={prop.type}
-                  onUpload={prop.uploadMethod}
-                />
-              );
-            })}
-          </CardContent>
-          <CardActions>
-            <Button
-              variant="outlined"
-              disabled={isSubmitting}
-              onClick={onCancel}
-              fullWidth
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              type="submit"
-              disabled={isSubmitting}
-              fullWidth
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
-          </CardActions>
-        </form>
-      </Card>
-    </FormContainer>
+    <FormContainer
+      childComponents={[
+        <Card raised>
+          <CardHeader title="Submit your files here" />
+          <form onSubmit={submitFileHandler}>
+            <CardContent>
+              <ChallengeSelect
+                onSelect={setChallengeSelected}
+                submittedChallenge={challengeSubmitStatus}
+              />
+              {uploadButtonProps.map((prop) => {
+                return (
+                  <FileUploadButtonGroup
+                    key={prop.type}
+                    buttonLabel={prop.label}
+                    fileType={prop.type}
+                    onUpload={prop.uploadMethod}
+                  />
+                );
+              })}
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={isSubmitting}
+                fullWidth
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
+            </CardActions>
+            <CardActions>
+              <Button
+                variant="outlined"
+                disabled={isSubmitting}
+                onClick={onCancel}
+                fullWidth
+              >
+                Cancel
+              </Button>
+            </CardActions>
+          </form>
+        </Card>,
+      ]}
+    />
   );
 }
 

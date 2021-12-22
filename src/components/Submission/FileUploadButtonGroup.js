@@ -15,15 +15,27 @@ function FileUploadButtonGroup({ buttonLabel, fileType, onUpload }) {
       justifyContent="center"
       alignItems="flex-start"
     >
-      <Grid item sx={{ my: 1 }}>
-        <Typography variant="h6">{buttonLabel}</Typography>
-        <Input
-          inputProps={{ accept: fileType }}
-          type="file"
-          onChange={uploadHandler}
-          disableUnderline
-          required
-        />
+      <Grid
+        container
+        direction="row"
+        textAlign="start"
+        sx={{
+          my: 1,
+        }}
+      >
+        <Grid item xs={3}>
+          <Typography variant="h6">{buttonLabel}</Typography>
+        </Grid>
+        <Grid item xs />
+        <Grid item xs={8}>
+          <Input
+            inputProps={{ accept: fileType }}
+            type="file"
+            onChange={uploadHandler}
+            disableUnderline
+            required
+          />
+        </Grid>
       </Grid>
     </Grid>
   );
