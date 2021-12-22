@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-
 import "./index.css";
 import App from "./App";
 import { AuthContextProvider } from "./store/auth-context";
@@ -15,12 +14,15 @@ import "./fonts/Poppins/Poppins-Regular.ttf";
 import "./fonts/Poppins/Poppins-Light.ttf";
 import "./fonts/Poppins/Poppins-Thin.ttf";
 import "./fonts/Poppins/Poppins-ExtraLight.ttf";
+import { SnackbarContextProvider } from "./store/snackbar-context";
 
 ReactDOM.render(
-  <AuthContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </AuthContextProvider>,
+  <SnackbarContextProvider>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthContextProvider>
+  </SnackbarContextProvider>,
   document.getElementById("root")
 );

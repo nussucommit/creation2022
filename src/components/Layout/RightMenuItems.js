@@ -10,9 +10,9 @@ import AuthContext from "../../store/auth-context";
 
 function RightMenuItems() {
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  const isSignedIn = authCtx.isSignedIn;
 
-  return isLoggedIn ? null : (
+  return isSignedIn ? null : (
     <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
       <MenuItem component={NavLink} to="/signin">
         <Typography style={{fontFamily:"Poppins", fontWeight:400}} textAlign="center">Sign in</Typography>
