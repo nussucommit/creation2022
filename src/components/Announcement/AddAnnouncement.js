@@ -12,7 +12,7 @@ import SnackbarContext from "../../store/snackbar-context";
 import { db } from "../../firebase/firebase";
 import getDateTime from "../../helpers/date-time-getter";
 
-function AddAnnouncement() {
+function AddAnnouncement({ isAdmin }) {
   const snackbarCtx = useContext(SnackbarContext);
   const announcementCollectionRef = collection(db, "announcements");
 
@@ -46,7 +46,7 @@ function AddAnnouncement() {
       .catch((error) => setSnackbar(error.message, "error"));
   };
 
-  return (
+  return isAdmin ? (
     <Card raised>
       <form onSubmit={submitHandler}>
         <CardHeader title="Add your announcement here" />
@@ -74,7 +74,7 @@ function AddAnnouncement() {
         </CardActions>
       </form>
     </Card>
-  );
+  ) : null;
 }
 
 export default AddAnnouncement;

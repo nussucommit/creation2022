@@ -7,7 +7,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 
 import { db } from "../../firebase/firebase";
 import SnackbarContext from "../../store/snackbar-context";
@@ -45,38 +44,30 @@ function AnnouncementList({ isAdmin }) {
       .catch((error) => setSnackbar(error.message, "error"));
   };
 
-  return (
-    <Card>
-      <CardHeader title="Creation 2022 Announcement Page" />
-      <CardContent>
-        {announcementIsEmpty && "There is no announcement at the moment..."}
-        {!announcementIsEmpty &&
-          announcementList.map((announcement) => {
-            return (
-              <Paper
-                key={announcement.id}
-                variant="outlined"
-                sx={{ m: "2rem", p: "1rem" }}
-              >
-                {isAdmin && (
-                  <IconButton
-                    onClick={() => deleteAnnouncement(announcement.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                )}
-                <Typography variant="h5" component="div">
-                  {announcement.title}
-                </Typography>
-                <Typography paragraph color="text.secondary">
-                  {announcement.dateTime}
-                </Typography>
-                <Typography paragraph>{announcement.detail}</Typography>
-              </Paper>
-            );
-          })}
-      </CardContent>
-    </Card>
+  return announcementIsEmpty ? (
+    <Typography variant="h5">
+      There is no announcement at the moment...
+    </Typography>
+  ) : (
+    announcementList.map((announcement) => (
+      <Card raised sx={{ my: "2rem" }}>
+        <CardHeader
+          key={announcement.id}
+          title={announcement.title}
+          subheader={announcement.dateTime}
+          action={
+            isAdmin && (
+              <IconButton onClick={() => deleteAnnouncement(announcement.id)}>
+                <DeleteIcon />
+              </IconButton>
+            )
+          }
+        />
+        <CardContent>
+          <Typography paragraph>{announcement.detail}</Typography>
+        </CardContent>
+      </Card>
+    ))
   );
 }
 
