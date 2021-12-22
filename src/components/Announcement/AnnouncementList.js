@@ -50,9 +50,8 @@ function AnnouncementList({ isAdmin }) {
     </Typography>
   ) : (
     announcementList.map((announcement) => (
-      <Card raised sx={{ my: "2rem" }}>
+      <Card key={announcement.id} raised sx={{ my: "2rem" }}>
         <CardHeader
-          key={announcement.id}
           title={announcement.title}
           subheader={announcement.dateTime}
           action={
