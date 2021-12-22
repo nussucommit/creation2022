@@ -4,6 +4,7 @@ import Timeline from "../components/Layout/CompetitionTimeline";
 import Prize from "../components/Layout/Prize";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
+import React from "react";
 
 export default function Home() {
   return (
@@ -147,7 +148,8 @@ export default function Home() {
         </h2>
       </div>
     </div>
-  )}
+  );
+}
 // export default function Home() {
 //   const authCtx = useContext(AuthContext);
 //   const currentUser = authCtx.user;

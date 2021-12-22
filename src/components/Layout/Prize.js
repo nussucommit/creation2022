@@ -4,7 +4,7 @@ export default function Prize({ imageURL, title }) {
       <div className={"hexagonShadow"}>
         <div className={"hexagon"}>
           <img
-            src={require(`../../images/${imageURL}`).default}
+            src={require(`../../images/${imageURL}`)}
             alt={"prize"}
             style={{ width: "150px" }}
           />
