@@ -2,15 +2,14 @@ import { useState, useRef, useContext } from "react";
 
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import Typography from "@mui/material/Typography";
 
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
-import FormContainer from "../components/Input/FormContainer";
+import FormContainer from "../components/Container/FormContainer";
 import AvatarChooser from "../components/Input/AvatarChooser";
 import InputTextField from "../components/Input/InputTextField";
 import { storage } from "../firebase/firebase";
@@ -31,19 +30,26 @@ function Profile() {
   const usernameInputRef = useRef();
 
   /* ------------------------------ Method ------------------------------ */
+  const setSnackbar = (message, type) =>
+    snackbarCtx.setSnackbar({
+      open: true,
+      message,
+      type,
+    });
+
   const uploadPhotoHandler = (event) => {
     event.preventDefault();
 
     const uploadedPhoto = event.target.files[0];
     if (!uploadedPhoto) {
-      alert("No photo uploaded.");
+      setSnackbar("No photo chosen!", "error")
       return;
     }
 
     const photoType = uploadedPhoto.name.split(".").pop();
     const validPhotoTypes = ["gif", "jpg", "png"];
     if (!validPhotoTypes.includes(photoType)) {
-      alert("Photo type is invalid. Make sure it is jpg/png/gif.");
+      setSnackbar("Photo type is invalid. Make sure it is jpg/png/gif.", "error");
       return;
     }
 
@@ -53,11 +59,7 @@ function Profile() {
 
     uploadBytes(storageRef, uploadedPhoto).then(() => {
       getDownloadURL(storageRef).then((url) => {
-        snackbarCtx.setSnackbar({
-          open: true,
-          message: "Photo uploaded!",
-          type: "success",
-        });
+        setSnackbar("Photo uploaded!", "success");
         authCtx.updateProfile({ photoURL: url });
         setProfilePhotoURL(url);
       });
@@ -71,7 +73,7 @@ function Profile() {
 
     const enteredUsername = usernameInputRef.current.value;
     const { usernameIsValid } = validateInput({ enteredUsername }, (message) =>
-      snackbarCtx.setSnackbar({ open: true, message, type: "warning" })
+      setSnackbar(message, "warning")
     );
 
     setEnteredUsernameIsValid(usernameIsValid);
@@ -82,25 +84,17 @@ function Profile() {
 
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
-    snackbarCtx.setSnackbar({
-      open: true,
-      message: "Username updated!",
-      type: "success",
-    });
+    setSnackbar("Username updated!", "success");
     authCtx.updateProfile({ displayName: enteredUsername });
   };
 
   return (
-    <FormContainer>
-      <Card raised>
-        <CardHeader title={`Hi there, ${username}`} />
+    <FormContainer
+      childComponents={[
+        <Typography variant="h4">{`Hi there, ${username}`}</Typography>,
+        <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />,
         <form onSubmit={updateProfileHandler}>
           <CardContent>
-            <AvatarChooser
-              src={profilePhotoURL}
-              onChange={uploadPhotoHandler}
-            />
-
             <InputTextField
               error={submitButtonClicked && !enteredUsernameIsValid}
               helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
@@ -114,9 +108,9 @@ function Profile() {
               Update username
             </Button>
           </CardActions>
-        </form>
-      </Card>
-    </FormContainer>
+        </form>,
+      ]}
+    />
   );
 }
 
