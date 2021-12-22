@@ -15,8 +15,8 @@ function ChallengeSelect({ submittedChallenge, onSelect }) {
 
   return (
     <FormControl required fullWidth>
-      <InputLabel>Challenge</InputLabel>
-      <Select value={challenge} onChange={handleChange} label="Challenge *">
+      <InputLabel>Challenge statement</InputLabel>
+      <Select value={challenge} onChange={handleChange} label="Challenge statement*">
         <MenuItem value="">
           <em>None</em>
         </MenuItem>

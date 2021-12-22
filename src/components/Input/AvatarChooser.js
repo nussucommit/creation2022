@@ -19,9 +19,14 @@ function AvatarChooser({ src, onChange }) {
             vertical: "bottom",
             horizontal: "right",
           }}
-          badgeContent={<PhotoCamera />}
+          badgeContent={<PhotoCamera sx={{ width: 50, height: 50 }} />}
+          overlap="circular"
         >
-          <Avatar alt="User profile picture" src={src} />
+          <Avatar
+            alt="User profile picture"
+            src={src}
+            sx={{ width: 300, height: 300 }}
+          />
         </Badge>
       </IconButton>
     </label>

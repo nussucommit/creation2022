@@ -12,10 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { deleteObject, ref } from "firebase/storage";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
@@ -23,8 +27,7 @@ import { db, storage } from "../../firebase/firebase";
 
 const styles = {
   media: {
-    width: "100%",
-    height: "100%",
+    width: "25%",
   },
 };
 
@@ -37,8 +40,7 @@ function SubmittedFileList({ render, checkSubmit }) {
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   const userUID = authCtx.user.uid;
-  const SNACKBAR_MESSAGE_SUCCESS_DELETE =
-    "File successfully deleted!";
+  const SNACKBAR_MESSAGE_SUCCESS_DELETE = "File successfully deleted!";
 
   useEffect(() => {
     const challengeIndexes = [1, 2, 3, 4];
@@ -84,9 +86,9 @@ function SubmittedFileList({ render, checkSubmit }) {
     pdfURL,
     docID
   ) => {
-    const imageStorageRef = await ref(storage, imageURL);
-    const psdStorageRef = await ref(storage, psdURL);
-    const pdfStorageRef = await ref(storage, pdfURL);
+    const imageStorageRef = ref(storage, imageURL);
+    const psdStorageRef = ref(storage, psdURL);
+    const pdfStorageRef = ref(storage, pdfURL);
     const submissionDoc = doc(
       db,
       `submissions/challenges/challenge${challengeIndex}`,
@@ -107,33 +109,48 @@ function SubmittedFileList({ render, checkSubmit }) {
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
           <Grid key={`${file.id}_${render}`} item>
-            <Card raised>
-              <CardHeader
-                title={`Challenge ${file.challenge} Submission`}
-                action={
-                  <IconButton
-                    onClick={() =>
-                      deleteSubmission(
-                        file.challenge,
-                        file.imageURL,
-                        file.psdURL,
-                        file.pdfURL,
-                        file.id
-                      )
-                    }
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              />
+            <Card raised sx={{ display: "flex", m: "1rem" }}>
               <CardMedia
                 component="img"
                 image={file.imageURL}
                 sx={styles.media}
               />
+              <Box
+                sx={{ display: "flex", flexDirection: "column", width: "100%" }}
+              >
+                <CardHeader
+                  title={`Challenge ${file.challenge} Submission`}
+                  subheader={file.dateTime}
+                  action={
+                    <IconButton
+                      onClick={() =>
+                        deleteSubmission(
+                          file.challenge,
+                          file.imageURL,
+                          file.psdURL,
+                          file.pdfURL,
+                          file.id
+                        )
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  }
+                />
+                <CardActions>
+                  <Button href={file.psdURL}>
+                    Download back my PSD file
+                  </Button>
+                </CardActions>
+                <CardActions>
+                  <Button href={file.pdfURL} target="__blank">
+                    View my PDF file
+                  </Button>
+                </CardActions>
+              </Box>
             </Card>
           </Grid>
-        ) : null;
+        ) : <Typography>You have not submit any file yet...</Typography>;
       })}
     </Grid>
   );
