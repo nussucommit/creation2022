@@ -1,11 +1,16 @@
+import Typography from "@mui/material/Typography";
+
 import AuthForm from "../components/Authentication/AuthForm";
-import FormContainer from "../components/Input/FormContainer";
+import FormContainer from "../components/Container/FormContainer";
 
 function SignIn() {
   return (
-    <FormContainer>
-      <AuthForm isSignin />
-    </FormContainer>
+    <FormContainer
+      childComponents={[
+        <Typography variant="h4">Sign in to continue</Typography>,
+        <AuthForm isSignin />,
+      ]}
+    />
   );
 }
 
