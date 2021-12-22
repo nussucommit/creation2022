@@ -1,185 +1,168 @@
 import { useState, useRef, useContext } from "react";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import AuthContext from "../../store/auth-context";
-import authErrorResponses from "../../constants/Authentication/AuthErrorResponses";
-import validateInput, {
-  compareString,
-} from "../../validations/InputValidation";
-import inputPatterns from "../../constants/Authentication/InputPatterns";
+import SnackbarContext from "../../store/snackbar-context";
+import InputTextField from "../Input/InputTextField";
+import { validateInput } from "../../validations/validate-input";
+import {
+  INPUT_HELPERTEXT_USERNAME,
+  INPUT_HELPERTEXT_EMAIL,
+  INPUT_HELPERTEXT_PASSWORD,
+} from "../../constants/input/helper_text";
 
-export default function AuthForm({ isSignin }) {
-  const navigate = useNavigate();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
-
+function AuthForm({ isSignin }) {
+  /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
+  const snackbarCtx = useContext(SnackbarContext);
 
-  const [isLogin] = useState(isSignin);
+  /* ------------------------------ State ------------------------------ */
   const [isLoading, setIsLoading] = useState(false);
-
+  const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
   const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
   const [enteredPasswordIsValid, setEnteredPasswordIsValid] = useState(false);
-  const [enteredConfirmPasswordIsValid, setEnteredConfirmPasswordIsValid] =
+  const [enteredConfirmPasswordIsMatch, setEnteredConfirmPasswordIsMatch] =
     useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
+  /* ------------------------------ Input Reference ------------------------------ */
+  const usernameInputRef = useRef("");
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const confirmPasswordInputRef = useRef("");
+
+  /* ------------------------------ Text ------------------------------ */
+  const switchButtonText = `${
+    isSignin ? "Create new" : "Login with existing"
+  } account`;
+  const submitButtonText = isSignin ? "Login" : "Create Account";
+  const resetPasswordButtonText = "Forgot password?";
+  const loadingText = isSignin ? "Logging in..." : "Creating account...";
+
+  /* ------------------------------ Path Link ------------------------------ */
+  const switchButtonLink = isSignin ? "/signup" : "/signin";
+  const resetPasswordButtonLink = "/reset-password";
+
+  /* ------------------------------ Method ------------------------------ */
   const submitHandler = (event) => {
     event.preventDefault();
 
-    /** Input validation */
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredConfirmPassword = isLogin
-      ? ""
-      : confirmPasswordInputRef.current.value;
-
     setSubmitButtonClicked(true);
 
-    const emailIsValid = validateInput(
-      enteredEmail,
-      inputPatterns["email"],
-      "The email provided must be NUS email and cannot be blank!"
-    );
+    const enteredUsername = usernameInputRef.current.value;
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+    const enteredConfirmPassword = confirmPasswordInputRef.current.value;
 
-    const passwordIsValid =
-      isLogin ||
-      validateInput(
-        enteredPassword,
-        inputPatterns["password"],
-        "The password must have minimum eight characters, at least one letter and one number!"
-      );
+    const inputTovalidate = isSignin
+      ? { enteredEmail }
+      : {
+          enteredUsername,
+          enteredEmail,
+          enteredPassword,
+          enteredConfirmPassword,
+        };
+    const setWarningSnackbar = (message) =>
+      snackbarCtx.setSnackbar({ open: true, message, type: "warning" });
 
-    const confirmPasswordIsMatched =
-      isLogin ||
-      compareString(
-        enteredPassword,
-        enteredConfirmPassword,
-        "Please make sure your password and confirm password match!"
-      );
+    const {
+      usernameIsValid,
+      emailIsValid,
+      passwordIsValid,
+      confirmPasswordIsMatch,
+    } = validateInput(inputTovalidate, setWarningSnackbar);
 
-    emailIsValid ? setEnteredEmailIsValid(true) : setEnteredEmailIsValid(false);
+    setEnteredUsernameIsValid(usernameIsValid);
+    setEnteredEmailIsValid(emailIsValid);
+    setEnteredPasswordIsValid(passwordIsValid);
+    setEnteredConfirmPasswordIsMatch(confirmPasswordIsMatch);
 
-    passwordIsValid
-      ? setEnteredPasswordIsValid(true)
-      : setEnteredPasswordIsValid(false);
-
-    confirmPasswordIsMatched
-      ? setEnteredConfirmPasswordIsValid(true)
-      : setEnteredConfirmPasswordIsValid(false);
-
-    if (!emailIsValid || !passwordIsValid || !confirmPasswordIsMatched) {
+    if (
+      !usernameIsValid ||
+      !emailIsValid ||
+      !passwordIsValid ||
+      !confirmPasswordIsMatch
+    ) {
       return;
     }
     setIsLoading(true);
 
-    /** Backend validation */
-    let url;
-    if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBuRBQUOL9pRCG_uAPC6c-CBibziO4f7-w";
-    } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBuRBQUOL9pRCG_uAPC6c-CBibziO4f7-w";
-    }
+    isSignin
+      ? authCtx.signin(enteredEmail, enteredPassword)
+      : authCtx.signup(enteredUsername, enteredEmail, enteredPassword);
 
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        setIsLoading(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            // Future improvement: using a snackbar instead
-            throw new Error(authErrorResponses[errorMessage]);
-          });
-        }
-      })
-      .then((data) => {
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        authCtx.login(data.idToken, expirationTime.toISOString());
-        navigate("/home", { replace: true });
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    setIsLoading(false);
   };
 
   return (
-    <Card raised>
+    <form onSubmit={submitHandler}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {isLogin ? "Sign in to continue" : "Sign up to continue"}
-        </Typography>
-        <form onSubmit={submitHandler}>
-          <TextField
-            error={submitButtonClicked && !enteredEmailIsValid}
-            fullWidth
-            helperText="Example: e1234567@u.nus.edu"
-            label="NUS Email"
-            required
-            variant="outlined"
-            inputRef={emailInputRef}
+        {/* ------------------------- Text fields --------------------- */}
+        {!isSignin && (
+          <InputTextField
+            error={submitButtonClicked && !enteredUsernameIsValid}
+            helperText={INPUT_HELPERTEXT_USERNAME}
+            placeholder="Username"
+            icon={<AccountCircleOutlinedIcon />}
+            inputRef={usernameInputRef}
           />
-          <TextField
-            error={submitButtonClicked && !enteredPasswordIsValid}
-            fullWidth
-            label="Password"
-            required
+        )}
+        <InputTextField
+          error={submitButtonClicked && !enteredEmailIsValid}
+          helperText={INPUT_HELPERTEXT_EMAIL}
+          placeholder="NUS Email"
+          icon={<MailOutlineIcon />}
+          inputRef={emailInputRef}
+        />
+        <InputTextField
+          error={submitButtonClicked && !enteredPasswordIsValid}
+          placeholder="Password"
+          helperText={isSignin ? "" : INPUT_HELPERTEXT_PASSWORD}
+          type="password"
+          icon={<LockOutlinedIcon />}
+          inputRef={passwordInputRef}
+        />
+        {!isSignin && (
+          <InputTextField
+            error={submitButtonClicked && !enteredConfirmPasswordIsMatch}
+            placeholder="Confirm Password"
             type="password"
-            variant="outlined"
-            inputRef={passwordInputRef}
+            icon={<LockOutlinedIcon />}
+            inputRef={confirmPasswordInputRef}
           />
-          {!isLogin && (
-            <TextField
-              error={submitButtonClicked && !enteredConfirmPasswordIsValid}
-              fullWidth
-              label="Confirm Password"
-              required
-              type="password"
-              variant="outlined"
-              inputRef={confirmPasswordInputRef}
-            />
-          )}
-          <CardActions>
-            <Button component={NavLink} to={isLogin ? "/signup" : "/signin"}>
-              {isLogin ? "Create new account" : "Login with existing account"}
-            </Button>
-          </CardActions>
-          <CardActions>
-            {!isLoading && (
-              <Button type="submit">
-                {isLogin ? "Login" : "Create Account"}
-              </Button>
-            )}
-            {isLoading && <p>Sending request...</p>}
-          </CardActions>
-        </form>
+        )}
       </CardContent>
-    </Card>
+      {/* ------------------------- Buttons --------------------- */}
+      {!isLoading && (
+        <CardActions>
+          <Button type="submit" variant="contained" fullWidth>
+            {submitButtonText}
+          </Button>
+        </CardActions>
+      )}
+      <CardActions>
+        <Button component={NavLink} to={switchButtonLink} fullWidth>
+          {switchButtonText}
+        </Button>
+      </CardActions>
+      {isSignin && (
+        <CardActions>
+          <Button component={NavLink} to={resetPasswordButtonLink} fullWidth>
+            {resetPasswordButtonText}
+          </Button>
+        </CardActions>
+      )}
+      {isLoading && <Typography variant="button">{loadingText}</Typography>}
+    </form>
   );
 }
+
+export default AuthForm;

@@ -1,5 +1,17 @@
-import AuthForm from "../components/Authentication/AuthForm";
+import Typography from "@mui/material/Typography";
 
-export default function SignUp() {
-  return <AuthForm isSignin={false} />;
+import AuthForm from "../components/Authentication/AuthForm";
+import FormContainer from "../components/Container/FormContainer";
+
+function SignUp() {
+  return (
+    <FormContainer
+      childComponents={[
+        <Typography variant="h4">Sign up to continue</Typography>,
+        <AuthForm isSignin={false} />,
+      ]}
+    />
+  );
 }
+
+export default SignUp;
