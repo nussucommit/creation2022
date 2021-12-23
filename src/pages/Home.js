@@ -1,12 +1,9 @@
-// import homeChallengeBackground from "../images/homeChallengeBackground.png";
 import Challenge from "../components/Layout/HomeChallenge";
 import Timeline from "../components/Layout/CompetitionTimeline";
 import Prize from "../components/Layout/Prize";
-import { useContext } from "react";
-import AuthContext from "../store/auth-context";
 import React from "react";
 
-export default function Home() {
+function Home() {
   return (
     <div className={"homeBody"}>
       {/* Cover Photo Gradient */}
@@ -150,11 +147,5 @@ export default function Home() {
     </div>
   );
 }
-// export default function Home() {
-//   const authCtx = useContext(AuthContext);
-//   const currentUser = authCtx.user;
 
-//   return (
-//     <div>{currentUser ? `Welcome, ${currentUser.email}` : "Home page"}</div>
-//   );
-// }
+export default Home;
