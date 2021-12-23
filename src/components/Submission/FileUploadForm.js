@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
@@ -14,7 +15,7 @@ import FormContainer from "../Container/FormContainer";
 import ChallengeSelect from "../Submission/ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 import { db, storage } from "../../firebase/firebase";
-import {getTimestamp, getDateTime} from "../../helpers/date-time-getter";
+import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 
 /* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
@@ -37,12 +38,13 @@ const validateUploadedFiles = (uploadedFileTypes) => {
   return imageFileIsValid && psdFileIsValid && pdfFileIsValid;
 };
 
-function FileUploadForm({ challengeSubmitStatus, onCancel }) {
+function FileUploadForm({ onCancel }) {
   /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
 
   /* ------------------------------ State ------------------------------ */
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeSelected, setChallengeSelected] = useState();
   const [imageFile, setImageFile] = useState(null);
@@ -50,78 +52,91 @@ function FileUploadForm({ challengeSubmitStatus, onCancel }) {
   const [pdfFile, setPDFFile] = useState(null);
 
   /* ------------------------------ Method ------------------------------ */
-  const setSnackbar = (message, type) =>
-    snackbarCtx.setSnackbar({
-      open: true,
-      message,
-      type,
-    });
+  const submitFileHandler = useCallback(
+    async (event) => {
+      event.preventDefault();
 
-  const submitFileHandler = async (event) => {
-    event.preventDefault();
+      const setSnackbar = (message, type) =>
+        snackbarCtx.setSnackbar({
+          open: true,
+          message,
+          type,
+        });
 
-    if (!imageFile || !psdFile || !pdfFile) {
-      setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
-      return;
-    }
+      if (!imageFile || !psdFile || !pdfFile) {
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
+        return;
+      }
 
-    /* ------------------------------ Type validation ------------------------------ */
-    const fileTypes = getFileTypes([imageFile, psdFile, pdfFile]);
-    const allFilesAreValid = validateUploadedFiles(fileTypes);
-    if (!allFilesAreValid) {
-      setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
-      return;
-    }
+      /* ------------------------------ Type validation ------------------------------ */
+      const fileTypes = getFileTypes([imageFile, psdFile, pdfFile]);
+      const allFilesAreValid = validateUploadedFiles(fileTypes);
+      if (!allFilesAreValid) {
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
+        return;
+      }
 
-    setIsSubmitting(true);
+      setIsSubmitting(true);
 
-    /* ------------------------------ File name modification ------------------------------ */
-    const userEmailPrefix = authCtx.user.email.replace("@u.nus.edu", "");
-    const modifiedImageName = `${userEmailPrefix}.${fileTypes[0]}`;
-    const modifiedPSDName = `${userEmailPrefix}.${fileTypes[1]}`;
-    const modifiedPDFName = `${userEmailPrefix}.${fileTypes[2]}`;
+      /* ------------------------------ File name modification ------------------------------ */
+      const userEmailPrefix = authCtx.user.email.replace("@u.nus.edu", "");
+      const modifiedImageName = `${userEmailPrefix}.${fileTypes[0]}`;
+      const modifiedPSDName = `${userEmailPrefix}.${fileTypes[1]}`;
+      const modifiedPDFName = `${userEmailPrefix}.${fileTypes[2]}`;
 
-    const imageStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedImageName}`;
-    const psdStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPSDName}`;
-    const pdfStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPDFName}`;
+      const imageStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedImageName}`;
+      const psdStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPSDName}`;
+      const pdfStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPDFName}`;
 
-    const imageStorageRef = ref(storage, imageStorageLocation);
-    const psdStorageRef = ref(storage, psdStorageLocation);
-    const pdfStorageRef = ref(storage, pdfStorageLocation);
+      const imageStorageRef = ref(storage, imageStorageLocation);
+      const psdStorageRef = ref(storage, psdStorageLocation);
+      const pdfStorageRef = ref(storage, pdfStorageLocation);
 
-    /* ------------------------------ File submission ------------------------------ */
-    await uploadBytes(imageStorageRef, imageFile);
-    await uploadBytes(psdStorageRef, psdFile);
-    await uploadBytes(pdfStorageRef, pdfFile);
+      /* ------------------------------ File submission ------------------------------ */
+      await uploadBytes(imageStorageRef, imageFile);
+      await uploadBytes(psdStorageRef, psdFile);
+      await uploadBytes(pdfStorageRef, pdfFile);
 
-    /* ------------------------------ Record submission link ------------------------------ */
-    const submissionCollectionRef = collection(
-      db,
-      `submissions/challenges/challenge${challengeSelected}`
-    );
-    const userUID = authCtx.user.uid;
-    const currentTimestamp = getTimestamp();
+      /* ------------------------------ Record submission link ------------------------------ */
+      const submissionCollectionRef = collection(
+        db,
+        `submissions/challenges/challenge${challengeSelected}`
+      );
+      const userUID = authCtx.user.uid;
+      const currentTimestamp = getTimestamp();
 
-    getDownloadURL(imageStorageRef).then(async (imageURL) => {
-      getDownloadURL(psdStorageRef).then(async (psdURL) => {
-        getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
-          await addDoc(submissionCollectionRef, {
-            uid: userUID,
-            timestamp: currentTimestamp,
-            dateTime: getDateTime(currentTimestamp),
-            challenge: challengeSelected,
-            imageURL,
-            psdURL,
-            pdfURL,
+      getDownloadURL(imageStorageRef).then(async (imageURL) => {
+        getDownloadURL(psdStorageRef).then(async (psdURL) => {
+          getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
+            await addDoc(submissionCollectionRef, {
+              uid: userUID,
+              timestamp: currentTimestamp,
+              dateTime: getDateTime(currentTimestamp),
+              challenge: challengeSelected,
+              imageURL,
+              psdURL,
+              pdfURL,
+            }).then(navigate("/refresh", { replace: true }));
           });
         });
       });
-    });
 
-    setIsSubmitting(false);
-    setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
-    onCancel();
-  };
+      setIsSubmitting(false);
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
+      onCancel();
+    },
+    [
+      imageFile,
+      psdFile,
+      pdfFile,
+      authCtx.user.email,
+      authCtx.user.uid,
+      snackbarCtx,
+      challengeSelected,
+      onCancel,
+      navigate
+    ]
+  );
 
   const uploadButtonProps = [
     {
@@ -150,7 +165,6 @@ function FileUploadForm({ challengeSubmitStatus, onCancel }) {
             <CardContent>
               <ChallengeSelect
                 onSelect={setChallengeSelected}
-                submittedChallenge={challengeSubmitStatus}
               />
               {uploadButtonProps.map((prop) => {
                 return (
