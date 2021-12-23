@@ -4,15 +4,15 @@ import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import SendIcon from "@mui/icons-material/Send";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Typography from "@mui/material/Typography";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
+import { INPUT_HELPERTEXT_EMAIL } from "../constants/input/helper_text";
+import { validateInput } from "../validations/validate-input";
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
 import FormContainer from "../components/Container/FormContainer";
 import InputTextField from "../components/Input/InputTextField";
-import { validateInput } from "../validations/validate-input";
-import { INPUT_HELPERTEXT_EMAIL } from "../constants/input/helper_text";
 
 function ResetPassword() {
   /* ------------------------------ Context ------------------------------ */
@@ -34,7 +34,7 @@ function ResetPassword() {
     const enteredEmail = emailInputRef.current.value;
     const inputToValidate = { enteredEmail };
     const setWarningSnackbar = (message) =>
-      snackbarCtx.setSnackbar({ open: true, message, type: "warning" });
+      snackbarCtx.setSnackbar({ open: true, message, type: 'warning' });
     const { emailIsValid } = validateInput(inputToValidate, setWarningSnackbar);
 
     setEnteredEmailIsValid(emailIsValid);
@@ -52,10 +52,10 @@ function ResetPassword() {
         <form onSubmit={sendPasswordResetEmailHandler}>
           <CardContent
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <InputTextField

@@ -8,9 +8,8 @@ const SnackbarContext = createContext({
 export const SnackbarContextProvider = (props) => {
   const [snackbar, setSnackbar] = useState({});
 
-  const setSnackbarHander = (newSnackbar) => {
+  const setSnackbarHander = (newSnackbar) =>
     setSnackbar({ ...snackbar, ...newSnackbar });
-  };
 
   const contextValue = {
     snackbar,

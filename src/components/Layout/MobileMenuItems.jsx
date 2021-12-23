@@ -4,28 +4,24 @@ import { NavLink } from "react-router-dom";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import AuthContext from "../../store/auth-context";
-import menuItems from "../../constants/Navigation/NavBarMenuItems";
+import menuItems from "../../constants/Navigation/navbar_menu_items";
 import authMenuItems from "../../constants/Navigation/auth_menu_items";
 
-export default function MobileMenuItems() {
+function MobileMenuItems() {
   const authCtx = useContext(AuthContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -40,18 +36,18 @@ export default function MobileMenuItems() {
         id="menu-appbar"
         anchorEl={anchorElNav}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
         sx={{
-          display: { xs: "block", md: "none" },
+          display: { xs: 'block', md: 'none' },
         }}
       >
         {menuItems.map((page) => {
@@ -65,7 +61,7 @@ export default function MobileMenuItems() {
               onClick={handleCloseNavMenu}
             >
               <Typography
-                style={{ fontFamily: "Poppins", fontWeight: 400 }}
+                style={{ fontFamily: 'Poppins', fontWeight: 400 }}
                 textAlign="center"
               >
                 {pageTitle}
@@ -77,7 +73,7 @@ export default function MobileMenuItems() {
           authMenuItems.map((item, index) => (
             <MenuItem key={index} component={NavLink} to={item.pageURL}>
               <Typography
-                style={{ fontFamily: "Poppins", fontWeight: 400 }}
+                style={{ fontFamily: 'Poppins', fontWeight: 400 }}
                 textAlign="center"
               >
                 {item.pageTitle}
@@ -88,3 +84,5 @@ export default function MobileMenuItems() {
     </Box>
   );
 }
+
+export default MobileMenuItems;

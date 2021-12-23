@@ -12,7 +12,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { auth, emailProvider } from "../firebase/firebase";
+import { auth, emailProvider } from "../firebase/firebase-config";
 import SnackbarContext from "../store/snackbar-context";
 
 const AuthContext = createContext({
@@ -30,7 +30,9 @@ const AuthContext = createContext({
 
 export const AuthContextProvider = (props) => {
   const snackbarCtx = useContext(SnackbarContext);
+
   const [user, setUser] = useState(null);
+
   const userIsSignedIn = !!user;
   const userIsVerified = userIsSignedIn && user.emailVerified;
 
@@ -41,14 +43,12 @@ export const AuthContextProvider = (props) => {
       type: type,
     });
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+  onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
 
   const resetPasswordByEmailHandler = async (email) => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/signin",
+        url: "http://creation2022.nussucommit.com/signin",
       };
       await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
         setSnackbar("Password reset email sent!", "success")
@@ -101,13 +101,12 @@ export const AuthContextProvider = (props) => {
       );
 
       await reauthenticateWithCredential(user, credential);
-      await updatePassword(user, newPassword)
-        .then(
-          setSnackbar(
-            "Password updated! Please sign in again using the new password.",
-            "success"
-          )
-        );
+      await updatePassword(user, newPassword).then(
+        setSnackbar(
+          "Password updated! Please sign in again using the new password.",
+          "success"
+        )
+      );
       signoutHandler();
     } catch (error) {
       setSnackbar(error.message, "error");
@@ -125,7 +124,7 @@ export const AuthContextProvider = (props) => {
   const verifyEmailHandler = async () => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/submission",
+        url: "http://creation2022.nussucommit.com/submission",
       };
       await sendEmailVerification(user, actionCodeSettings).then(
         setSnackbar(

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import {
   collection,
@@ -18,17 +18,17 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
 
+import { db, storage } from "../../firebase/firebase-config";
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
-import { db, storage } from "../../firebase/firebase";
 
 const styles = {
   media: {
-    width: "25%",
+    width: '25%',
   },
 };
 
@@ -40,7 +40,7 @@ function SubmittedFileList() {
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   const userUID = authCtx.user.uid;
-  const SNACKBAR_MESSAGE_SUCCESS_DELETE = "File successfully deleted!";
+  const SNACKBAR_MESSAGE_SUCCESS_DELETE = 'File successfully deleted!';
 
   useEffect(() => {
     const challengeIndexes = [1, 2, 3, 4];
@@ -50,8 +50,8 @@ function SubmittedFileList() {
     const challengeRefs = challengePaths.map((path) =>
       query(
         collection(db, path),
-        orderBy("timestamp", "desc"),
-        where("uid", "==", userUID)
+        orderBy('timestamp', 'desc'),
+        where('uid', '==', userUID)
       )
     );
     const getSubmittedFiles = () => {
@@ -97,9 +97,9 @@ function SubmittedFileList() {
       deleteObject(psdStorageRef).then(deleteObject(pdfStorageRef))
     );
     await deleteDoc(submissionDoc).then(
-      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, "success")
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, 'success')
     );
-    navigate("/refresh", { replace: true });
+    navigate('/refresh', { replace: true });
   };
 
   return (
@@ -107,14 +107,14 @@ function SubmittedFileList() {
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
           <Grid key={file.id} item>
-            <Card raised sx={{ display: "flex", m: "1rem" }}>
+            <Card raised sx={{ display: 'flex', m: '1rem' }}>
               <CardMedia
                 component="img"
                 image={file.imageURL}
                 sx={styles.media}
               />
               <Box
-                sx={{ display: "flex", flexDirection: "column", width: "100%" }}
+                sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
               >
                 <CardHeader
                   title={`Challenge ${file.challenge} Submission`}
@@ -154,4 +154,4 @@ function SubmittedFileList() {
   );
 }
 
-export default SubmittedFileList;
+export default React.memo(SubmittedFileList);

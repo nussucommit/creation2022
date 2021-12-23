@@ -1,19 +1,15 @@
+import React from "react";
+
 import Grid from "@mui/material/Grid";
 
-function PageContainer({ childComponents }) {
+function FormContainer({ childComponents }) {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Grid item xs />
-      <Grid item xs={10}>
+      <Grid item xs={10} sm={8} md={6}>
         {childComponents.map((component, index) => {
-          const isFirtstItem = index === 0;
           return (
-            <Grid
-              key={index}
-              item
-              textAlign={isFirtstItem && "center"}
-              sx={{ m: "2rem" }}
-            >
+            <Grid key={index} item textAlign="center" sx={{ m: '1rem' }}>
               {component}
             </Grid>
           );
@@ -24,4 +20,4 @@ function PageContainer({ childComponents }) {
   );
 }
 
-export default PageContainer;
+export default React.memo(FormContainer);
