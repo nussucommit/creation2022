@@ -13,13 +13,13 @@ export function getDateTime(timeStamp) {
   const minute = dateTime.getMinutes();
 
   return (
-    day +
+    (day < 10 ? `0${day}` : day) +
     "-" +
-    month +
+    (month < 10 ? `0${month}` : month) +
     "-" +
     year +
     " " +
-    hour +
+    (hour < 10 ? `0${hour}` : hour) +
     ":" +
     (minute < 10 ? `0${minute}` : minute)
   );
