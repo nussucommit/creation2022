@@ -25,12 +25,12 @@ function CustomSnackbar() {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       open={open}
       autoHideDuration={4000}
       onClose={handleClose}
     >
-      <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
+      <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
         {message}
       </Alert>
     </Snackbar>

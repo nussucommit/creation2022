@@ -1,8 +1,8 @@
+import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import styled from "styled-components";
 
 function AvatarChooser({ src, onChange }) {
   return (
@@ -16,8 +16,8 @@ function AvatarChooser({ src, onChange }) {
       <IconButton component="span">
         <Badge
           anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
+            vertical: 'bottom',
+            horizontal: 'right',
           }}
           badgeContent={<PhotoCamera sx={{ width: 50, height: 50 }} />}
           overlap="circular"

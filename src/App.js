@@ -24,6 +24,9 @@ import CustomSnackbar from "./components/Messages/CustomSnackbar";
 
 const theme = createTheme({
   palette: {
+    primary: {
+      main: "#323232",
+    },
     secondary: {
       main: "#ffffff",
     },
@@ -36,7 +39,7 @@ const theme = createTheme({
  * @version 1.0.0
  * @author [Desmond To](https://github.com/DesmondTo)
  */
-export default function App() {
+function App() {
   const authCtx = useContext(AuthContext);
 
   const isSignedIn = authCtx.isSignedIn;
@@ -97,3 +100,5 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+export default App;

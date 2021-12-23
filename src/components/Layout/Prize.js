@@ -1,4 +1,4 @@
-export default function Prize({ imageURL, title }) {
+function Prize({ imageURL, title }) {
   return (
     <div style={{ margin: "20px" }}>
       <div className={"hexagonShadow"}>
@@ -15,3 +15,5 @@ export default function Prize({ imageURL, title }) {
     </div>
   );
 }
+
+export default Prize;

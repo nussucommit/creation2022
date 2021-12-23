@@ -1,6 +1,6 @@
 import rules from "./rules_and_regulations.json";
 
-export default function Rules() {
+function Rules() {
   return (
     <div className={"mainBody"}>
       <h1
@@ -87,3 +87,5 @@ export default function Rules() {
     </div>
   );
 }
+
+export default Rules;

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Grid from "@mui/material/Grid";
 
 function FormContainer({ childComponents }) {
@@ -7,7 +9,7 @@ function FormContainer({ childComponents }) {
       <Grid item xs={10} sm={8} md={6}>
         {childComponents.map((component, index) => {
           return (
-            <Grid key={index} item textAlign="center" sx={{ m: "1rem" }}>
+            <Grid key={index} item textAlign="center" sx={{ m: '1rem' }}>
               {component}
             </Grid>
           );
@@ -18,4 +20,4 @@ function FormContainer({ childComponents }) {
   );
 }
 
-export default FormContainer;
+export default React.memo(FormContainer);

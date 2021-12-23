@@ -9,13 +9,13 @@ import {
   orderBy,
 } from "firebase/firestore";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { db } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase-config";
 import SnackbarContext from "../../store/snackbar-context";
 
 function AnnouncementList({ isAdmin }) {
