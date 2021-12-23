@@ -14,7 +14,7 @@ import FormContainer from "../Container/FormContainer";
 import ChallengeSelect from "../Submission/ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 import { db, storage } from "../../firebase/firebase";
-import getDateTime from "../../helpers/date-time-getter";
+import {getTimestamp, getDateTime} from "../../helpers/date-time-getter";
 
 /* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
@@ -100,12 +100,15 @@ function FileUploadForm({ challengeSubmitStatus, onCancel }) {
       `submissions/challenges/challenge${challengeSelected}`
     );
     const userUID = authCtx.user.uid;
+    const currentTimestamp = getTimestamp();
+
     getDownloadURL(imageStorageRef).then(async (imageURL) => {
       getDownloadURL(psdStorageRef).then(async (psdURL) => {
         getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
           await addDoc(submissionCollectionRef, {
             uid: userUID,
-            dateTime: getDateTime(),
+            timestamp: currentTimestamp,
+            dateTime: getDateTime(currentTimestamp),
             challenge: challengeSelected,
             imageURL,
             psdURL,
