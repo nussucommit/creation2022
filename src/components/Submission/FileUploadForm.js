@@ -14,7 +14,7 @@ import FormContainer from "../Container/FormContainer";
 import ChallengeSelect from "../Submission/ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 import { db, storage } from "../../firebase/firebase";
-import getDateTime from "../../helpers/date-time-getter";
+import {getTimestamp, getDateTime} from "../../helpers/date-time-getter";
 
 /* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
@@ -22,7 +22,7 @@ const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
-  "Please make sure the file uploaded has the correct format(jpg/png, psd, pdf)!";
+  "Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!";
 
 /* ------------------------------ Helper functions ------------------------------ */
 const getFileTypes = (uploadedFiles) =>
@@ -100,12 +100,15 @@ function FileUploadForm({ challengeSubmitStatus, onCancel }) {
       `submissions/challenges/challenge${challengeSelected}`
     );
     const userUID = authCtx.user.uid;
+    const currentTimestamp = getTimestamp();
+
     getDownloadURL(imageStorageRef).then(async (imageURL) => {
       getDownloadURL(psdStorageRef).then(async (psdURL) => {
         getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
           await addDoc(submissionCollectionRef, {
             uid: userUID,
-            dateTime: getDateTime(),
+            timestamp: currentTimestamp,
+            dateTime: getDateTime(currentTimestamp),
             challenge: challengeSelected,
             imageURL,
             psdURL,

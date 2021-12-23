@@ -48,7 +48,7 @@ export const AuthContextProvider = (props) => {
   const resetPasswordByEmailHandler = async (email) => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/sign-in",
+        url: "http://localhost:3000/signin",
       };
       await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
         setSnackbar("Password reset email sent!", "success")
@@ -60,13 +60,12 @@ export const AuthContextProvider = (props) => {
 
   const signupHandler = async (username, email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then(
-          await updateProfileHandler({
-            displayName: username,
-          })
-        )
-        .then(setSnackbar("Account created!", "success"));
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        async () =>
+          await updateProfile(auth.currentUser, { displayName: username }).then(
+            setSnackbar("Account created!", "success")
+          )
+      );
     } catch (error) {
       setSnackbar(error.message, "error");
     }
@@ -101,19 +100,15 @@ export const AuthContextProvider = (props) => {
         currentPassword
       );
 
-      await reauthenticateWithCredential(user, credential).then(
-        await updatePassword(user, newPassword)
-          .then(signoutHandler)
-          .catch((error) => {
-            throw new Error(error);
-          })
-          .then(
-            setSnackbar(
-              "Password updated! Please sign in again using the new password.",
-              "success"
-            )
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword)
+        .then(
+          setSnackbar(
+            "Password updated! Please sign in again using the new password.",
+            "success"
           )
-      );
+        );
+      signoutHandler();
     } catch (error) {
       setSnackbar(error.message, "error");
     }

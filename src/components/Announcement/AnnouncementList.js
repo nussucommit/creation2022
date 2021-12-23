@@ -1,6 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 
-import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  deleteDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card";
@@ -19,9 +26,13 @@ function AnnouncementList({ isAdmin }) {
 
   useEffect(() => {
     const announcementCollectionRef = collection(db, "announcements");
+    const reorderedCollectionRef = query(
+      announcementCollectionRef,
+      orderBy("timestamp", "desc")
+    );
 
     const getAnnouncements = async () => {
-      const announcementData = await getDocs(announcementCollectionRef);
+      const announcementData = await getDocs(reorderedCollectionRef);
       setAnnouncementList(
         announcementData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
