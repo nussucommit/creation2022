@@ -100,19 +100,15 @@ export const AuthContextProvider = (props) => {
         currentPassword
       );
 
-      await reauthenticateWithCredential(user, credential).then(
-        await updatePassword(user, newPassword)
-          .then(signoutHandler)
-          .catch((error) => {
-            throw new Error(error);
-          })
-          .then(
-            setSnackbar(
-              "Password updated! Please sign in again using the new password.",
-              "success"
-            )
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword)
+        .then(
+          setSnackbar(
+            "Password updated! Please sign in again using the new password.",
+            "success"
           )
-      );
+        );
+      signoutHandler();
     } catch (error) {
       setSnackbar(error.message, "error");
     }
