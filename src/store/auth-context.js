@@ -60,13 +60,12 @@ export const AuthContextProvider = (props) => {
 
   const signupHandler = async (username, email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then(
-          await updateProfileHandler({
-            displayName: username,
-          })
-        )
-        .then(setSnackbar("Account created!", "success"));
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        async () =>
+          await updateProfile(auth.currentUser, { displayName: username }).then(
+            setSnackbar("Account created!", "success")
+          )
+      );
     } catch (error) {
       setSnackbar(error.message, "error");
     }
