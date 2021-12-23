@@ -14,7 +14,7 @@ import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
 import FormContainer from "../Container/FormContainer";
-import ChallengeSelect from "../Submission/ChallengeSelect";
+import ChallengeSelect from "./ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 
 /* ------------------------------ Constants ------------------------------ */
