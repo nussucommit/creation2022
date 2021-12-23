@@ -32,12 +32,11 @@ const styles = {
   },
 };
 
-function SubmittedFileList({ render, checkSubmit }) {
+function SubmittedFileList() {
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
 
   const navigate = useNavigate();
-  const [challengeSubmitted, setChallengeSubmitted] = useState([]);
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   const userUID = authCtx.user.uid;
@@ -59,7 +58,6 @@ function SubmittedFileList({ render, checkSubmit }) {
       challengeRefs.map(async (ref) => {
         const challengeData = await getDocs(ref);
         const docIsEmpty = challengeData.docs.length === 0;
-        setChallengeSubmitted((prev) => [...prev, docIsEmpty]);
         if (!docIsEmpty) {
           setChallengeSubmission((prev) => [
             ...prev,
@@ -70,12 +68,7 @@ function SubmittedFileList({ render, checkSubmit }) {
     };
 
     getSubmittedFiles();
-  }, [render, userUID]);
-
-  useEffect(
-    () => checkSubmit(challengeSubmitted),
-    [render, checkSubmit, challengeSubmitted]
-  );
+  }, [userUID]);
 
   const setSnackbar = (message, type) =>
     snackbarCtx.setSnackbar({
@@ -113,7 +106,7 @@ function SubmittedFileList({ render, checkSubmit }) {
     <Grid container direction="row" justifyContent="center" alignItems="center">
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
-          <Grid key={`${file.id}_${render}`} item>
+          <Grid key={file.id} item>
             <Card raised sx={{ display: "flex", m: "1rem" }}>
               <CardMedia
                 component="img"
