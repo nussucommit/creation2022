@@ -1,11 +1,10 @@
 import Challenge from "../components/Layout/HomeChallenge";
 import Timeline from "../components/Layout/CompetitionTimeline";
 import Prize from "../components/Layout/Prize";
-import React from "react";
 
 function Home() {
   return (
-    <div className={"homeBody"}>
+    <div className="homeBody">
       {/* Cover Photo Gradient */}
       <div
         style={{
@@ -18,10 +17,7 @@ function Home() {
       <div
         style={{ backgroundColor: "rgba(255,255,255,0.2)", padding: "30px" }}
       >
-        <h1
-          className={"mainTitle"}
-          style={{ textShadow: "0px 4px 4px #370005" }}
-        >
+        <h1 className="mainTitle" style={{ textShadow: "0px 4px 4px #370005" }}>
           Overview of Challenges
         </h1>
         <div

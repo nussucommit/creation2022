@@ -1,17 +1,17 @@
 import { useRef, useState, useContext } from "react";
 
-import AuthContext from "../store/auth-context";
-import SnackbarContext from "../store/snackbar-context";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 
+import { INPUT_HELPERTEXT_PASSWORD } from "../constants/input/helper_text";
+import { validateInput } from "../validations/validate-input";
+import AuthContext from "../store/auth-context";
+import SnackbarContext from "../store/snackbar-context";
 import InputTextField from "../components/Input/InputTextField";
 import FormContainer from "../components/Container/FormContainer";
-import { validateInput } from "../validations/validate-input";
-import { INPUT_HELPERTEXT_PASSWORD } from "../constants/input/helper_text";
 
 function ChangePassword() {
   /* ------------------------------ Context ------------------------------ */

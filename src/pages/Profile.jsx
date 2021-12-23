@@ -4,16 +4,16 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Typography from "@mui/material/Typography";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
+import { storage } from "../firebase/firebase-config";
+import { validateInput } from "../validations/validate-input";
 import AuthContext from "../store/auth-context";
 import SnackbarContext from "../store/snackbar-context";
 import FormContainer from "../components/Container/FormContainer";
 import AvatarChooser from "../components/Input/AvatarChooser";
 import InputTextField from "../components/Input/InputTextField";
-import { storage } from "../firebase/firebase";
-import { validateInput } from "../validations/validate-input";
 
 function Profile() {
   /* ------------------------------ Context ------------------------------ */

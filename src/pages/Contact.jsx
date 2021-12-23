@@ -1,13 +1,14 @@
+import { useState } from "react";
+
 import { Button } from "@mui/material";
-import React, { useState } from "react";
-import { db } from "../firebase";
+
+import { db } from "../firebase/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 
-export default function Contact() {
+function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [inquiry, setInquiry] = useState("");
-  //   const [loader, setLoader] = useState(false);
 
   function Validate(e) {
     e.preventDefault();
@@ -22,7 +23,6 @@ export default function Contact() {
 
   function HandleSubmit(e) {
     e.preventDefault();
-    // setLoader(true);
 
     addDoc(collection(db, "contact"), {
       name: name,
@@ -35,12 +35,10 @@ export default function Contact() {
       },
     })
       .then(() => {
-        // setLoader(false);
         alert("Your message has been submitted👍");
       })
       .catch((error) => {
         alert(error.message);
-        // setLoader(false);
       });
 
     setName("");
@@ -98,3 +96,5 @@ export default function Contact() {
     </div>
   );
 }
+
+export default Contact;
