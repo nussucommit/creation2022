@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   deleteDoc,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -48,7 +49,11 @@ function SubmittedFileList({ render, checkSubmit }) {
       (index) => `submissions/challenges/challenge${index}`
     );
     const challengeRefs = challengePaths.map((path) =>
-      query(collection(db, path), where("uid", "==", userUID))
+      query(
+        collection(db, path),
+        orderBy("timestamp", "desc"),
+        where("uid", "==", userUID)
+      )
     );
     const getSubmittedFiles = () => {
       challengeRefs.map(async (ref) => {
@@ -138,9 +143,7 @@ function SubmittedFileList({ render, checkSubmit }) {
                   }
                 />
                 <CardActions>
-                  <Button href={file.psdURL}>
-                    Download back my PSD file
-                  </Button>
+                  <Button href={file.psdURL}>Download back my PSD file</Button>
                 </CardActions>
                 <CardActions>
                   <Button href={file.pdfURL} target="__blank">
@@ -150,7 +153,9 @@ function SubmittedFileList({ render, checkSubmit }) {
               </Box>
             </Card>
           </Grid>
-        ) : <Typography>You have not submit any file yet...</Typography>;
+        ) : (
+          <Typography>You have not submit any file yet...</Typography>
+        );
       })}
     </Grid>
   );

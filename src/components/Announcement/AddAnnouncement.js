@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 
 import SnackbarContext from "../../store/snackbar-context";
 import { db } from "../../firebase/firebase";
-import getDateTime from "../../helpers/date-time-getter";
+import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 
 function AddAnnouncement({ isAdmin }) {
   const snackbarCtx = useContext(SnackbarContext);
@@ -31,11 +31,12 @@ function AddAnnouncement({ isAdmin }) {
 
     const enteredTitle = titleInputRef.current.value;
     const enteredDetail = detailInputRef.current.value;
-    const currentDateTime = getDateTime();
+    const currentTimestamp = getTimestamp();
 
     await addDoc(announcementCollectionRef, {
       title: enteredTitle,
-      dateTime: currentDateTime,
+      timestamp: currentTimestamp,
+      dateTime: getDateTime(currentTimestamp),
       detail: enteredDetail,
     })
       .then(() => setSnackbar("Announcement posted", "success"))

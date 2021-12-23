@@ -1,12 +1,26 @@
-function getDateTime() {
-  let todayDate = new Date();
-  const year = todayDate.getFullYear();
-  const month = todayDate.getMonth() + 1;
-  const day = todayDate.getDate();
-  const hour = todayDate.getHours();
-  const minute = todayDate.getMinutes();
+import { Timestamp } from "firebase/firestore";
 
-  return day + "-" + month + "-" + year + " " + hour + ":" + minute;
+export function getTimestamp() {
+  return Timestamp.now();
 }
 
-export default getDateTime;
+export function getDateTime(timeStamp) {
+  let dateTime = timeStamp.toDate();
+  const year = dateTime.getFullYear();
+  const month = dateTime.getMonth() + 1;
+  const day = dateTime.getDate();
+  const hour = dateTime.getHours();
+  const minute = dateTime.getMinutes();
+
+  return (
+    day +
+    "-" +
+    month +
+    "-" +
+    year +
+    " " +
+    hour +
+    ":" +
+    (minute < 10 ? `0${minute}` : minute)
+  );
+}
