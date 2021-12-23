@@ -61,15 +61,30 @@ export default function MobileMenuItems() {
               to={pageURL}
               onClick={handleCloseNavMenu}
             >
-              <Typography textAlign="center">{pageTitle}</Typography>
+              <Typography
+                style={{ fontFamily: "Poppins", fontWeight: 400 }}
+                textAlign="center"
+              >
+                {pageTitle}
+              </Typography>
             </MenuItem>
           );
         })}
         <MenuItem component={NavLink} to="/signin">
-          <Typography textAlign="center">Sign in</Typography>
+          <Typography
+            style={{ fontFamily: "Poppins", fontWeight: 400 }}
+            textAlign="center"
+          >
+            Sign in
+          </Typography>
         </MenuItem>
         <MenuItem component={NavLink} to="/signup">
-          <Typography textAlign="center">Sign up</Typography>
+          <Typography
+            style={{ fontFamily: "Poppins", fontWeight: 400 }}
+            textAlign="center"
+          >
+            Sign up
+          </Typography>
         </MenuItem>
       </Menu>
     </Box>

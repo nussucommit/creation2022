@@ -15,7 +15,12 @@ function DesktopMenuItems() {
 
         return (
           <MenuItem key={pageTitle} component={NavLink} to={pageURL}>
-            <Typography textAlign="center">{pageTitle}</Typography>
+            <Typography
+              style={{ fontFamily: "Poppins", fontWeight: 400 }}
+              textAlign="center"
+            >
+              {pageTitle}
+            </Typography>
           </MenuItem>
         );
       })}
