@@ -61,7 +61,12 @@ function UserMenuItems() {
           to="/profile"
           onClick={handleCloseUserMenu}
         >
-          <Typography textAlign="center">Profile</Typography>
+          <Typography
+            style={{ fontFamily: "Poppins", fontWeight: 400 }}
+            textAlign="center"
+          >
+            Profile
+          </Typography>
         </MenuItem>
         <MenuItem
           component={NavLink}

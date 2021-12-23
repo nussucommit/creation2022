@@ -1,0 +1,73 @@
+[
+    {
+        "sectionTitle": "Eligibility Criteria",
+        "contentRule":["Only NUS undergraduate students shall be eligible to participate in CREATION 2020."]
+    },
+    {
+        "sectionTitle": "Registration",
+        "contentRule":["To register for CREATION 2020, participant must sign up on this website.",
+        "Registration for the competition will open on 20th January 2020 and will close on 21st February 2020 18:00.",
+        "Participation in CREATION 2020 is FREE of charge."]
+    },
+    {
+        "sectionTitle": "Duration",
+        "contentRule":["The competition will take place from 20th January 2020 to 24th February 2020.",
+        "All dates and times referred to in these rules, the website and in any documents relating to or in connection with the competition, shall be in the Singapore time zone (GMT +8).",
+        "CREATION committee reserves the right to alter the duration of individual rounds of the competition at any time, without providing any justification. Such amendments will be communicated to the participants prior to such change."]
+    },
+    {
+        "sectionTitle": "Competition",
+        "contentRule":["Participants must sign up through CREATION 2020 website by 21st February 2020 18:00.",
+        "Only registered participants are allowed to submit an entry.",
+        "Each participant can choose to design for more than one challenge statement.","Each participant can submit only ONE design per challenge statement, of which will be judged by a panel of judges during the closing ceremony on 24th February 2020.",
+        "All entries should fulfill the requirements specified in their respective challenge statement.",
+        "Participants are to pitch their final artwork to the panel of judges during the closing ceremony on 24th February 2020.",
+        "Participants shall be able to attend the closing ceremony on 24th February 2020. Participants who are unable to attend the closing ceremony for the pitching session will be heavily penalized during the assessment or may face disqualification as well.",
+        "Deadline of submission of artwork is 21st February 2020. Entries after the given deadline will not be accepted. CREATION committee reserves the right to reject a submission that is submitted past the stipulated deadline."
+            
+    ]
+    },
+    {
+        "sectionTitle": "Selection Process",
+        "contentRule":["Assessment criteria will vary among challenge statements.",
+        "The evaluation judging criteria for eligible submission are as follows:",
+        [
+            {"prizeName": "2020 NUSSU Welfare Diary",
+            "details":["Technical excellence","Creative merit","Suitability for end use","Public vote on 22-23 February 2020"]
+            }, 
+            {"prizeName": "Key Visual for NUS Commencement Class Giving 2021",
+            "details":["Technical excellence","Creative merit","Suitability for end use","Relevance to theme"]
+            },
+            {"prizeName": "Mascot for NUS IT Security Awareness Campaign",
+            "details":["Technical excellence","Creative merit","Suitability for end use","Relevance to theme"]
+            },
+            {"prizeName": "Newcomer Award",
+            "details":["Only participants who have participated in NUSSU commIT Cyberia Camp and/or any of NUSSU commIT Adobe Photoshop Workshop and/or any of NUSSU commIT Adobe Illustrator Workshop in the past two years will be considered for CREATION 2020 Newcomer Award.",
+                    "ONE Newcomer Award will be given to ONE participant fulfilling the above criteria whose artwork is the judges’ favorite design among all challenge statements and is not a winning entry for any of the challenge statements."]
+            }
+
+        ],
+        "All entries should fulfil the requirements specified in their respective challenge statement. Participants artwork will not be accepted if the challenge’s requirements are not met.",
+        "The decision of the judges will be final and binding."
+    ]
+    },
+    {
+        "sectionTitle": "Intellectual Property",
+        "contentRule":["All artwork submitted for CREATION 2020 competition shall become the property of the partners for the respective challenge statements.",
+        "Winning posters may be modified and used by partners for their personal usage."
+        ]
+    },
+    {
+        "sectionTitle": "General Rules",
+        "contentRule":["CREATION committee reserves the right to amend these rules at any time. CREATION committee may also create rules, which will apply to a specific competition only. Participants are responsible for checking the relevant competition page for any updates to the rules. A copy of the latest version of the rules is made available at the website. By continuing to participate in CREATION 2020, participants signify their agreement to any updates to the rules.",
+        "CREATION committee reserves the right to disqualify any participant, if:",
+        ["participant is found to have violated the rules; or", 
+        "participant cheats or tampers with the operation of the CREATION 2020; or",
+        "participant cheats or tampers with the operation of the CREATION 2020; or",
+        "participant engages in conduct that is unlawful, offensive, or otherwise leads the CREATION committee to conclude that public association with the participant could cause controversy or generate any negative publicity for CREATION 2020 or its partners."],
+        "All prizes are non-transferrable and not exchangeable for cash."
+        ]
+    }
+    
+]
+
