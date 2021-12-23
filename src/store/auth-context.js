@@ -48,7 +48,7 @@ export const AuthContextProvider = (props) => {
   const resetPasswordByEmailHandler = async (email) => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/sign-in",
+        url: "http://localhost:3000/signin",
       };
       await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
         setSnackbar("Password reset email sent!", "success")
