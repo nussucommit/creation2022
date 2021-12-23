@@ -7,9 +7,7 @@ import AuthContext from "../store/auth-context";
 function VerifyEmail() {
   const authCtx = useContext(AuthContext);
 
-  const sendVerificationEmailHandler = () => {
-    authCtx.verifyEmail();
-  };
+  const sendVerificationEmailHandler = () => authCtx.verifyEmail();
 
   return (
     <div>

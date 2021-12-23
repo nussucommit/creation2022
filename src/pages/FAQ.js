@@ -1,22 +1,22 @@
 import faqs from "./faq.json";
 
-export default function FAQ() {
+function FAQ() {
   return (
-    <div className={"mainBody"}>
+    <div className="mainBody">
       <h1
-        className={"mainTitle"}
-        style={{ textShadow: "0px 0px 16px #ED8F03" }}
+        className="mainTitle"
+        style={{ textShadow: '0px 0px 16px #ED8F03' }}
       >
         Frequently Asked Question
       </h1>
       <br />
-      <div style={{ paddingLeft: "15vw", paddingRight: "15vw" }}>
+      <div style={{ paddingLeft: '15vw', paddingRight: '15vw' }}>
         {faqs.map((faq, index) => (
-          <div key={index} style={{ marginBottom: "80px" }}>
-            <h2 className={"secondaryTitle"} style={{ letterSpacing: "1px" }}>
+          <div key={index} style={{ marginBottom: '80px' }}>
+            <h2 className="secondaryTitle" style={{ letterSpacing: '1px' }}>
               {index + 1}. {faq.question}
             </h2>
-            <span style={{ color: "white", lineHeight: "30px" }}>
+            <span style={{ color: 'white', lineHeight: '30px' }}>
               {faq.answer}
             </span>
           </div>
@@ -25,3 +25,5 @@ export default function FAQ() {
     </div>
   );
 }
+
+export default FAQ;

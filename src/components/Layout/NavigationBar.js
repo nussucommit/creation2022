@@ -10,12 +10,12 @@ import ResponsiveLogoLink from "./ResponsiveLogoLink";
 import RightMenuItems from "./RightMenuItems";
 import UserMenuItems from "./UserMenuItems";
 
-export default function NavigationBar() {
+function NavigationBar() {
   return (
     <AppBar
       position="static"
       style={{
-        backgroundColor: "#323232",
+        backgroundColor: '#323232',
       }}
     >
       <Container maxWidth="xl">
@@ -31,3 +31,5 @@ export default function NavigationBar() {
     </AppBar>
   );
 }
+
+export default React.memo(NavigationBar);

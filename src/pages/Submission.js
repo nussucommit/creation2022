@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
@@ -24,7 +24,7 @@ function Submission() {
     <Fab
       color="primary"
       onClick={toggleOpenUploadFormHandler}
-      sx={{ position: "fixed", bottom: 30, right: 30 }}
+      sx={{ position: 'fixed', bottom: 30, right: 30 }}
     >
       <AddIcon />
     </Fab>
@@ -37,7 +37,7 @@ function Submission() {
         <AddSubmissionButton />,
         <SubmittedFileList checkSubmit={setChallengeSubmitStatus} />,
         <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={openUploadForm}
         >
           <FileUploadForm
@@ -50,4 +50,4 @@ function Submission() {
   );
 }
 
-export default Submission;
+export default React.memo(Submission);

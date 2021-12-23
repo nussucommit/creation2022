@@ -6,8 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { db } from "../../firebase/firebase-config";
 import AuthContext from "../../store/auth-context";
-import { db } from "../../firebase/firebase";
 
 function ChallengeSelect({ onSelect }) {
   const authCtx = useContext(AuthContext);
@@ -55,13 +55,11 @@ function ChallengeSelect({ onSelect }) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {challengeSubmitStatus.map((unSubmittedIndex) => {
-          return (
-            <MenuItem key={unSubmittedIndex} value={unSubmittedIndex}>
-              {unSubmittedIndex}
-            </MenuItem>
-          );
-        })}
+        {challengeSubmitStatus.map((unSubmittedIndex) => (
+          <MenuItem key={unSubmittedIndex} value={unSubmittedIndex}>
+            {unSubmittedIndex}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

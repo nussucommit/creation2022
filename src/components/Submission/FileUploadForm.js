@@ -9,21 +9,20 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 
+import { db, storage } from "../../firebase/firebase-config";
+import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
 import FormContainer from "../Container/FormContainer";
 import ChallengeSelect from "../Submission/ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
-import { db, storage } from "../../firebase/firebase";
-import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 
 /* ------------------------------ Constants ------------------------------ */
-const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
-  "All files are submitted successfully!";
+const SNACKBAR_MESSAGE_SUCCESS_SUBMIT = 'All files are submitted successfully!';
 const SNACKBAR_MESSAGE_WARNING_MISSING =
-  "Please make sure that you have uploaded all files required";
+  'Please make sure that you have uploaded all files required';
 const SNACKBAR_MESSAGE_WARNING_INVALID =
-  "Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!";
+  'Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!';
 
 /* ------------------------------ Helper functions ------------------------------ */
 const getFileTypes = (uploadedFiles) =>
@@ -31,9 +30,9 @@ const getFileTypes = (uploadedFiles) =>
 
 const validateUploadedFiles = (uploadedFileTypes) => {
   const imageFileIsValid =
-    uploadedFileTypes[0] === "jpg" || uploadedFileTypes[0] === "png";
-  const psdFileIsValid = uploadedFileTypes[1] === "psd";
-  const pdfFileIsValid = uploadedFileTypes[2] === "pdf";
+    uploadedFileTypes[0] === 'jpg' || uploadedFileTypes[0] === 'png';
+  const psdFileIsValid = uploadedFileTypes[1] === 'psd';
+  const pdfFileIsValid = uploadedFileTypes[2] === 'pdf';
 
   return imageFileIsValid && psdFileIsValid && pdfFileIsValid;
 };
@@ -43,7 +42,7 @@ function FileUploadForm({ onCancel }) {
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
 
-  /* ------------------------------ State ------------------------------ */
+  /* ------------------------------ Hook ------------------------------ */
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [challengeSelected, setChallengeSelected] = useState();
@@ -64,7 +63,7 @@ function FileUploadForm({ onCancel }) {
         });
 
       if (!imageFile || !psdFile || !pdfFile) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, 'warning');
         return;
       }
 
@@ -72,14 +71,14 @@ function FileUploadForm({ onCancel }) {
       const fileTypes = getFileTypes([imageFile, psdFile, pdfFile]);
       const allFilesAreValid = validateUploadedFiles(fileTypes);
       if (!allFilesAreValid) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, 'warning');
         return;
       }
 
       setIsSubmitting(true);
 
       /* ------------------------------ File name modification ------------------------------ */
-      const userEmailPrefix = authCtx.user.email.replace("@u.nus.edu", "");
+      const userEmailPrefix = authCtx.user.email.replace('@u.nus.edu', '');
       const modifiedImageName = `${userEmailPrefix}.${fileTypes[0]}`;
       const modifiedPSDName = `${userEmailPrefix}.${fileTypes[1]}`;
       const modifiedPDFName = `${userEmailPrefix}.${fileTypes[2]}`;
@@ -116,13 +115,13 @@ function FileUploadForm({ onCancel }) {
               imageURL,
               psdURL,
               pdfURL,
-            }).then(navigate("/refresh", { replace: true }));
+            }).then(navigate('/refresh', { replace: true }));
           });
         });
       });
 
       setIsSubmitting(false);
-      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, 'success');
       onCancel();
     },
     [
@@ -134,24 +133,24 @@ function FileUploadForm({ onCancel }) {
       snackbarCtx,
       challengeSelected,
       onCancel,
-      navigate
+      navigate,
     ]
   );
 
   const uploadButtonProps = [
     {
-      label: "Image (.png/.jpg): ",
-      type: "image/*",
+      label: 'Image (.png/.jpg): ',
+      type: 'image/*',
       uploadMethod: setImageFile,
     },
     {
-      label: "Photoshop (.psd): ",
-      type: ".psd",
+      label: 'Photoshop (.psd): ',
+      type: '.psd',
       uploadMethod: setPSDFile,
     },
     {
-      label: "PDF (.pdf): ",
-      type: ".pdf",
+      label: 'PDF (.pdf): ',
+      type: '.pdf',
       uploadMethod: setPDFFile,
     },
   ];
@@ -163,19 +162,15 @@ function FileUploadForm({ onCancel }) {
           <CardHeader title="Submit your files here" />
           <form onSubmit={submitFileHandler}>
             <CardContent>
-              <ChallengeSelect
-                onSelect={setChallengeSelected}
-              />
-              {uploadButtonProps.map((prop) => {
-                return (
-                  <FileUploadButtonGroup
-                    key={prop.type}
-                    buttonLabel={prop.label}
-                    fileType={prop.type}
-                    onUpload={prop.uploadMethod}
-                  />
-                );
-              })}
+              <ChallengeSelect onSelect={setChallengeSelected} />
+              {uploadButtonProps.map((prop) => (
+                <FileUploadButtonGroup
+                  key={prop.type}
+                  buttonLabel={prop.label}
+                  fileType={prop.type}
+                  onUpload={prop.uploadMethod}
+                />
+              ))}
             </CardContent>
             <CardActions>
               <Button
@@ -184,7 +179,7 @@ function FileUploadForm({ onCancel }) {
                 disabled={isSubmitting}
                 fullWidth
               >
-                {isSubmitting ? "Submitting..." : "Submit"}
+                {isSubmitting ? 'Submitting...' : 'Submit'}
               </Button>
             </CardActions>
             <CardActions>
@@ -204,4 +199,4 @@ function FileUploadForm({ onCancel }) {
   );
 }
 
-export default FileUploadForm;
+export default React.memo(FileUploadForm);

@@ -1,32 +1,30 @@
-// import homeChallengeBackground from "../../images/homeChallengeBackground.png";
-
-export default function Challenge({ title, content }) {
+function Challenge({ title, content }) {
   return (
     <div
       className={"homeChallenge"}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "20px",
+        display: 'flex',
+        flexDirection: 'column',
+        margin: '20px',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <h2
           className={"secondaryTitle"}
-          style={{ color: "#434343", textAlign: "center" }}
+          style={{ color: '#434343', textAlign: 'center' }}
         >
           {title}
         </h2>
         <span
           style={{
-            lineHeight: "20px",
-            textAlign: "center",
-            alignSelf: "center",
+            lineHeight: '20px',
+            textAlign: 'center',
+            alignSelf: 'center',
           }}
         >
           {content}
@@ -36,3 +34,5 @@ export default function Challenge({ title, content }) {
     </div>
   );
 }
+
+export default Challenge;

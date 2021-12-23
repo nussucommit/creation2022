@@ -4,20 +4,19 @@ import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
-import AuthContext from "../../store/auth-context";
-import SnackbarContext from "../../store/snackbar-context";
-import InputTextField from "../Input/InputTextField";
-import { validateInput } from "../../validations/validate-input";
 import {
   INPUT_HELPERTEXT_USERNAME,
   INPUT_HELPERTEXT_EMAIL,
   INPUT_HELPERTEXT_PASSWORD,
 } from "../../constants/input/helper_text";
+import { validateInput } from "../../validations/validate-input";
+import AuthContext from "../../store/auth-context";
+import SnackbarContext from "../../store/snackbar-context";
+import InputTextField from "../Input/InputTextField";
 
 function AuthForm({ isSignin }) {
   /* ------------------------------ Context ------------------------------ */
@@ -143,24 +142,38 @@ function AuthForm({ isSignin }) {
       {/* ------------------------- Buttons --------------------- */}
       {!isLoading && (
         <CardActions>
-          <Button type="submit" variant="contained" fullWidth>
-            {submitButtonText}
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isLoading}
+            fullWidth
+          >
+            {isLoading ? loadingText : submitButtonText}
           </Button>
         </CardActions>
       )}
       <CardActions>
-        <Button component={NavLink} to={switchButtonLink} fullWidth>
+        <Button
+          component={NavLink}
+          to={switchButtonLink}
+          disabled={isLoading}
+          fullWidth
+        >
           {switchButtonText}
         </Button>
       </CardActions>
       {isSignin && (
         <CardActions>
-          <Button component={NavLink} to={resetPasswordButtonLink} fullWidth>
+          <Button
+            component={NavLink}
+            to={resetPasswordButtonLink}
+            disabled={isLoading}
+            fullWidth
+          >
             {resetPasswordButtonText}
           </Button>
         </CardActions>
       )}
-      {isLoading && <Typography variant="button">{loadingText}</Typography>}
     </form>
   );
 }

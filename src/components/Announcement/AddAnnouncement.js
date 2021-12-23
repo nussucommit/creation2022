@@ -8,16 +8,17 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import TextField from "@mui/material/TextField";
 
-import SnackbarContext from "../../store/snackbar-context";
-import { db } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase-config";
 import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
+import SnackbarContext from "../../store/snackbar-context";
 
 function AddAnnouncement({ isAdmin }) {
   const snackbarCtx = useContext(SnackbarContext);
-  const announcementCollectionRef = collection(db, "announcements");
-
+  
   const titleInputRef = useRef();
   const detailInputRef = useRef();
+
+  const announcementCollectionRef = collection(db, "announcements");
 
   const setSnackbar = (message, type) =>
     snackbarCtx.setSnackbar({
