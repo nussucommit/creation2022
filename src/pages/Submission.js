@@ -13,13 +13,10 @@ function Submission() {
   const [openUploadForm, setOpenUploadForm] = useState(false);
   const [challengeSubmitStatus, setChallengeSubmitStatus] = useState([]);
 
-  const closeUploadFormHandler = () => {
-    setOpenUploadForm(false);
-  };
+  const closeUploadFormHandler = () => setOpenUploadForm(false);
 
-  const toggleOpenUploadFormHandler = () => {
-    setOpenUploadForm(!openUploadForm);
-  };
+  const toggleOpenUploadFormHandler = () =>
+    setOpenUploadForm((openUploadForm) => !openUploadForm);
 
   const PageTitle = () => <Typography variant="h4">Submission</Typography>;
 
@@ -38,10 +35,7 @@ function Submission() {
       childComponents={[
         <PageTitle />,
         <AddSubmissionButton />,
-        <SubmittedFileList
-          render={true}
-          checkSubmit={setChallengeSubmitStatus}
-        />,
+        <SubmittedFileList checkSubmit={setChallengeSubmitStatus} />,
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={openUploadForm}
