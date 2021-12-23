@@ -5,7 +5,7 @@ export default function Rules() {
     <div className={"mainBody"}>
       <h1
         className={"mainTitle"}
-        style={{ textShadow: "0px 0px 15px #F72585" }}
+        style={{ textShadow: "0px 0px 16px #F72585" }}
       >
         Rules and Regulations
       </h1>
