@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useContext } from "react";
 
 import { NavLink } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -8,10 +8,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 
+import AuthContext from "../../store/auth-context";
 import menuItems from "../../constants/Navigation/NavBarMenuItems";
+import authMenuItems from "../../constants/Navigation/auth_menu_items";
 
 export default function MobileMenuItems() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const authCtx = useContext(AuthContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -70,22 +73,17 @@ export default function MobileMenuItems() {
             </MenuItem>
           );
         })}
-        <MenuItem component={NavLink} to="/signin">
-          <Typography
-            style={{ fontFamily: "Poppins", fontWeight: 400 }}
-            textAlign="center"
-          >
-            Sign in
-          </Typography>
-        </MenuItem>
-        <MenuItem component={NavLink} to="/signup">
-          <Typography
-            style={{ fontFamily: "Poppins", fontWeight: 400 }}
-            textAlign="center"
-          >
-            Sign up
-          </Typography>
-        </MenuItem>
+        {!authCtx.isSignedIn &&
+          authMenuItems.map((item, index) => (
+            <MenuItem key={index} component={NavLink} to={item.pageURL}>
+              <Typography
+                style={{ fontFamily: "Poppins", fontWeight: 400 }}
+                textAlign="center"
+              >
+                {item.pageTitle}
+              </Typography>
+            </MenuItem>
+          ))}
       </Menu>
     </Box>
   );
