@@ -1,5 +1,5 @@
 const authErrorResponses = {
-  INVALID_USERNAME_PATTERN: "Username must contain 3 to 20 characters and must not contain whitespaces",
+  INVALID_USERNAME_PATTERN: "Username must contain 5 to 20 characters with valid symbols only and must not contain whitespaces",
   EMAIL_NOT_FOUND: "This email is not registered yet, please sign up instead.",
   EMAIL_EXISTS: "The email is registered, please login instead.",
   INVALID_EMAIL_PATTERN: "The email provided must be a valid NUS email.",
