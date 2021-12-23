@@ -11,17 +11,17 @@ export default function Rules() {
       </h1>
       <br />
       <div style={{ paddingLeft: "15vw", paddingRight: "15vw" }}>
-        {rules.map((rule) =>
+        {rules.map((rule, i) =>
           rule.sectionTitle === "Selection Process" ? (
-            <div>
+            <div key={i}>
               <h1 className={"secondaryTitle"}>{rule.sectionTitle}</h1>
-              <ul>
-                {rule.contentRule.map((content) =>
+              <ul key={i}>
+                {rule.contentRule.map((content, i) =>
                   typeof content === "string" ? (
-                    <li>{content}</li>
+                    <li key={i}>{content}</li>
                   ) : (
                     content.map((prize, index) => (
-                      <div style={{ paddingInlineStart: "20px" }}>
+                      <div style={{ paddingInlineStart: "20px" }} key={index}>
                         <div
                           style={{
                             color: "white",
@@ -31,9 +31,9 @@ export default function Rules() {
                         >
                           {index + 1}. {prize.prizeName}
                         </div>
-                        <ul style={{ paddingInlineStart: "40px" }}>
-                          {prize.details.map((detail) => (
-                            <li>{detail}</li>
+                        <ul key={index} style={{ paddingInlineStart: "40px" }}>
+                          {prize.details.map((detail, i) => (
+                            <li key={i}>{detail}</li>
                           ))}
                         </ul>
                         <br />
@@ -46,28 +46,31 @@ export default function Rules() {
               <br />
             </div>
           ) : rule.sectionTitle !== "General Rules" ? (
-            <div>
+            <div key={rule.sectionTitle}>
               <h1 className={"secondaryTitle"}>{rule.sectionTitle}</h1>
-              <ul>
-                {rule.contentRule.map((content) => (
-                  <li>{content}</li>
+              <ul key={i}>
+                {rule.contentRule.map((content, i) => (
+                  <li key={i}>{content}</li>
                 ))}
               </ul>
               <br />
               <br />
             </div>
           ) : (
-            <div>
-              <h1 className={"secondaryTitle"}>{rule.sectionTitle}</h1>
-              <ul>
-                {rule.contentRule.map((content) =>
+            <div key={rule.sectionTitle}>
+              <h1 key={i} className={"secondaryTitle"}>
+                {rule.sectionTitle}
+              </h1>
+
+              <ul key={rule.sectionTitle}>
+                {rule.contentRule.map((content, i) =>
                   typeof content === "string" ? (
-                    <li>{content}</li>
+                    <li key={i}>{content}</li>
                   ) : (
-                    <ul>
-                      {content.map((detail) => (
-                        <div style={{ paddingInlineStart: "20px" }}>
-                          <li> {detail}</li>
+                    <ul key={i}>
+                      {content.map((detail, i) => (
+                        <div key={i} style={{ paddingInlineStart: "20px" }}>
+                          <li key={i}> {detail}</li>
                         </div>
                       ))}
                     </ul>

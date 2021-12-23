@@ -12,7 +12,7 @@ export default function FAQ() {
       <br />
       <div style={{ paddingLeft: "15vw", paddingRight: "15vw" }}>
         {faqs.map((faq, index) => (
-          <div style={{ marginBottom: "80px" }}>
+          <div key={index} style={{ marginBottom: "80px" }}>
             <h2 className={"secondaryTitle"} style={{ letterSpacing: "1px" }}>
               {index + 1}. {faq.question}
             </h2>
