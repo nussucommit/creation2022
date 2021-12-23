@@ -1,6 +1,6 @@
 import faqs from "./faq.json";
 
-function FAQ() {
+function Faq() {
   return (
     <div className="mainBody">
       <h1
@@ -26,4 +26,4 @@ function FAQ() {
   );
 }
 
-export default FAQ;
+export default Faq;

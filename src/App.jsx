@@ -9,9 +9,9 @@ import Announcement from "./pages/Announcement";
 import Challenges from "./pages/Challenges";
 import ChangePassword from "./pages/ChangePassword";
 import Contact from "./pages/Contact";
-import FAQ from "./pages/FAQ";
+import Faq from "./pages/Faq.jsx";
 import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound.jsx";
 import Rules from "./pages/Rules";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
@@ -69,7 +69,7 @@ function App() {
               )
             }
           />
-          <Route path="/faq" element={<FAQ />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/contact" element={<Contact />} />
           <Route
             path="/signin"
