@@ -22,7 +22,7 @@ const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
-  "Please make sure the file uploaded has the correct format(jpg/png, psd, pdf)!";
+  "Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!";
 
 /* ------------------------------ Helper functions ------------------------------ */
 const getFileTypes = (uploadedFiles) =>
