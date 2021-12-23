@@ -19,7 +19,7 @@ import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
 
 /* ------------------------------ Constants ------------------------------ */
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT =
-  "All files are submitted successfully! Reload and access this page again to see changes";
+  "All files are submitted successfully!";
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
