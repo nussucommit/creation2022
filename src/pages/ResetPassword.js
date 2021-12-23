@@ -66,15 +66,16 @@ function ResetPassword() {
               inputRef={emailInputRef}
             />
           </CardContent>
+
+          <Button
+            type="submit"
+            variant="contained"
+            endIcon={<SendIcon />}
+            fullWidth
+          >
+            Send reset password email
+          </Button>
         </form>,
-        <Button
-          type="submit"
-          variant="contained"
-          endIcon={<SendIcon />}
-          fullWidth
-        >
-          Send reset password email
-        </Button>,
         <Button component={NavLink} to={"/signin"} fullWidth>
           Cancel
         </Button>,
