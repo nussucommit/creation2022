@@ -76,6 +76,7 @@ function AnnouncementList({ isAdmin }) {
         <CardHeader
           title={announcement.title}
           subheader={announcement.dateTime}
+          titleTypographyProps={{ fontFamily: "Raider Crusader" }}
           action={
             isAdmin && (
               <IconButton onClick={() => deleteAnnouncement(announcement.id)}>
@@ -85,7 +86,14 @@ function AnnouncementList({ isAdmin }) {
           }
         />
         <CardContent>
-          <Typography paragraph>{announcement.detail}</Typography>
+          <Typography
+            paragraph
+            sx={{
+              fontFamily: "Nova Flat",
+            }}
+          >
+            {announcement.detail}
+          </Typography>
         </CardContent>
       </Card>
     ))

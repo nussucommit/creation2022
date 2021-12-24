@@ -56,19 +56,19 @@ function UserMenuItems() {
           to="/profile"
           onClick={handleCloseUserMenu}
         >
-          <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
-            Profile
-          </Typography>
+          <Typography style={{ fontFamily: "Poppins" }}>Profile</Typography>
         </MenuItem>
         <MenuItem
           component={NavLink}
           to="/change-password"
           onClick={handleCloseUserMenu}
         >
-          <Typography>Change password</Typography>
+          <Typography sx={{ fontFamily: "Poppins" }}>
+            Change password
+          </Typography>
         </MenuItem>
         <MenuItem onClick={signoutHandler}>
-          <Typography>Log out</Typography>
+          <Typography sx={{ fontFamily: "Poppins" }}>Log out</Typography>
         </MenuItem>
       </Menu>
     </Box>
