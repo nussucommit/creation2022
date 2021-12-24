@@ -4,7 +4,6 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import { storage } from "../firebase/firebase-config";
@@ -42,14 +41,17 @@ function Profile() {
 
     const uploadedPhoto = event.target.files[0];
     if (!uploadedPhoto) {
-      setSnackbar("No photo chosen!", "error")
+      setSnackbar("No photo chosen!", "error");
       return;
     }
 
     const photoType = uploadedPhoto.name.split(".").pop();
     const validPhotoTypes = ["gif", "jpg", "png"];
     if (!validPhotoTypes.includes(photoType)) {
-      setSnackbar("Photo type is invalid. Make sure it is jpg/png/gif.", "error");
+      setSnackbar(
+        "Photo type is invalid. Make sure it is jpg/png/gif.",
+        "error"
+      );
       return;
     }
 
@@ -91,7 +93,12 @@ function Profile() {
   return (
     <FormContainer
       childComponents={[
-        <Typography variant="h4">{`Hi there, ${username}`}</Typography>,
+        <h1
+          className="mainTitle"
+          style={{ textShadow: "0px 0px 16px #B0B0B0" }}
+        >
+          {`Hi there, ${username}`}
+        </h1>,
         <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />,
         <form onSubmit={updateProfileHandler}>
           <CardContent>

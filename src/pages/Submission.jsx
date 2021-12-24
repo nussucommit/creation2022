@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Backdrop from "@mui/material/Backdrop";
@@ -18,7 +17,11 @@ function Submission() {
   const toggleOpenUploadFormHandler = () =>
     setOpenUploadForm((openUploadForm) => !openUploadForm);
 
-  const PageTitle = () => <Typography variant="h4">Submission</Typography>;
+  const PageTitle = () => (
+    <h1 className="mainTitle" style={{ textShadow: "0px 0px 16px #08ED03" }}>
+      Submission
+    </h1>
+  );
 
   const AddSubmissionButton = () => (
     <Fab

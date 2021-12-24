@@ -28,7 +28,7 @@ import SnackbarContext from "../../store/snackbar-context";
 
 const styles = {
   media: {
-    width: '25%',
+    width: "25%",
   },
 };
 
@@ -40,7 +40,7 @@ function SubmittedFileList() {
   const [challengeSubmission, setChallengeSubmission] = useState([]);
 
   const userUID = authCtx.user.uid;
-  const SNACKBAR_MESSAGE_SUCCESS_DELETE = 'File successfully deleted!';
+  const SNACKBAR_MESSAGE_SUCCESS_DELETE = "File successfully deleted!";
 
   useEffect(() => {
     const challengeIndexes = [1, 2, 3, 4];
@@ -50,8 +50,8 @@ function SubmittedFileList() {
     const challengeRefs = challengePaths.map((path) =>
       query(
         collection(db, path),
-        orderBy('timestamp', 'desc'),
-        where('uid', '==', userUID)
+        orderBy("timestamp", "desc"),
+        where("uid", "==", userUID)
       )
     );
     const getSubmittedFiles = () => {
@@ -97,9 +97,9 @@ function SubmittedFileList() {
       deleteObject(psdStorageRef).then(deleteObject(pdfStorageRef))
     );
     await deleteDoc(submissionDoc).then(
-      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, 'success')
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, "success")
     );
-    navigate('/refresh', { replace: true });
+    navigate("/refresh", { replace: true });
   };
 
   return (
@@ -107,17 +107,22 @@ function SubmittedFileList() {
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
           <Grid key={file.id} item>
-            <Card raised sx={{ display: 'flex', m: '1rem' }}>
+            <Card
+              raised
+              sx={{ display: "flex", m: "1rem" }}
+              style={{ boxShadow: "0px 0px 10px #ffffff" }}
+            >
               <CardMedia
                 component="img"
                 image={file.imageURL}
                 sx={styles.media}
               />
               <Box
-                sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+                sx={{ display: "flex", flexDirection: "column", width: "100%" }}
               >
                 <CardHeader
                   title={`Challenge ${file.challenge} Submission`}
+                  titleTypographyProps={{ fontFamily: "Raider Crusader" }}
                   subheader={file.dateTime}
                   action={
                     <IconButton
