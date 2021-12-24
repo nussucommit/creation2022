@@ -12,11 +12,20 @@ import IconButton from "@mui/material/IconButton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { db } from "../../firebase/firebase-config";
 import SnackbarContext from "../../store/snackbar-context";
+
+const styles = {
+  secondaryText: {
+    color: "white",
+    fontFamily: "Nova Flat",
+    lineHeight: "40px",
+  },
+};
 
 function AnnouncementList({ isAdmin }) {
   const snackbarCtx = useContext(SnackbarContext);
@@ -56,15 +65,23 @@ function AnnouncementList({ isAdmin }) {
   };
 
   return announcementIsEmpty ? (
-    <Typography variant="h5">
-      There is no announcement at the moment...
-    </Typography>
+    <Container sx={{ width: "100%" }}>
+      <Typography variant="h5" style={styles.secondaryText} textAlign="center">
+        There is no announcement at the moment...
+      </Typography>
+    </Container>
   ) : (
     announcementList.map((announcement) => (
-      <Card key={announcement.id} raised sx={{ my: "2rem" }}>
+      <Card
+        key={announcement.id}
+        raised
+        sx={{ my: "2rem" }}
+        style={{ boxShadow: "0px 0px 10px #ffffff" }}
+      >
         <CardHeader
           title={announcement.title}
           subheader={announcement.dateTime}
+          titleTypographyProps={{ fontFamily: "Raider Crusader" }}
           action={
             isAdmin && (
               <IconButton onClick={() => deleteAnnouncement(announcement.id)}>
@@ -74,7 +91,14 @@ function AnnouncementList({ isAdmin }) {
           }
         />
         <CardContent>
-          <Typography paragraph>{announcement.detail}</Typography>
+          <Typography
+            paragraph
+            sx={{
+              fontFamily: "Nova Flat",
+            }}
+          >
+            {announcement.detail}
+          </Typography>
         </CardContent>
       </Card>
     ))

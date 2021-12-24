@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import SendIcon from "@mui/icons-material/Send";
-import Typography from "@mui/material/Typography";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import { INPUT_HELPERTEXT_EMAIL } from "../constants/input/helper_text";
@@ -48,7 +47,12 @@ function ResetPassword() {
   return (
     <FormContainer
       childComponents={[
-        <Typography variant="h4">Reset your password via email</Typography>,
+        <h1
+          className={"mainTitle"}
+          style={{ textShadow: "0px 0px 16px #B0B0B0" }}
+        >
+          Reset your password via email
+        </h1>,
         <form onSubmit={sendPasswordResetEmailHandler}>
           <CardContent
             sx={{

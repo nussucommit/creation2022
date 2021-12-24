@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -37,17 +36,17 @@ function UserMenuItems() {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: "45px" }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
@@ -57,23 +56,20 @@ function UserMenuItems() {
           to="/profile"
           onClick={handleCloseUserMenu}
         >
-          <Typography
-            style={{ fontFamily: 'Poppins', fontWeight: 400 }}
-            textAlign="center"
-          >
-            Profile
-          </Typography>
+          <Typography style={{ fontFamily: "Poppins" }}>Profile</Typography>
         </MenuItem>
         <MenuItem
           component={NavLink}
           to="/change-password"
           onClick={handleCloseUserMenu}
         >
-          <Typography textAlign="center">Change password</Typography>
+          <Typography sx={{ fontFamily: "Poppins" }}>
+            Change password
+          </Typography>
         </MenuItem>
-        <Button color="primary" onClick={signoutHandler}>
-          Log out
-        </Button>
+        <MenuItem onClick={signoutHandler}>
+          <Typography sx={{ fontFamily: "Poppins" }}>Log out</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );

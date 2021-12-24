@@ -1,7 +1,5 @@
 import { useContext } from "react";
 
-import Typography from "@mui/material/Typography";
-
 import AuthContext from "../store/auth-context";
 import AddAnnouncement from "../components/Announcement/AddAnnouncement";
 import AnnouncementList from "../components/Announcement/AnnouncementList";
@@ -17,7 +15,12 @@ function Announcement() {
   return (
     <PageContainer
       childComponents={[
-        <Typography variant="h4">Announcement</Typography>,
+        <h1
+          className="mainTitle"
+          style={{ textShadow: '0px 0px 16px #7000FF' }}
+        >
+          Announcements
+        </h1>,
         <AddAnnouncement isAdmin={isAdmin} />,
         <AnnouncementList isAdmin={isAdmin} />,
       ]}
