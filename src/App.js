@@ -4,8 +4,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 
+import RaiderCrusaderTtf from "./fonts/raidercrusader.ttf";
+import NovaFlatRegularTtf from "./fonts/NovaFlat-Regular.ttf";
 import NavigationBar from "./components/Layout/NavigationBar";
-
 import Announcement from "./pages/Announcement";
 import Challenges from "./pages/Challenges";
 import ChangePassword from "./pages/ChangePassword";
@@ -32,6 +33,27 @@ const theme = createTheme({
     text: {
       primary: "#fff",
       secondary: grey[500],
+    },
+  },
+  typography: {
+    fontFamily: "Nova Flat, Raider Crusader",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: "Raider Crusader";
+          src: local("raidercrusader"),
+            url(${RaiderCrusaderTtf}) format("truetype");
+          font-weight: normal;
+        },
+        @font-face {
+          font-family: "Nova Flat";
+          src: local("NovaFlat-Regular"),
+            url(${NovaFlatRegularTtf}) format("truetype");
+          font-weight: normal;
+        }
+      `,
     },
   },
 });
