@@ -79,7 +79,7 @@ function App() {
       <CustomSnackbar />
       <Suspense
         fallback={
-          <Centered>
+          <Centered className="mainBody">
             <CircularProgress />
           </Centered>
         }
