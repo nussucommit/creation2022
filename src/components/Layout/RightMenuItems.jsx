@@ -21,7 +21,6 @@ function RightMenuItems() {
       </MenuItem>
       <Button
         variant="outlined"
-        color="secondary"
         component={NavLink}
         to="/signup"
       >
