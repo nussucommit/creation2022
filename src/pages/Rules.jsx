@@ -1,4 +1,4 @@
-import rules from "./rules_and_regulations.json";
+import rules from "../data/rules_and_regulations.json";
 
 function Rules() {
   return (
