@@ -2,7 +2,13 @@ import Grid from "@mui/material/Grid";
 
 function PageContainer({ childComponents }) {
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="flex-start"
+      className="mainBody"
+    >
       <Grid item xs />
       <Grid item xs={10}>
         {childComponents.map((component, index) => {
@@ -12,7 +18,7 @@ function PageContainer({ childComponents }) {
               key={index}
               item
               textAlign={isFirtstItem && "center"}
-              sx={{ m: '2rem' }}
+              sx={{ m: "2rem" }}
             >
               {component}
             </Grid>

@@ -13,12 +13,9 @@ function RightMenuItems() {
   const isSignedIn = authCtx.isSignedIn;
 
   return isSignedIn ? null : (
-    <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+    <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
       <MenuItem component={NavLink} to="/signin">
-        <Typography
-          style={{ fontFamily: 'Poppins', fontWeight: 400 }}
-          textAlign="center"
-        >
+        <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
           Sign in
         </Typography>
       </MenuItem>

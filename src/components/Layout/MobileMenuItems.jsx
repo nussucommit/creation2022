@@ -21,7 +21,7 @@ function MobileMenuItems() {
   const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -36,18 +36,18 @@ function MobileMenuItems() {
         id="menu-appbar"
         anchorEl={anchorElNav}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
         sx={{
-          display: { xs: 'block', md: 'none' },
+          display: { xs: "block", md: "none" },
         }}
       >
         {menuItems.map((page) => {
@@ -60,10 +60,7 @@ function MobileMenuItems() {
               to={pageURL}
               onClick={handleCloseNavMenu}
             >
-              <Typography
-                style={{ fontFamily: 'Poppins', fontWeight: 400 }}
-                textAlign="center"
-              >
+              <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
                 {pageTitle}
               </Typography>
             </MenuItem>
@@ -72,10 +69,7 @@ function MobileMenuItems() {
         {!authCtx.isSignedIn &&
           authMenuItems.map((item, index) => (
             <MenuItem key={index} component={NavLink} to={item.pageURL}>
-              <Typography
-                style={{ fontFamily: 'Poppins', fontWeight: 400 }}
-                textAlign="center"
-              >
+              <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
                 {item.pageTitle}
               </Typography>
             </MenuItem>

@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
 
 import NavigationBar from "./components/Layout/NavigationBar";
 
@@ -24,11 +25,13 @@ import CustomSnackbar from "./components/Messages/CustomSnackbar";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-      main: "#323232",
+      main: grey[300],
     },
-    secondary: {
-      main: "#ffffff",
+    text: {
+      primary: "#fff",
+      secondary: grey[500],
     },
   },
 });
@@ -47,56 +50,52 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        <NavigationBar />
-        <CustomSnackbar />
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/announcement" element={<Announcement />} />
-          <Route path="/challenges" element={<Challenges />} />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="/refresh" element={<Navigate to="/submission" />} />
-          <Route
-            path="/submission"
-            element={
-              isVerified ? (
-                <Submission />
-              ) : isSignedIn ? (
-                <VerifyEmail />
-              ) : (
-                <Navigate to="/signin" />
-              )
-            }
-          />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/signin"
-            element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
-          />
-          <Route
-            path="/profile"
-            element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/change-password"
-            element={
-              isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />
-            }
-          />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/signup"
-            element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
-          />
-          <Route
-            path="/verify-email"
-            element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+      <NavigationBar />
+      <CustomSnackbar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/announcement" element={<Announcement />} />
+        <Route path="/challenges" element={<Challenges />} />
+        <Route path="/rules" element={<Rules />} />
+        <Route path="/refresh" element={<Navigate to="/submission" />} />
+        <Route
+          path="/submission"
+          element={
+            isVerified ? (
+              <Submission />
+            ) : isSignedIn ? (
+              <VerifyEmail />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          }
+        />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/signin"
+          element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
+        />
+        <Route
+          path="/profile"
+          element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
+        />
+        <Route
+          path="/change-password"
+          element={isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />}
+        />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/signup"
+          element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
+        />
+        <Route
+          path="/verify-email"
+          element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </ThemeProvider>
   );
 }
