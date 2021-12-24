@@ -72,7 +72,12 @@ function AnnouncementList({ isAdmin }) {
     </Container>
   ) : (
     announcementList.map((announcement) => (
-      <Card key={announcement.id} raised sx={{ my: "2rem" }}>
+      <Card
+        key={announcement.id}
+        raised
+        sx={{ my: "2rem" }}
+        style={{ boxShadow: "0px 0px 10px #ffffff" }}
+      >
         <CardHeader
           title={announcement.title}
           subheader={announcement.dateTime}
