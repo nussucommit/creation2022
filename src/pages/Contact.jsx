@@ -89,7 +89,7 @@ function Contact() {
         ></textarea>
         <br></br>
         <br></br>
-        <Button variant="outlined" type="submit" color="secondary">
+        <Button variant="outlined" type="submit" color="primary">
           Submit
         </Button>
       </form>

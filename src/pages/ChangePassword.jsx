@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 
 import { INPUT_HELPERTEXT_PASSWORD } from "../constants/input/helper_text";
 import { validateInput } from "../validations/validate-input";
@@ -71,7 +70,12 @@ function ChangePassword() {
   return (
     <FormContainer
       childComponents={[
-        <Typography variant="h4">Change Password</Typography>,
+        <h1
+          className="mainTitle"
+          style={{ textShadow: "0px 0px 16px #B0B0B0" }}
+        >
+          Change Password
+        </h1>,
         <form onSubmit={submitHandler}>
           <CardContent>
             <InputTextField

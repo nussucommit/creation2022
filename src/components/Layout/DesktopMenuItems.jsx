@@ -7,16 +7,13 @@ import menuItems from "../../constants/Navigation/navbar_menu_items";
 
 function DesktopMenuItems() {
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
       {menuItems.map((page) => {
         const { pageTitle, pageURL } = page;
 
         return (
           <MenuItem key={pageTitle} component={NavLink} to={pageURL}>
-            <Typography
-              style={{ fontFamily: 'Poppins', fontWeight: 400 }}
-              textAlign="center"
-            >
+            <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
               {pageTitle}
             </Typography>
           </MenuItem>
