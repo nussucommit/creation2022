@@ -107,7 +107,11 @@ function SubmittedFileList() {
       {challengeSubmission.map((file) => {
         return file !== undefined ? (
           <Grid key={file.id} item>
-            <Card raised sx={{ display: "flex", m: "1rem" }}>
+            <Card
+              raised
+              sx={{ display: "flex", m: "1rem" }}
+              style={{ boxShadow: "0px 0px 10px #ffffff" }}
+            >
               <CardMedia
                 component="img"
                 image={file.imageURL}
