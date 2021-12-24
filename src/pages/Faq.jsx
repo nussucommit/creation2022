@@ -1,4 +1,4 @@
-import faqs from "./faq.json";
+import faqs from "../data/faq.json";
 
 function Faq() {
   return (
