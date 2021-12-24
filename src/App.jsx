@@ -34,6 +34,9 @@ const theme = createTheme({
     primary: {
       main: grey[300],
     },
+    secondary: {
+      main: "#ffffff",
+    },
     text: {
       primary: "#fff",
       secondary: grey[500],
