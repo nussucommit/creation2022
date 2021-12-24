@@ -1,5 +1,6 @@
 import React, { Suspense, useContext } from "react";
 
+import { Helmet } from "react-helmet";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
@@ -75,6 +76,12 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Creation 2022</title>
+        <link rel="canonical" href="https://creation2022.nussucommit.com/home" />
+        <meta name="description" content="Creation 2022 organized by NUSSU CommIT" />
+      </Helmet>
       <NavigationBar />
       <CustomSnackbar />
       <Suspense
