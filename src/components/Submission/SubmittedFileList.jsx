@@ -78,10 +78,10 @@ function SubmittedFileList() {
     });
 
   const deleteSubmission = async (submission) => {
-    const { challengeIndex, imageURL, psdURL, pdfURL, docID } = submission;
+    const { challengeIndex, imageURL, adobeURL, pdfURL, docID } = submission;
     const pdfIsSubmitted = !!pdfURL;
     const imageStorageRef = ref(storage, imageURL);
-    const psdStorageRef = ref(storage, psdURL);
+    const adobeStorageRef = ref(storage, adobeURL);
     const pdfStorageRef = pdfIsSubmitted ? ref(storage, pdfURL) : "";
     const submissionDoc = doc(
       db,
@@ -90,7 +90,7 @@ function SubmittedFileList() {
     );
 
     await deleteObject(imageStorageRef).then(
-      deleteObject(psdStorageRef).then(() => {
+      deleteObject(adobeStorageRef).then(() => {
         if (pdfIsSubmitted) {
           deleteObject(pdfStorageRef);
         }
@@ -130,7 +130,7 @@ function SubmittedFileList() {
                         deleteSubmission({
                           challengeIndex: file.challenge,
                           imageURL: file.imageURL,
-                          psdURL: file.psdURL,
+                          adobeURL: file.adobeURL,
                           pdfURL: file.pdfURL,
                           docID: file.id,
                         })
@@ -141,13 +141,17 @@ function SubmittedFileList() {
                   }
                 />
                 <CardActions>
-                  <Button href={file.psdURL}>Download back my PSD file</Button>
-                </CardActions>
-                {file.pdfURL && <CardActions>
-                  <Button href={file.pdfURL} target="__blank">
-                    View my PDF file
+                  <Button href={file.adobeURL}>
+                    Download back my Adobe file
                   </Button>
-                </CardActions>}
+                </CardActions>
+                {file.pdfURL && (
+                  <CardActions>
+                    <Button href={file.pdfURL} target="__blank">
+                      View my PDF file
+                    </Button>
+                  </CardActions>
+                )}
               </Box>
             </Card>
           </Grid>
