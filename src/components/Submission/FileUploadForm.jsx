@@ -18,11 +18,11 @@ import ChallengeSelect from "./ChallengeSelect";
 import FileUploadButtonGroup from "./FileUploadButtonGroup";
 
 /* ------------------------------ Constants ------------------------------ */
-const SNACKBAR_MESSAGE_SUCCESS_SUBMIT = 'All files are submitted successfully!';
+const SNACKBAR_MESSAGE_SUCCESS_SUBMIT = "All files are submitted successfully!";
 const SNACKBAR_MESSAGE_WARNING_MISSING =
-  'Please make sure that you have uploaded all files required';
+  "Please make sure that you have uploaded all files required";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
-  'Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!';
+  "Please make sure the file chosen has the correct format(jpg/png, psd, pdf)!";
 
 /* ------------------------------ Helper functions ------------------------------ */
 const getFileTypes = (uploadedFiles) =>
@@ -30,9 +30,10 @@ const getFileTypes = (uploadedFiles) =>
 
 const validateUploadedFiles = (uploadedFileTypes) => {
   const imageFileIsValid =
-    uploadedFileTypes[0] === 'jpg' || uploadedFileTypes[0] === 'png';
-  const psdFileIsValid = uploadedFileTypes[1] === 'psd';
-  const pdfFileIsValid = uploadedFileTypes[2] === 'pdf';
+    uploadedFileTypes[0] === "jpg" || uploadedFileTypes[0] === "png";
+  const psdFileIsValid = uploadedFileTypes[1] === "psd";
+  const pdfIsNotChosen = uploadedFileTypes.length === 2;
+  const pdfFileIsValid = pdfIsNotChosen || uploadedFileTypes[2] === "pdf";
 
   return imageFileIsValid && psdFileIsValid && pdfFileIsValid;
 };
@@ -62,30 +63,38 @@ function FileUploadForm({ onCancel }) {
           type,
         });
 
-      if (!imageFile || !psdFile || !pdfFile) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, 'warning');
+      if (!imageFile || !psdFile) {
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
         return;
       }
 
       /* ------------------------------ Type validation ------------------------------ */
-      const fileTypes = getFileTypes([imageFile, psdFile, pdfFile]);
+      const pdfIsChosen = !!pdfFile;
+      const filesToCheck = pdfIsChosen
+        ? [imageFile, psdFile, pdfFile]
+        : [imageFile, psdFile];
+      const fileTypes = getFileTypes(filesToCheck);
       const allFilesAreValid = validateUploadedFiles(fileTypes);
       if (!allFilesAreValid) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, 'warning');
+        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
         return;
       }
 
       setIsSubmitting(true);
 
       /* ------------------------------ File name modification ------------------------------ */
-      const userEmailPrefix = authCtx.user.email.replace('@u.nus.edu', '');
+      const userEmailPrefix = authCtx.user.email.replace("@u.nus.edu", "");
       const modifiedImageName = `${userEmailPrefix}.${fileTypes[0]}`;
       const modifiedPSDName = `${userEmailPrefix}.${fileTypes[1]}`;
-      const modifiedPDFName = `${userEmailPrefix}.${fileTypes[2]}`;
+      const modifiedPDFName = pdfIsChosen
+        ? `${userEmailPrefix}.${fileTypes[2]}`
+        : "";
 
       const imageStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedImageName}`;
       const psdStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPSDName}`;
-      const pdfStorageLocation = `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPDFName}`;
+      const pdfStorageLocation = pdfIsChosen
+        ? `submissions/${userEmailPrefix}/challenge${challengeSelected}_${modifiedPDFName}`
+        : "";
 
       const imageStorageRef = ref(storage, imageStorageLocation);
       const psdStorageRef = ref(storage, psdStorageLocation);
@@ -94,7 +103,9 @@ function FileUploadForm({ onCancel }) {
       /* ------------------------------ File submission ------------------------------ */
       await uploadBytes(imageStorageRef, imageFile);
       await uploadBytes(psdStorageRef, psdFile);
-      await uploadBytes(pdfStorageRef, pdfFile);
+      if (pdfIsChosen) {
+        await uploadBytes(pdfStorageRef, pdfFile);
+      }
 
       /* ------------------------------ Record submission link ------------------------------ */
       const submissionCollectionRef = collection(
@@ -106,7 +117,19 @@ function FileUploadForm({ onCancel }) {
 
       getDownloadURL(imageStorageRef).then(async (imageURL) => {
         getDownloadURL(psdStorageRef).then(async (psdURL) => {
-          getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
+          if (pdfIsChosen) {
+            getDownloadURL(pdfStorageRef).then(async (pdfURL) => {
+              await addDoc(submissionCollectionRef, {
+                uid: userUID,
+                timestamp: currentTimestamp,
+                dateTime: getDateTime(currentTimestamp),
+                challenge: challengeSelected,
+                imageURL,
+                psdURL,
+                pdfURL,
+              }).then(navigate("/refresh", { replace: true }));
+            });
+          } else {
             await addDoc(submissionCollectionRef, {
               uid: userUID,
               timestamp: currentTimestamp,
@@ -114,14 +137,13 @@ function FileUploadForm({ onCancel }) {
               challenge: challengeSelected,
               imageURL,
               psdURL,
-              pdfURL,
-            }).then(navigate('/refresh', { replace: true }));
-          });
+            }).then(navigate("/refresh", { replace: true }));
+          }
         });
       });
 
       setIsSubmitting(false);
-      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, 'success');
+      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
       onCancel();
     },
     [
@@ -139,18 +161,18 @@ function FileUploadForm({ onCancel }) {
 
   const uploadButtonProps = [
     {
-      label: 'Image (.png/.jpg): ',
-      type: 'image/*',
+      label: "Image (.png/.jpg): ",
+      type: "image/*",
       uploadMethod: setImageFile,
     },
     {
-      label: 'Photoshop (.psd): ',
-      type: '.psd',
+      label: "Photoshop (.psd): ",
+      type: ".psd",
       uploadMethod: setPSDFile,
     },
     {
-      label: 'PDF (.pdf): ',
-      type: '.pdf',
+      label: "PDF (.pdf): ",
+      type: ".pdf",
       uploadMethod: setPDFFile,
     },
   ];
@@ -179,7 +201,7 @@ function FileUploadForm({ onCancel }) {
                 disabled={isSubmitting}
                 fullWidth
               >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
+                {isSubmitting ? "Submitting..." : "Submit"}
               </Button>
             </CardActions>
             <CardActions>
