@@ -77,16 +77,12 @@ function SubmittedFileList() {
       type,
     });
 
-  const deleteSubmission = async (
-    challengeIndex,
-    imageURL,
-    psdURL,
-    pdfURL,
-    docID
-  ) => {
+  const deleteSubmission = async (submission) => {
+    const { challengeIndex, imageURL, psdURL, pdfURL, docID } = submission;
+    const pdfIsSubmitted = !!pdfURL;
     const imageStorageRef = ref(storage, imageURL);
     const psdStorageRef = ref(storage, psdURL);
-    const pdfStorageRef = ref(storage, pdfURL);
+    const pdfStorageRef = pdfIsSubmitted ? ref(storage, pdfURL) : "";
     const submissionDoc = doc(
       db,
       `submissions/challenges/challenge${challengeIndex}`,
@@ -94,7 +90,11 @@ function SubmittedFileList() {
     );
 
     await deleteObject(imageStorageRef).then(
-      deleteObject(psdStorageRef).then(deleteObject(pdfStorageRef))
+      deleteObject(psdStorageRef).then(() => {
+        if (pdfIsSubmitted) {
+          deleteObject(pdfStorageRef);
+        }
+      })
     );
     await deleteDoc(submissionDoc).then(
       setSnackbar(SNACKBAR_MESSAGE_SUCCESS_DELETE, "success")
@@ -127,13 +127,13 @@ function SubmittedFileList() {
                   action={
                     <IconButton
                       onClick={() =>
-                        deleteSubmission(
-                          file.challenge,
-                          file.imageURL,
-                          file.psdURL,
-                          file.pdfURL,
-                          file.id
-                        )
+                        deleteSubmission({
+                          challengeIndex: file.challenge,
+                          imageURL: file.imageURL,
+                          psdURL: file.psdURL,
+                          pdfURL: file.pdfURL,
+                          docID: file.id,
+                        })
                       }
                     >
                       <DeleteIcon />
@@ -143,11 +143,11 @@ function SubmittedFileList() {
                 <CardActions>
                   <Button href={file.psdURL}>Download back my PSD file</Button>
                 </CardActions>
-                <CardActions>
+                {file.pdfURL && <CardActions>
                   <Button href={file.pdfURL} target="__blank">
                     View my PDF file
                   </Button>
-                </CardActions>
+                </CardActions>}
               </Box>
             </Card>
           </Grid>

@@ -33,7 +33,7 @@ function FileUploadButtonGroup({ buttonLabel, fileType, onUpload }) {
             type="file"
             onChange={uploadHandler}
             disableUnderline
-            required
+            required={fileType !== ".pdf"}
           />
         </Grid>
       </Grid>
