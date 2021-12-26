@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -90,6 +91,19 @@ function AnnouncementList({ isAdmin }) {
             )
           }
         />
+        {announcement.imageURL && (
+          <CardMedia
+            component="img"
+            image={announcement.imageURL}
+            alt="Announcement visual aid"
+            sx={{
+              px: "auto",
+              width: "75%",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          />
+        )}
         <CardContent>
           <Typography
             paragraph
