@@ -6,16 +6,19 @@ function Home() {
   return (
     <div className="homeBody">
       {/* Cover Photo Gradient */}
-      <div
-        style={{
-          background:
-            "linear-gradient(0deg, #111111 0%, rgba(255, 255, 255, 0) 20%)",
-          height: "700px",
-        }}
-      ></div>
+      
+        
+        <div
+      className="headGradient"
+      
+        
+      >
+      
+      </div>
       {/* Challenge */}
       <div
-        style={{ backgroundColor: "rgba(255,255,255,0.2)", padding: "30px" }}
+      className="challenge"
+
       >
         <h1 className="mainTitle" style={{ textShadow: "0px 4px 4px #370005" }}>
           Overview of Challenges
