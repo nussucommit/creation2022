@@ -18,15 +18,53 @@ li {
   line-height: 40px;
 }
 
-.homeBody {
-  background-image: url(./images/poster.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  min-width: 100%;
-  width: 100%;
-  height: 100%;
+@media screen and (min-width: 1400px) {
+  .homeBody {
+    background-image: url(./images/poster.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .headGradient {
+    background: linear-gradient(0deg, #111111 0%, rgba(255, 255, 255, 0) 20%);
+    height: 700px;
+  }
+  .challenge {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+  }
 }
+
+@media screen and (max-width: 1400px) {
+  .homeBody {
+    background-image: url(./images/poster_lower.png);
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+  }
+
+  .headGradient {
+    background-image: url(./images/poster_head.jpeg) !important;
+    background-position: center;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 0;
+    padding-top: 40.08%; /* (img-height / img-width * container-width) */
+    /* (853 / 1280 * 100) */
+  }
+
+  .challenge {
+    padding: 30px;
+    background: linear-gradient(180deg, #111111 0%, rgba(255, 255, 255, 0) 20%);
+  }
+}
+
 .homeChallenge {
   background-image: url(./images/homeChallengeBackground.png);
   background-size: cover;
@@ -89,7 +127,7 @@ li {
   padding: 30px;
   background-color: #323232;
   background-image: url(./images/background_pattern.png);
-  height: 100%;
+  min-height: 100vh;
   background-size: contain;
 }
 
