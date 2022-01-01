@@ -239,3 +239,126 @@ li {
     url("./fonts/Poppins/Poppins-Black.ttf") format("truetype");
   font-weight: 900;
 }
+
+.challengeContent {
+  padding-left: 15vw;
+  padding-right: 15vw;
+  color:#fff;
+}
+
+.challengeNumPicLeft {
+    height:18vw;
+    margin-top:50px;
+    float:left;
+}
+
+.challengeNumPicRight {
+  height:18vw;
+  margin-top:50px;
+  float:right;
+}
+
+.challengeContentLeft {
+  margin-left: 16vw;
+}
+
+.challengeContentRight {
+  margin-right: 16vw;
+}
+
+.challengeFindMore {
+  float:right;
+  margin:2vw;
+  font-family: Nova Flat;
+}
+
+.notFoundContent {
+  width:70vw;
+  margin:2vw auto;
+  font-family: Nova Flat;
+}
+
+.notFoundPic {
+  float:left;
+  width:5vw;
+}
+
+.notFoundTitle {
+  line-height: 5vw;
+  margin-left: 7vw;
+  font-size: 5vw;
+}
+
+.notFoundDescription {
+  font-size: 2.5vw;
+  margin-top: 2vw;
+  border-top: 0.3vw rgba(256,256,256,0.1) solid;
+  padding-top: 3vw;
+}
+
+@media (max-width:768px) {
+  .challengeTitle {
+    font-size: 30px;
+    margin:2vw;
+  }
+
+  .challengeSecondaryTitle {
+    font-size: 24px;
+    margin:10px auto;
+  }
+
+  .challengeContent {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .challengeNumPicLeft {
+    float:none;
+    margin-top: 2vw;
+  }
+
+  .challengeNumPicRight {
+    float:none;
+    margin-top: 2vw;
+  }
+
+  .challengeContentLeft {
+    margin:0;
+  }
+
+  .challengeContentRight {
+    margin:0;
+  }
+
+  .challengeFindMore {
+    margin:20px;
+  }
+
+  .challengeTertiaryTitle {
+    font-size: 18px;
+  }
+
+  .challenge span,.challenge li {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .notFoundContent {
+    width:90vw;
+  }
+
+  .notFoundPic {
+    width:40px;
+  }
+
+  .notFoundTitle {
+    line-height: 40px;
+    font-size: 25px;
+    margin-left: 65px;
+  }
+
+  .notFoundDescription {
+    font-size: 15px;
+    margin-top: 20px;
+  }
+}
