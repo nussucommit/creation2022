@@ -27,6 +27,7 @@ const SignIn = React.lazy(() => import("./pages/SignIn"));
 const SignUp = React.lazy(() => import("./pages/SignUp"));
 const Submission = React.lazy(() => import("./pages/Submission"));
 const VerifyEmail = React.lazy(() => import("./pages/VerifyEmail"));
+const ChallengesDetail = React.lazy(() => import("./pages/ChallengesDetail"))
 
 const theme = createTheme({
   palette: {
@@ -99,6 +100,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/challengesdetail" element={<ChallengesDetail />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/refresh" element={<Navigate to="/submission" />} />
           <Route
