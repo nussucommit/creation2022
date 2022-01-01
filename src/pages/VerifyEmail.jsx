@@ -4,20 +4,33 @@ import Button from "@mui/material/Button";
 
 import AuthContext from "../store/auth-context";
 
+import mail from "../images/Mail.png"
+
 function VerifyEmail() {
   const authCtx = useContext(AuthContext);
 
-  const sendVerificationEmailHandler = () => authCtx.verifyEmail();
+  const sendVerificationEmailHandler = () => {
+    authCtx.verifyEmail();
+  };
 
   return (
-    <div>
-      <h2>
-        You must verify your email first before submitting. Reload and access
-        "submission" page again after verifying your email.
-      </h2>
-      <Button variant="contained" onClick={sendVerificationEmailHandler}>
-        Send verification email
-      </Button>
+    <div className="mainBody" style={{height:"100vh"}}>
+      <h1 className='mainTitle challengeTitle' style={{ textShadow: "0px 0px 16px #fdf252" }}>Verifying Email</h1>
+      <div style={{width:'70vw',maxWidth:'400px',margin:'5vw auto',fontFamily:'Nova Flat',color:'#fff',border:'2px #fff solid',padding:'2vw',borderRadius:'10px'}}>
+        <div>
+          You must verify your email first before submitting.
+        </div>
+        <br/>
+        <div>
+          Reload and access "submission" page again after verifying your email.
+        </div>
+      </div>
+      <div style={{margin:'30px auto',width:'285px'}}>
+        <div style={{float:'left',margin:'5px 20px 0 0'}}><img src={mail} alt="mail" style={{height:'25px'}}/></div>
+        <Button variant="outlined" color="secondary" onClick={sendVerificationEmailHandler}>
+          Send verification email
+        </Button>
+      </div>
     </div>
   );
 }
