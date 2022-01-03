@@ -48,7 +48,7 @@ export const AuthContextProvider = (props) => {
   const resetPasswordByEmailHandler = async (email) => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/signin",
+        url: "https://creation-2022.herokuapp.com/signin",
       };
       await sendPasswordResetEmail(auth, email, actionCodeSettings).then(
         setSnackbar("Password reset email sent!", "success")
@@ -124,7 +124,7 @@ export const AuthContextProvider = (props) => {
   const verifyEmailHandler = async () => {
     try {
       const actionCodeSettings = {
-        url: "http://localhost:3000/submission",
+        url: "https://creation-2022.herokuapp.com/submission",
       };
       await sendEmailVerification(user, actionCodeSettings).then(
         setSnackbar(
