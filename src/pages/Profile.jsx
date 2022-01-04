@@ -95,7 +95,7 @@ function Profile() {
 
     usernameInputRef.current.value = "";
     setUsername(enteredUsername);
-    setSnackbar("Username updated!", "success");
+    setSnackbar("Your name is updated!", "success");
     authCtx.updateProfile({ displayName: enteredUsername });
   };
 
@@ -114,7 +114,7 @@ function Profile() {
           <CardContent>
             <InputTextField
               error={submitButtonClicked && !enteredUsernameIsValid}
-              helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
+              helperText="Tip: At least 3 characters."
               placeholder="My Full Name"
               icon={<AccountCircleOutlinedIcon />}
               inputRef={usernameInputRef}
