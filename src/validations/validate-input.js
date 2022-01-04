@@ -17,12 +17,11 @@ export const validateInput = (enteredInput, setSnackbarMessage) => {
     enteredConfirmPassword,
   } = enteredInput;
 
-  const validUsernamePattern = inputPatterns["username"];
   const validEmailPattern = inputPatterns["email"];
   const validPasswordPattern = inputPatterns["password"];
 
   const usernamePatternIsValid =
-    !enteredUsername || matchPattern(enteredUsername, validUsernamePattern);
+    !enteredUsername || enteredUsername.trim().length > 2;
   if (!usernamePatternIsValid) {
     setSnackbarMessage(WARNING_INVALID_USERNAME);
   }
