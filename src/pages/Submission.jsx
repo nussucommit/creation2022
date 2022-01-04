@@ -27,7 +27,7 @@ function Submission() {
     <Fab
       color="primary"
       onClick={toggleOpenUploadFormHandler}
-      sx={{ position: 'fixed', bottom: 30, right: 30 }}
+      sx={{ position: "fixed", bottom: 30, right: 30 }}
     >
       <AddIcon />
     </Fab>
@@ -40,7 +40,7 @@ function Submission() {
         <AddSubmissionButton />,
         <SubmittedFileList checkSubmit={setChallengeSubmitStatus} />,
         <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={openUploadForm}
         >
           <FileUploadForm
