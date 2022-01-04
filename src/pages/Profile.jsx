@@ -1,6 +1,7 @@
 import { useState, useRef, useContext } from "react";
 
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -13,6 +14,8 @@ import SnackbarContext from "../store/snackbar-context";
 import FormContainer from "../components/Container/FormContainer";
 import AvatarChooser from "../components/Input/AvatarChooser";
 import InputTextField from "../components/Input/InputTextField";
+import CVSubmissionNote from "../components/Input/CVSubmissionNote";
+import Agreement from "../components/Authentication/Agreement";
 
 function Profile() {
   /* ------------------------------ Context ------------------------------ */
@@ -24,11 +27,17 @@ function Profile() {
   const [username, setUsername] = useState(authCtx.user.displayName);
   const [enteredUsernameIsValid, setEnteredUsernameIsValid] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
+  const [openAgreement, setOpenAgreement] = useState(false);
 
   /* ------------------------------ Input Reference ------------------------------ */
   const usernameInputRef = useRef();
 
   /* ------------------------------ Method ------------------------------ */
+  const closeAgreementHandler = () => setOpenAgreement(false);
+
+  const toggleOpenAgreementHandler = () =>
+    setOpenAgreement((openAgreement) => !openAgreement);
+
   const setSnackbar = (message, type) =>
     snackbarCtx.setSnackbar({
       open: true,
@@ -100,6 +109,7 @@ function Profile() {
           {`Hi there, ${username}`}
         </h1>,
         <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />,
+        <CVSubmissionNote onToggleOpenAgreement={toggleOpenAgreementHandler} />,
         <form onSubmit={updateProfileHandler}>
           <CardContent>
             <InputTextField
@@ -116,6 +126,12 @@ function Profile() {
             </Button>
           </CardActions>
         </form>,
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={openAgreement}
+        >
+          <Agreement onClose={closeAgreementHandler} />
+        </Backdrop>,
       ]}
     />
   );
