@@ -162,12 +162,12 @@ function FileUploadForm({ onCancel }) {
 
   const uploadButtonProps = [
     {
-      label: "Image (.png/.jpg): ",
+      label: "Image* (.png/.jpg): ",
       type: "image/*",
       uploadMethod: setImageFile,
     },
     {
-      label: "Photoshop/Illustrator (.psd/.ai): ",
+      label: "Photoshop/Illustrator* (.psd/.ai): ",
       type: ".psd, .ai",
       uploadMethod: setAdobeFile,
     },
