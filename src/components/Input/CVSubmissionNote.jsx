@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import {
   collection,
@@ -9,13 +9,16 @@ import {
   where,
   updateDoc,
 } from "firebase/firestore";
+import { NavLink } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
+import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 import { db, storage } from "../../firebase/firebase-config";
 import { getTimestamp, getDateTime } from "../../helpers/date-time-getter";
@@ -26,6 +29,8 @@ import SnackbarContext from "../../store/snackbar-context";
 const SNACKBAR_MESSAGE_SUCCESS_SUBMIT = "CV is submitted successfully!";
 const SNACKBAR_MESSAGE_WARNING_MISSING =
   "Please make sure that you have chosen your CV.";
+const SNACKBAR_MESSAGE_WARNING_DISAGREE =
+  "You must tick the checkbox to indicate that you give your consent.";
 const SNACKBAR_MESSAGE_WARNING_INVALID =
   "Please make sure the file chosen has the correct format(pdf)!";
 const Input = styled("input")({
@@ -38,7 +43,7 @@ const getFileTypes = (uploadedFile) => uploadedFile.name.split(".").pop();
 const validateUploadedFiles = (uploadedFileTypes) =>
   uploadedFileTypes === "pdf";
 
-function CVSubmissionNote({ onToggleOpenAgreement }) {
+function CVSubmissionNote() {
   /* ------------------------------ Context ------------------------------ */
   const authCtx = useContext(AuthContext);
   const userUID = authCtx.user.uid;
@@ -48,8 +53,12 @@ function CVSubmissionNote({ onToggleOpenAgreement }) {
   /* ------------------------------ Hook ------------------------------ */
   const [cvURL, setCVURL] = useState("");
   const [cvDocID, setCVDocID] = useState("");
+  const [agree, setAgree] = useState(false);
 
   /* ------------------------------ Method ------------------------------ */
+  console.log(agree);
+  const toggleAgreeHandler = (event) => setAgree(event.target.checked);
+
   useEffect(() => {
     const cvRef = query(collection(db, "CV"), where("uid", "==", userUID));
 
@@ -61,55 +70,62 @@ function CVSubmissionNote({ onToggleOpenAgreement }) {
         const cvDocID = cvData.docs.map((doc) => doc.id)[0];
         setCVURL(cvURL);
         setCVDocID(cvDocID);
+        setAgree(true);
       }
     };
 
     getSubmittedCV();
   }, [userUID]);
 
-  const submitFileHandler = useCallback(
-    async (event) => {
-      event.preventDefault();
-      const cvFile = event.target.files[0];
+  const submitFileHandler = async (event) => {
+    event.preventDefault();
+    const cvFile = event.target.files[0];
 
-      const setSnackbar = (message, type) =>
-        snackbarCtx.setSnackbar({
-          open: true,
-          message,
-          type,
-        });
+    const setSnackbar = (message, type) =>
+      snackbarCtx.setSnackbar({
+        open: true,
+        message,
+        type,
+      });
 
-      if (!cvFile) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
-        return;
-      }
+    if (!cvFile) {
+      setSnackbar(SNACKBAR_MESSAGE_WARNING_MISSING, "warning");
+      return;
+    }
 
-      /* ------------------------------ Type validation ------------------------------ */
-      const fileType = getFileTypes(cvFile);
-      const fileIsValid = validateUploadedFiles(fileType);
-      if (!fileIsValid) {
-        setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
-        return;
-      }
+    if (!agree) {
+      setSnackbar(SNACKBAR_MESSAGE_WARNING_DISAGREE, "warning");
+      return;
+    }
 
-      /* ------------------------------ File name modification ------------------------------ */
-      const userEmailPrefix = userEmail.replace("@u.nus.edu", "");
-      const modifiedCVName = `CV_${userEmailPrefix}.${fileType}`;
+    /* ------------------------------ Type validation ------------------------------ */
+    const fileType = getFileTypes(cvFile);
+    const fileIsValid = validateUploadedFiles(fileType);
+    if (!fileIsValid) {
+      setSnackbar(SNACKBAR_MESSAGE_WARNING_INVALID, "warning");
+      return;
+    }
 
-      const cvStorageLocation = `CV/${modifiedCVName}`;
+    /* ------------------------------ File name modification ------------------------------ */
+    const userEmailPrefix = userEmail.replace("@u.nus.edu", "");
+    const modifiedCVName = `CV_${userEmailPrefix}.${fileType}`;
 
-      const cvStorageRef = ref(storage, cvStorageLocation);
+    const cvStorageLocation = `CV/${modifiedCVName}`;
 
-      /* ------------------------------ File submission ------------------------------ */
-      await uploadBytes(cvStorageRef, cvFile);
+    const cvStorageRef = ref(storage, cvStorageLocation);
 
-      /* ------------------------------ Record submission link ------------------------------ */
-      const cvCollectionRef = collection(db, `CV`);
-      const currentTimestamp = getTimestamp();
+    /* ------------------------------ File submission ------------------------------ */
+    await uploadBytes(cvStorageRef, cvFile);
 
+    /* ------------------------------ Record submission link ------------------------------ */
+    const cvCollectionRef = collection(db, `CV`);
+    const currentTimestamp = getTimestamp();
+
+    try {
+      const docRef = await doc(cvCollectionRef, cvDocID);
       getDownloadURL(cvStorageRef).then(async (url) => {
         if (url !== cvURL && cvURL !== "") {
-          await updateDoc(doc(cvCollectionRef, cvDocID), {
+          await updateDoc(docRef, {
             uid: userUID,
             timestamp: currentTimestamp,
             dateTime: getDateTime(currentTimestamp),
@@ -125,19 +141,28 @@ function CVSubmissionNote({ onToggleOpenAgreement }) {
         }
         setCVURL(url);
       });
+    } catch (error) {
+      setSnackbar(error.message, "error");
+    }
 
-      setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
-    },
-    [userUID, cvDocID, cvURL, userEmail, snackbarCtx]
-  );
+    setSnackbar(SNACKBAR_MESSAGE_SUCCESS_SUBMIT, "success");
+  };
 
   return (
     <Card
       raised
       sx={{ my: "2rem" }}
-      style={{ boxShadow: "0px 0px 10px #ffffff", textAlign: "start" }}
+      style={{ boxShadow: "0px 0px 10px #ffffff" }}
     >
-      <CardContent>
+      <CardHeader title="Personal Details Consent" />
+      <CardContent sx={{ textAlign: "start" }}>
+        <Typography>
+          I, as a participant of the CREATION 2022, consent to National
+          University of Singapore (NUS) through NUSSU commIT collecting, using
+          and/or disclosing my personal data to the startups supported by NUS
+          Enterprise for internship opportunities.
+        </Typography>
+        <br />
         <Typography>
           * Please notice that it is not compulsory to submit your CV for
           joining the competition
@@ -149,20 +174,24 @@ function CVSubmissionNote({ onToggleOpenAgreement }) {
         </Typography>
         <br />
         <Typography>
-          * More information about the collection of CVs can be found under
-          <Button size="small" onClick={onToggleOpenAgreement}>
+          * More information about the collection of CVs can be found under{" "}
+          <NavLink to="/rules" style={{ color: "#F72585" }}>
             Rules and Regulations
-          </Button>
+          </NavLink>
         </Typography>
       </CardContent>
+      <CardContent>
+        <FormControlLabel
+          control={<Checkbox checked={agree} onChange={toggleAgreeHandler} />}
+          label="I give my consent and agree to the rules and regulations."
+        />
+      </CardContent>
       {cvURL && (
-        <CardActions>
-          <Button href={cvURL} target="__blank" fullWidth>
-            View my submitted CV
-          </Button>
-        </CardActions>
+        <Button href={cvURL} target="__blank">
+          View my submitted CV
+        </Button>
       )}
-      <CardActions>
+      <CardContent>
         <label htmlFor="cv-upload-button">
           <Input
             accept=".pdf"
@@ -171,11 +200,11 @@ function CVSubmissionNote({ onToggleOpenAgreement }) {
             type="file"
             onChange={submitFileHandler}
           />
-          <Button variant="contained" component="span">
+          <Button variant="contained" component="span" disabled={!agree}>
             Upload My CV
           </Button>
         </label>
-      </CardActions>
+      </CardContent>
     </Card>
   );
 }
