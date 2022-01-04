@@ -115,14 +115,14 @@ function Profile() {
             <InputTextField
               error={submitButtonClicked && !enteredUsernameIsValid}
               helperText="Tip: At least 5 to 20 characters without whitespace. Allowed symbols: A-Z, a-z, 0-9, _."
-              placeholder="New Username"
+              placeholder="My Full Name"
               icon={<AccountCircleOutlinedIcon />}
               inputRef={usernameInputRef}
             />
           </CardContent>
           <CardActions>
             <Button type="submit" variant="contained" fullWidth>
-              Update username
+              Update my full name
             </Button>
           </CardActions>
         </form>,

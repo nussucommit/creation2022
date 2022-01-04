@@ -109,7 +109,7 @@ function AuthForm({ isSignin }) {
           <InputTextField
             error={submitButtonClicked && !enteredUsernameIsValid}
             helperText={INPUT_HELPERTEXT_USERNAME}
-            placeholder="Username"
+            placeholder="Full Name"
             icon={<AccountCircleOutlinedIcon />}
             inputRef={usernameInputRef}
           />
