@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import challengesdetail from '../data/challenges_detail.json'
+import challengesdetail from '../data/challenges_detail4.json'
 
 export default class ChallengesDetail extends React.Component{
     scrollToTop() {
@@ -10,9 +10,9 @@ export default class ChallengesDetail extends React.Component{
     render() {
         return (
             <div className='mainBody challenge'>
-                <h1 className='mainTitle challengeSecondaryTitle' style={{color:'#3ED6CD'}}>#1 Key Visual for NUS Commencement Class Giving 2023</h1>
+                <h1 className='mainTitle challengeSecondaryTitle' style={{color:'#4DAAFF'}}>#4 Digital Poster to Raise Awareness of Ransomware</h1>
                 <div className='challengeContent'>
-                    <span>Create a new, refreshed key visual for Commencement Class Giving 2023. The design should inspire pride in being affiliated with NUS, as well as encourage students to leave a legacy by making a gift in support of their juniors.</span>
+                    <span>Create a poster for Ransomware. The poster should be impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering.</span>
                     <br/>
                     <br/>
                     <br/>
@@ -24,21 +24,21 @@ export default class ChallengesDetail extends React.Component{
                         <br/>
                         <br/>
                         <div>
-                            <span>Commencement Class Giving is an annual tradition in which the graduating cohort of NUS comes together to celebrate convocation by making a single gift ($20.23 for Class of 2023) in support of their juniors. By leaving a legacy through their giving, the cohort contributes to current and future students in financial need, as well as activities that will enrich campus life.</span>
-                            <br/>
-                            <br/>
-                            <span>Please refer to <a href='https://nus.edu.sg/nusgiving/news-and-events/video-gallery/videoview/detail/what-does-20-mean-to-you' style={{color:'#fff'}}>this video</a> and past Commencement Class Giving collaterals in the appendix for more information.</span>
-                            <br/>
-                            <br/>
-                            <span>The key visual should encapsulate a strong concept that is different from recent years. It should include distinct elements that are adaptable and scalable. Bear in mind that the key visual is intended to be used across multiple channels with various taglines/call-to-action (e.g. web banners, emailers, campus banners, floor stickers, etc).</span>
-                            <br/>
-                            <br/>
-                            <span>A key visual refers to an image motif used in campaigns in order to enhance brand recognition. The message and context of a campaign should be easily and quickly grasped from the key visual.</span>
-                            <br/>
-                            <br/>
-                            <span>There is no need to use NUS colours. Please refrain from using predictable education or giving-related symbols/icons/motifs (e.g. heart, hands, gift box, plant, book, mortarboard, scroll, etc.). Please ensure that the message and key visual are designed with careful consideration of political and cultural sensitivity.</span>
-                            <br/>
-                            <br/>
+                            {details.content.map((paragraph) =>
+                            typeof paragraph === "string" ? (
+                                <div>
+                                    <span>{paragraph}</span>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            ) : (
+                                paragraph.map((point) => (
+                                <ul style={{marginLeft:'3vw'}}>
+                                    <li>{point}</li>
+                                </ul>
+                                ))
+                            )
+                            )}
                         </div>
                         <br/>
                         <br/>
@@ -95,7 +95,7 @@ export default class ChallengesDetail extends React.Component{
                                 </ul>
                             )
                             )}
-                            <span>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 challenge statements. Eligibility criteria for Newcomer Award can be found under <Link to='/rules' onClick={this.scrollToTop} style={{color:'#fff'}}>Rules and Regulations</Link>.</span>
+                            <span>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under <Link to='/rules' onClick={this.scrollToTop} style={{color:'#fff'}}>Rules and Regulations</Link>.</span>
                         </div>
                         <br/>
                         <br/>

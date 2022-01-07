@@ -28,6 +28,9 @@ const SignUp = React.lazy(() => import("./pages/SignUp"));
 const Submission = React.lazy(() => import("./pages/Submission"));
 const VerifyEmail = React.lazy(() => import("./pages/VerifyEmail"));
 const ChallengesDetail = React.lazy(() => import("./pages/ChallengesDetail"))
+const ChallengesDetail2 = React.lazy(() => import("./pages/ChallengesDetail2"))
+const ChallengesDetail3 = React.lazy(() => import("./pages/ChallengesDetail3"))
+const ChallengesDetail4 = React.lazy(() => import("./pages/ChallengesDetail4"))
 
 const theme = createTheme({
   palette: {
@@ -107,6 +110,9 @@ function App() {
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/challengesdetail" element={<ChallengesDetail />} />
+          <Route path="/challengesdetail2" element={<ChallengesDetail2 />} />
+          <Route path="/challengesdetail3" element={<ChallengesDetail3 />} />
+          <Route path="/challengesdetail4" element={<ChallengesDetail4 />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/refresh" element={<Navigate to="/submission" />} />
           <Route
