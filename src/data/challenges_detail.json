@@ -1,34 +1,37 @@
 [
 	{
-		"title":"Context",
-		"content":["The NUSSU Welfare Diary is published annually by the NUSSU Welfare Committee and is distributed during the NUS Student Life Fair to the NUS population in the month of August. The journal design should include: ",
-		[
-			{"section":"Cover (Design to be embassed on it)",
-			"detail":["Name: NUSSU Welfare Diary",
-				"Year: (AY) 2020/2021",
-				"Dark colour(s) (e.g. navy blue, dark brown, black) with accent colour of choice",
-				"Size: A5 with 80 X 110 mm design"]
-			},
-			{"section":"Front page (this belongs to…)",
-			"detail":["Size: A5"]
-			},
-			{"section":"Monthly dividers: 1 page per month (Aug 2020 - Jul 2021), with jewel toned colour background of choice, and writings in block letters with font of choice. You may want to add in icons or symbols representative of the respective months to increase the visual appeal (e.g. Christmas tree for December).",
-			"detail":["Size: A5"]
-			}
-		]
-		]
+		"title":"Challenge Background",
+		"content":["Commencement Class Giving is an annual tradition in which the graduating cohort of NUS comes together to celebrate convocation by making a single gift ($20.23 for Class of 2023) in support of their juniors. By leaving a legacy through their giving, the cohort contributes to current and future students in financial need, as well as activities that will enrich campus life.",
+			"Commencement Class Giving is an annual tradition in which the graduating cohort of NUS comes together to celebrate convocation by making a single gift ($20.23 for Class of 2023) in support of their juniors. By leaving a legacy through their giving, the cohort contributes to current and future students in financial need, as well as activities that will enrich campus life.",
+			"Please refer to this video and past Commencement Class Giving collaterals in the appendix for more information.",
+			"The key visual should encapsulate a strong concept that is different from recent years. It should include distinct elements that are adaptable and scalable. Bear in mind that the key visual is intended to be used across multiple channels with various taglines/call-to-action (e.g. web banners, emailers, campus banners, floor stickers, etc).",
+			"A key visual refers to an image motif used in campaigns in order to enhance brand recognition. The message and context of a campaign should be easily and quickly grasped from the key visual.",
+			"There is no need to use NUS colours. Please refrain from using predictable education or giving-related symbols/icons/motifs (e.g. heart, hands, gift box, plant, book, mortarboard, scroll, etc.). Please ensure that the message and key visual are designed with careful consideration of political and cultural sensitivity."]
+	},
+	{
+		"title":"Requirements of Artwork",
+		"content":["Any images and graphics used must be license-free or royalty-free",
+			"Design should be created by Illustrator and/or Photoshop software",
+			"The standard size should be A1 (594 x 841mm)",
+			"Design can be in portrait or landscape",
+			"Pixels per inch (ppi) value should be set to [300]",
+			"Color mode should be set to [RGB]",
+			"All artwork should be exported into the respective three formats:",
+			[".psd/.ai format and",".jpg/.png format and",".pdf format"],
+			"A short write-up on the design background, inspiration and rationale (this is a key criterion in our review of the submissions)",
+			["please submit the .pdf format artwork with the write-up as a single file"]
+			]
 	},
 	{
 		"title":"Prizes",
 		"content":["First prize:",
-			["Nintendo Switch and","12-months Adobe Creative Cloud for Individual Complete All Apps membership"],
+			["Apple iPad (64GB) and","Apple Pencil (1st Generation)"],
 			"Second prize:",
-			["Capitaland Voucher and","6-months Adobe Creative Cloud for Individual Complete All Apps membership"],
+			["Google Nest Audio"],
 			"Third prize:",
-			["Capitaland Voucher and","6-months Adobe Creative Cloud for Individual Complete All Apps membership"],
+			["Toshiba Canvio 1TB External Hard Drive"],
 			"Newcomer Award:",
-			["Wacom Intuos S and","12-months Adobe Creative Cloud for Individual Complete All Apps membership"],
-			"Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among ALL CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under Rules and Regulations."
+			["Wacom Intuos S"]
 			]
 	}
 ]

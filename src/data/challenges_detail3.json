@@ -1,0 +1,38 @@
+[
+	{
+		"title":"Challenge Background",
+		"content":["Part of the campaigns of NUS IT Security is to promote awareness of Social Engineering.",
+			"Business Email Compromise (BEC) is a type of phishing attack which requires the attacker to use an existing email as means to follow-through, trick and manipulate targeted parties. Attackers uses advance hacking techniques that may include:",
+			["password attacks to take over a targeted mailbox;","disclosure of credentials using sophisticated targeted phishing (or spear phishing) by means of either email or fake websites; or","look-alike email domains to trick users about making the source of the email appear legitimate."],
+			"Often an attacker gains access to information such as email conversation or personal details of the impersonated party. It will be then used to establish trust until a fraudulent request is made by the attacker:",
+			["ask for sensitive information; or","make payments based on exploited opportunity between the targets.","purchase items as a request"],
+			"Creating more user awareness over the concept of Business Email Compromise (BEC) through salient points outlined on a poster as a media can help in constantly reminding the NUS community about the impact of this threat.",
+			"The poster that will be created for this challenge requires a design that is impactful when viewed by audiences. Design elements should be catchy and memorable to help the audience remember the topics and key points.",
+			"Details of the poster will be provided by NUS IT Security and will be incorporated in the poster by the challenge participants."]
+	},
+	{
+		"title":"Requirements of Artwork",
+		"content":["The poster designs are open to either using vector or photo images",
+			"Design should be created by Illustrator and/or Photoshop software",
+			"The poster can fit into poster sizes A0, A1, A2, A3 (suitable for printing)",
+			"Design can only be in portrait layout",
+			"Image should be high resolution with at least 300dpi",
+			"Poster must include an NUS logo",
+			"Color mode should be set to [RGB/CMYK] (RGB for digital display, CMYK for printing)",
+			"All artwork should be exported into the respective formats:",
+			[" .psd/.ai format and",".jpg/.png format"]
+			]
+	},
+	{
+		"title":"Prizes",
+		"content":["First prize:",
+			["Apple iPad (64GB) and","Apple Pencil (1st Generation)"],
+			"Second prize:",
+			["Google Nest Audio"],
+			"Third prize:",
+			["Toshiba Canvio 1TB External Hard Drive"],
+			"Newcomer Award:",
+			["Wacom Intuos S"]
+			]
+	}
+]
