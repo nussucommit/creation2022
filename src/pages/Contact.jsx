@@ -62,6 +62,7 @@ function Contact() {
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
+          fontSize:"inherit",
         }}
       >
         <input
@@ -90,7 +91,7 @@ function Contact() {
         ></textarea>
         <br></br>
         <br></br>
-        <Button variant="outlined" type="submit" color="primary">
+        <Button  type="submit"  variant="contained" width={"80%"}>
           Submit
         </Button>
       </form>

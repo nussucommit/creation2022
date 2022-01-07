@@ -7,7 +7,7 @@ function Faq() {
         className="mainTitle"
         style={{ textShadow: '0px 0px 16px #ED8F03' }}
       >
-        Frequently Asked Question
+        Frequently Asked Questions
       </h1>
       <br />
       <div style={{ paddingLeft: '15vw', paddingRight: '15vw' }}>

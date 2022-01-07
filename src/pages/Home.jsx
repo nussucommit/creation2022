@@ -61,7 +61,7 @@ function Home() {
       </div>
 
       {/* Timeline */}
-      <div style={{ padding: "30px", paddingBottom: "80px" }}>
+      <div style={{ padding: "30px", paddingBottom: "0px" }}>
         <h1
           className={"mainTitle"}
           style={{ textShadow: "0px 4px 4px #370005" }}
@@ -147,23 +147,21 @@ function Home() {
           <Prize imageURL={"googleNestAudio.jpg"} title={"Google Nest Audio"} awardType={"Second Prize"}></Prize>
           <Prize imageURL={"toshibaHardDrive.jpeg"} title={"Toshiba Canvio 1TB External Hard Drive"} awardType={"Third Prize"}></Prize>
           <Prize imageURL={"wacomIntuos.jpg"} title={"Wacom Intuos S"} awardType={"Newcomer Award"}></Prize>
+          <Prize imageURL={"prize_CV.png"} title={"CV to be shared with startups supported by NUS enterprise"} awardType={"CV Collection"}></Prize>
+
 
         </div>
         <br/>
         <br/>
         <div style={{margin:"50px"}}>
-        <span style={{color:"white", lineHeight:"30px", padding:"60px"}}>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.</span>
+        <p style={{color:"white", lineHeight:"30px", padding:"30px"}}>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.</p>
+        <p style={{color:"white", lineHeight:"30px", padding:"30px"}}>
+        Note that All participants can voluntarily share their CVs with the startups supported by NUS Enterprise.  CV collection is not a winning entry for any of the challenge statements. More information can be found under 
+        <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.
+          </p>
+
         </div>
-        <h2
-          className={"mainTitle"}
-          style={{
-            textShadow: "0px 0px 15px #7000FF",
-            fontSize: "36px",
-            margin: "40px",
-          }}
-        >
-          And Many More Prizes!
-        </h2>
+        
       </div>
       </div>
       <div style={{backgroundColor:"white", padding:"40px 0px"}}>
@@ -187,7 +185,7 @@ function Home() {
 
           }}
         >
-         Ecosystem Partners
+         Ecosystem Partner
         </h2>
         <img style={{width:"100%"}} src={require(`../images/Ecosystem_Partners.png`)} alt={"ecosystem partners"} />
         <h2
