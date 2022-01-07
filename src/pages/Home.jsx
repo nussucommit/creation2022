@@ -4,6 +4,7 @@ import Prize from "../components/Layout/Prize";
 
 function Home() {
   return (
+    <div>
     <div className="homeBody">
       {/* Cover Photo Gradient */}
       
@@ -31,22 +32,25 @@ function Home() {
           }}
         >
           <Challenge
-            title={"2020 NUSSU Welfare Day"}
+            title={"Key Visual for NUS Commencement Class Giving 2023"}
             content={
-              "Design the AY2020/21 Welfare Diary! The theme of the journal is jewel toned colours with writings in block letters style. The design of the journal should appeal to the NUS student community."
+              "Create a new, refreshed key visual for Commencement Class Giving 2023. The design should inspire pride in being affiliated with NUS, as well as encourage students to leave a legacy by making a gift in support of their juniors."}
+          ></Challenge>
+          <Challenge
+            title={"Digital Poster for Phishing via Email, Calls and SMS"}
+            content={
+             "Create a poster for NUS IT Security as part of the photoshop camp. The theme of the poster is about Phishing being targeted via email, call and SMS."}
+          ></Challenge>
+          <Challenge
+            title={"Digital Poster for Business Email Compromise"}
+            content={
+              "Create a poster for NUS IT Security as part of the photoshop camp. The theme of the poster is about Business Email Compromise."
             }
           ></Challenge>
           <Challenge
-            title={"Key Visual for NUS Commencement Class Giving 2021"}
+            title={"Digital Poster to Raise Awareness of Ransomware"}
             content={
-              "Create a new, refreshed key visual for Commencement Class Giving 2021! The design should inspire pride in being affiliated with NUS and encourage students to mark their graduation with a gift in support of their juniors."
-            }
-          ></Challenge>
-          <Challenge
-            title={"Mascot for NUS IT Security Awareness Campaign"}
-            content={
-              "Create and design a Mascot character, for branding, which can be used in IT Security Awareness Campaign!"
-            }
+            "Create a poster for NUS IT Security as part of the photoshop camp. The theme of the poster is Ransomware which is a type of cyber-attack that encrypts files or the entire computer itself once infected."}
           ></Challenge>
         </div>
         <br></br>
@@ -73,35 +77,44 @@ function Home() {
         >
           <Timeline
             index={1}
-            date={"20 Jan 2020"}
-            title={"CHALLENGE STATEMENT RELEASE"}
+            date={"17 Jan 2022"}
+            title={"Challenge Statement Release"}
             content={
-              "The challenge statements will be released on our website on 20th January 2020. Sign-up will open on this website from 20th January 2020 until the deadline of submission on 21st February 2020."
+              "The problem statements will be released on our website on 17 Jan 2022. Sign-up will open on this website from 17 Jan 2022 until the deadline of submission on 25 Feb 2022."
             }
           ></Timeline>
           <Timeline
             index={2}
-            date={"8 Feb 2020"}
-            title={"ADVANCED PHOTOSHOP WORKSHOP"}
+            date={"29 Jan 2022"}
+            title={"Adobe Illustrator Workshop"}
             content={
-              "Once you have officially signed up as a participant, you can join our free workshop for advanced skills in Photoshop conducted by Acadia Training. The workshop will be on 8th February 2020. Sign up here!"
-            }
+            "You can join our free Adobe Illustrator Workshop  conducted by the NUSSU commIT training team. The workshop will be held on 29 January 2022."}
           ></Timeline>
           <Timeline
             index={3}
-            date={"21 Feb 2020"}
-            title={"DEADLINE FOR SUBMISSION"}
+            date={"5 Feb 2022"}
+            title={"Advanced Photoshop Workshop"}
             content={
-              "Participants can submit their design through our website by logging in. Submissions must be done before 21st February 2020 at 18:00."
-            }
+            "Once you have officially signed up as a participant, you can join our free workshop for advanced skills in Photoshop conducted by Acadia Training. The workshop will be on 5 February 2022."}
           ></Timeline>
           <Timeline
             index={4}
-            date={"24 Feb 2020"}
-            title={"PITCHING & CLOSING CEREMONY"}
+            date={"25 Feb 2022"}
+            title={"Deadline for Submission   "}
             content={
-              "Participants are invited to our closing ceremony held at Mochtar Riady Building(Revised) from 09:00 to 14:00 Participants will get a chance to pitch their designs to the judges."
-            }
+            "Participants can submit their design through our website by logging in. Submissions must be done before 25 February 2022 at 18:00."}
+          ></Timeline>
+          <Timeline
+            index={5}
+            date={"5 Mar 2022"}
+            title={"Announcement of Finalists"}
+            content={"After the submission deadline (25th of February 2022), participants’ submissions for each challenge statement will be assessed by the CREATION 2022 Committee and shortlisted into the final round of the closing ceremony."}
+          ></Timeline>
+          <Timeline
+            index={6}
+            date={"12 Mar 2022"}
+            title={"Pitching Day & Closing Ceremony"}
+            content={"Finalists are invited  to our closing ceremony held  at the Auditorium 1 in Utown from 9 A.M to 4 P.M. Finalists will get a chance to pitch their designs to a panel of  judges."}
           ></Timeline>
         </div>
       </div>
@@ -113,6 +126,7 @@ function Home() {
           boxShadow: "inset 0px 20px 50px 20px #1F1F1F",
           padding: "25px",
           paddingBottom: "50px",
+          textAlign:"center"
         }}
       >
         <h1
@@ -126,11 +140,19 @@ function Home() {
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
+            
           }}
         >
-          <Prize imageURL={"iPad.jpeg"} title={"iPad"}></Prize>
-          <Prize imageURL={"iPad.jpeg"} title={"iPad"}></Prize>
-          <Prize imageURL={"iPad.jpeg"} title={"iPad"}></Prize>
+          <Prize imageURL={"iPad.jpeg"} title={"Apple iPad (64GB) & \n Apple Pencil (1st Generation)"} awardType={"First Prize"}></Prize>
+          <Prize imageURL={"googleNestAudio.jpg"} title={"Google Nest Audio"} awardType={"Second Prize"}></Prize>
+          <Prize imageURL={"toshibaHardDrive.jpeg"} title={"Toshiba Canvio 1TB External Hard Drive"} awardType={"Third Prize"}></Prize>
+          <Prize imageURL={"wacomIntuos.jpg"} title={"Wacom Intuos S"} awardType={"Newcomer Award"}></Prize>
+
+        </div>
+        <br/>
+        <br/>
+        <div style={{margin:"50px"}}>
+        <span style={{color:"white", lineHeight:"30px", padding:"60px"}}>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.</span>
         </div>
         <h2
           className={"mainTitle"}
@@ -143,7 +165,44 @@ function Home() {
           And Many More Prizes!
         </h2>
       </div>
-    </div>
+      </div>
+      <div style={{backgroundColor:"white", padding:"40px 0px"}}>
+      <h2
+          className={"mainTitle"}
+          style={{
+            color:"#323232",
+            margin:"40px",
+
+          }}
+        >
+         Challenge Partners
+        </h2>
+        <img style={{width:"100%"}} src={require(`../images/Challenge_Partners.png`)} alt={"challenge partners"} />
+        <h2
+          className={"mainTitle"}
+          style={{
+            color:"#323232",
+            margin:"40px",
+            
+
+          }}
+        >
+         Ecosystem Partners
+        </h2>
+        <img style={{width:"100%"}} src={require(`../images/Ecosystem_Partners.png`)} alt={"ecosystem partners"} />
+        <h2
+          className={"mainTitle"}
+          style={{
+            color:"#323232",
+            margin:"40px",
+
+          }}
+        >
+         Sponsors
+        </h2>
+        <img style={{width:"100%"}} src={require(`../images/Sponsors.png`)} alt={"sponsors"} />
+      </div>
+      </div>
   );
 }
 

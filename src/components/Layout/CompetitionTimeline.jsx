@@ -2,10 +2,14 @@ import Timeline1 from "../../images/Timeline1.png";
 import Timeline2 from "../../images/Timeline2.png";
 import Timeline3 from "../../images/Timeline3.png";
 import Timeline4 from "../../images/Timeline4.png";
+import Timeline5 from "../../images/Timeline5.png";
+import Timeline6 from "../../images/Timeline6.png";
+
+
 
 export default function Timeline({ date, title, content, index }) {
-  const timelineImage = [Timeline1, Timeline2, Timeline3, Timeline4];
-  const colorArray = ["#FF66AB", "#F72585", "#D30564", "#AB004E"];
+  const timelineImage = [Timeline1, Timeline2, Timeline3, Timeline4, Timeline5, Timeline6];
+  const colorArray = ["#FF66AB", "#F72585", "#D30564", "#AB004E","#8E0041","#67002F"];
 
   return (
     <div
@@ -25,7 +29,7 @@ export default function Timeline({ date, title, content, index }) {
         }}
       >
         <div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", justifyContent:"space-between" }}>
             <div className={"timelineTitle"}>{title}</div>
             <div
               style={{

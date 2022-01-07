@@ -16,7 +16,7 @@ function Faq() {
             <h2 className="secondaryTitle" style={{ letterSpacing: '1px' }}>
               {index + 1}. {faq.question}
             </h2>
-            <span style={{ color: 'white', lineHeight: '30px' }}>
+            <span style={{ color: 'white', lineHeight: '30px', whiteSpace:"pre-line" }}>
               {faq.answer}
             </span>
           </div>
