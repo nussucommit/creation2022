@@ -1,23 +1,27 @@
 [
 	{
-		"title":"#1 2020 NUSSU Welfare Diary",
-		"content":["Design for the AY2020/21 Welfare Diary. The theme of the journal is jewel toned colours with writings in block letters style. The design of the journal should appeal to the NUS student community.",
-			"The NUSSU Welfare Diary is published annually by the NUSSU Welfare Committee and is distributed during the NUS Student Life Fair to the NUS population in the month of August."],
-		"company":"Company Background (NUSSU Welfare)",
-		"background":"NUSSU Welfare is a committee that aims to enrich the welfare of NUS students through various events, such as Exam Welfare Pack, Free Cone Day, Welfare Diary, etc., to improve their social and psychological well-being."
+		"title":"#1 Key Visual for NUS Commencement Class Giving 2023",
+		"content":["Create a new, refreshed key visual for Commencement Class Giving 2023. The design should inspire pride in being affiliated with NUS, as well as encourage students to leave a legacy by making a gift in support of their juniors."],
+		"company":"Company Background (The Development Office & Annual Giving)",
+		"background":["The Development Office is the philanthropic arm of the National University of Singapore (NUS). It leads NUS’ efforts in fundraising for the development of the University.",
+			"Annual Giving (AG) is a yearly campaign that encourages a commitment to mindful giving. Its success is a testament to the solidarity of the NUS community, including alumni, Commencement Class, students, faculty and staff members, as well as friends. The campaign supports University-wide bursaries and scholarships, as well as the priority funds of different faculties."]
 	},
 	{
-		"title":"#1 2020 NUSSU Welfare Diary",
-		"content":["Design for the AY2020/21 Welfare Diary. The theme of the journal is jewel toned colours with writings in block letters style. The design of the journal should appeal to the NUS student community.",
-			"The NUSSU Welfare Diary is published annually by the NUSSU Welfare Committee and is distributed during the NUS Student Life Fair to the NUS population in the month of August."],
-		"company":"Company Background (NUSSU Welfare)",
-		"background":"NUSSU Welfare is a committee that aims to enrich the welfare of NUS students through various events, such as Exam Welfare Pack, Free Cone Day, Welfare Diary, etc., to improve their social and psychological well-being."
+		"title":"#2 Digital Poster for Phishing via Email, Calls and SMS",
+		"content":["Create a poster about Phishing being targeted via email, call and SMS. The poster should be impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering."],
+		"company":"Company Background (NUS Information Technology)",
+		"background":["NUS IT Security is responsible for overseeing the university’s cyber security strategies and operations. Security awareness is one of the essential responsibilities that the team provides to help foster a cyber safe and positive security risk culture."]
 	},
 	{
-		"title":"#1 2020 NUSSU Welfare Diary",
-		"content":["Design for the AY2020/21 Welfare Diary. The theme of the journal is jewel toned colours with writings in block letters style. The design of the journal should appeal to the NUS student community.",
-			"The NUSSU Welfare Diary is published annually by the NUSSU Welfare Committee and is distributed during the NUS Student Life Fair to the NUS population in the month of August."],
-		"company":"Company Background (NUSSU Welfare)",
-		"background":"NUSSU Welfare is a committee that aims to enrich the welfare of NUS students through various events, such as Exam Welfare Pack, Free Cone Day, Welfare Diary, etc., to improve their social and psychological well-being."
+		"title":"#3 Digital Poster for Business Email Compromise",
+		"content":["Create a poster about Business Email Compromise. The poster that is impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering."],
+		"company":"Company Background (NUS Information Technology)",
+		"background":["NUS IT Security is responsible for overseeing the university’s cyber security strategies and operations. Security awareness is one of the essential responsibilities that the team provides to help foster a cyber safe and positive security risk culture."]
+	},
+	{
+		"title":"#4 Digital Poster to Raise Awareness of Ransomware",
+		"content":["Create a poster for Ransomware. The poster should be impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering."],
+		"company":"Company Background (NUS Information Technology)",
+		"background":["NUS IT Security is responsible for overseeing the university’s cyber security strategies and operations. Security awareness is one of the essential responsibilities that the team provides to help foster a cyber safe and positive security risk culture."]
 	}
 ]
