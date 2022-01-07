@@ -1,0 +1,36 @@
+[
+	{
+		"title":"Challenge Background",
+		"content":["Part of the campaigns of NUS IT Security is to promote awareness of Social Engineering. Phishing is one of the most common attack methods of hackers which every staff and student should be made aware of. Phishing is used against organizations today mainly to obtain sensitive information or use an attachment or link to download malicious software – such a method aims to the attacker’s objective to cause financial loss or cause system harm. Improving the behaviours through posters as media helps in constantly reminding the target audience through salient points outlined.",
+			"The poster that will be created for this challenge requires a design that is impactful when viewed by audiences. Design elements should be catchy and memorable to help the audience remember the topics and key points.",
+			"This design challenge in-scope is to choose to design a poster based on either of the topics below:",
+			["Phishing Email","Phishing SMS (SMShing)","Phishing Calls"],
+			"Details of the poster will be provided by NUS IT Security and will be incorporated in the poster by the challenge participants."
+			]
+	},
+	{
+		"title":"Requirements of Artwork",
+		"content":["The poster designs are open to either using vector or photo images",
+			"Design should be created by Illustrator and/or Photoshop software",
+			"The poster can fit into poster sizes A0, A1, A2, A3 (suitable for printing)",
+			"Design can only be in portrait layout",
+			"Image should be high resolution with at least 300dpi",
+			"Poster must include an NUS logo",
+			"Color mode should be set to [RGB/CMYK] (RGB for digital display, CMYK for printing)",
+			"All artwork should be exported into the respective formats:",
+			[" .psd/.ai format and",".jpg/.png format"]
+			]
+	},
+	{
+		"title":"Prizes",
+		"content":["First prize:",
+			["Apple iPad (64GB) and","Apple Pencil (1st Generation)"],
+			"Second prize:",
+			["Google Nest Audio"],
+			"Third prize:",
+			["Toshiba Canvio 1TB External Hard Drive"],
+			"Newcomer Award:",
+			["Wacom Intuos S"]
+			]
+	}
+]

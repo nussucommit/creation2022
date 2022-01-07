@@ -4,15 +4,17 @@ import challenge from '../data/challenge.json'
 import line1 from '../images/Challenge Statement Groups of line 1.png'
 import line2 from '../images/Challenge Statement Groups of line 2.png'
 import line3 from '../images/Challenge Statement Groups of line 3.png'
+import line4 from '../images/Challenge Statement Groups of line 4.png'
 import num1 from '../images/Challenge Statement Number 1.png'
 import num2 from '../images/Challenge Statement Number 2.png'
 import num3 from '../images/Challenge Statement Number 3.png'
-
+import num4 from '../images/Challenge Statement Number 4.png'
 export default class Challenge extends React.Component {
     state = {
-        lines:[line1,line2,line3],
-        nums:[num1,num2,num3],
-        color:['#3ED6CD','#FB8500','#E270FF']
+        lines:[line1,line2,line3,line4],
+        nums:[num1,num2,num3,num4],
+        color:['#3ED6CD','#FB8500','#E270FF','#4DAAFF'],
+        path:['/challengesdetail','/challengesdetail2','/challengesdetail3','/challengesdetail4']
     }
 
     scrollToTop() {
@@ -31,7 +33,7 @@ export default class Challenge extends React.Component {
                                 <div className='challengeContent' style={{ lineHeight:"2vw" }}>
                                     <div><img className={index%2===0 ? 'challengeNumPicRight' : 'challengeNumPicLeft'} src={this.state.nums[index]} alt='number'/></div>
                                     <div className={index%2===0 ? 'challengeContentRight' : 'challengeContentLeft'}>
-                                        <h1 className='secondaryTitle challengeSecondaryTitle' style={{color:this.state.color[index], lineHeight:"30px"}}>{section.title}</h1>
+                                        <h1 className='secondaryTitle challengeSecondaryTitle' style={{color:this.state.color[index], lineHeight:"35px"}}>{section.title}</h1>
                                         {
                                             section.content.map((description) =>
                                                 <div>    
@@ -42,10 +44,18 @@ export default class Challenge extends React.Component {
                                             )
                                         }
                                         <h3 className='challengeTertiaryTitle' style={{lineHeight: '34px', textDecoration: 'underline',fontFamily:'Nova Flat',margin:'0px'}}>{section.company}</h3>
-                                        <span>{section.background}</span>
+                                        {
+                                            section.background.map((description) => 
+                                                <div>
+                                                    <span>{description}</span>
+                                                    <br/>
+                                                    <br/>
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                     <h2 className='challengeTertiaryTitle'>
-                                        <Link className='challengeFindMore' to='/challengesdetail' onClick={this.scrollToTop} style={{color:this.state.color[index]}}>Find Out More {'>>'}</Link>
+                                        <Link className='challengeFindMore' to={this.state.path[index]} onClick={this.scrollToTop} style={{color:this.state.color[index]}}>Find Out More {'>>'}</Link>
                                     </h2>
                                 </div>
                             </div>
