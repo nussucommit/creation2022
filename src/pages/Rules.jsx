@@ -33,7 +33,11 @@ function Rules() {
                         </div>
                         <ul key={index} style={{ paddingInlineStart: "40px" }}>
                           {prize.details.map((detail, i) => (
-                            <li key={i}>{detail}</li>
+                            <div key={i}>
+                            <li style={{textDecoration:"underline"}}>{detail.criteria}</li>
+                            <span style={{color:"white", lineHeight:"40px"}}>{detail.criteriaDetails}</span>
+                            <br/>
+                            </div>
                           ))}
                         </ul>
                         <br />

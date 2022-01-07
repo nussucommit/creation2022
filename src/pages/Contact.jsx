@@ -28,7 +28,7 @@ function Contact() {
       name: name,
       email: email,
       inquiry: inquiry,
-      to: ["lawhiuyankarenlaw@gmail.com"],
+      to: ["daffa26@gmail.com","suyatinglaura@gmail.com"],
       message: {
         subject: "New inquiry for CREATION 2022",
         html: "From " + name + " (" + email + "): " + inquiry,
@@ -54,9 +54,10 @@ function Contact() {
       >
         Contact Us
       </h1>
-
+<br/>
       <form
         onSubmit={Validate}
+     
         style={{
           alignItems: "center",
           display: "flex",

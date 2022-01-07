@@ -19,19 +19,20 @@ li {
 }
 
 @media screen and (min-width: 1400px) {
+  
   .homeBody {
     background-image: url(./images/poster.jpg);
-    background-position: center;
+    background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
-    min-width: 100%;
     width: 100%;
     height: 100%;
+    max-width:100%;
   }
 
   .headGradient {
     background: linear-gradient(0deg, #111111 0%, rgba(255, 255, 255, 0) 20%);
-    height: 700px;
+    height: 900px;
   }
   .challenge {
     background-color: rgba(255, 255, 255, 0.2);
@@ -42,7 +43,7 @@ li {
 @media screen and (max-width: 1400px) {
   .homeBody {
     background-image: url(./images/poster_lower.png);
-    background-position: left;
+    background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
@@ -138,6 +139,7 @@ li {
   margin: 30px;
   font-family: "Raider Crusader";
   font-size: 56px;
+  text-align: center;
 }
 
 .secondaryTitle {
@@ -158,7 +160,7 @@ li {
   border-bottom-width: 1px;
   padding: 5px;
   border-style: inset;
-  width: 30%;
+  width: 80%;
   margin-bottom: 20px;
   line-height: 20px;
 }

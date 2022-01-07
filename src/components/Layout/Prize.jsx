@@ -1,7 +1,8 @@
-function Prize({ imageURL, title }) {
+function Prize({ imageURL, title, awardType }) {
   return (
     <div style={{ margin: "20px" }}>
       <div className={"hexagonShadow"}>
+      <span style={{ color: "white", fontSize:"30px", fontFamily:"Raider Crusader" }}>{awardType}</span>
         <div className={"hexagon"}>
           <img
             src={require(`../../images/${imageURL}`)}
@@ -10,7 +11,7 @@ function Prize({ imageURL, title }) {
           />
         </div>
 
-        <span style={{ color: "white" }}>{title}</span>
+        <span style={{ color: "white", whiteSpace:"pre-line", lineHeight:"30px" }}>{title}</span>
       </div>
     </div>
   );

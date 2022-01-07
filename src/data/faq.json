@@ -1,26 +1,34 @@
 [ {
-    "question": "Who is eligible to take part in CREATION 2020?",
-    "answer":"Only NUS undergraduate students shall be eligible to participate in CREATION 2020."
+    "question": "Who is eligible to take part in CREATION 2022?",
+    "answer":"Only NUS undergraduate students shall be eligible to participate in CREATION 2022."
 },
 {
-    "question": "Are there any charges to participate in CREATION 2020?",
-    "answer":"Participation in CREATION 2020 is FREE of charge."
+    "question": "Are there any charges to participate in CREATION 2022?",
+    "answer":"Participation in CREATION 2022 is FREE of charge."
 },
 {
     "question": "Can each participation participate in more than one challenge statement?",
-    "answer":"Yes, however, each participant can submit only ONE submission per challenge statement, of which will be judged by a panel of judges during the closing ceremony on 24th February 2020."
+    "answer":"Of course! However, only the last submission for each challenge statement will be taken and shortlisted by the CREATION committee."
+},
+{
+    "question":"I do not have Adobe Photoshop or Illustrator installed on my laptop. What should I do?",
+    "answer":"Participants can use the Adobe software installed on the computers at NUSSU commIT computer centers at these locations to work on their designs: \n YIH Level 3, open Monday to Friday, 9am to 7pm \n AS8 Level 2, open Monday to Friday, 9am to 7pm"
 },
 {
     "question": "Will the judging criteria vary among the problem statement?",
-    "answer":"Yes, assessment criteria will vary among problem statement. Participants could check the assessment criteria on Rules and Regulations > Selection Process."
+    "answer":"Yes, assessment criteria will vary among challenge statements. Participants could check the assessment criteria on Rules and Regulations > Selection Process."
 },
 {
-    "question": "Is it compulsory for the participants to attend the closing ceremony on 24th February 2020?",
-    "answer":"Yes, participants shall be able to attend the closing ceremony on 24th February 2020 to pitch their final artwork to the panel of judges. Participants who are unable to attend the closing ceremony for the pitching session will be heavily penalized during the assessment or may face disqualification as well."
+    "question": "Is it compulsory for the participants to attend the closing ceremony?",
+    "answer":"Yes, participants shortlisted into the final round on 5 March 2022 are required to attend the closing ceremony on 12 March 2022 to pitch their final artwork to the panel of judges. Unless in extenuating circumstances, finalists who are unable to attend the closing ceremony for the pitching session will be heavily penalized during the assessment or may face disqualification as well."
 },
 {
-    "question": "Is it compulsory for the participants to attend the Advanced Photoshop Workshop on 8 February 2020?",
-    "answer":"No, but the participants are highly encouraged to attend since this free workshop is conducted by a certified trainer from Acadia Training. Participants get to learn advanced Photoshop skills from this workshop and apply them on their designs. Interested participants may sign up here!"
+    "question": "Is it compulsory for the participants to attend the Advanced Photoshop Workshop on 5 February 2022?",
+    "answer":"No, but the participants are highly encouraged to attend since this free workshop is conducted by a certified trainer from Acadia Training. Participants get to learn advanced Photoshop skills from this workshop and apply them on their designs."
+},
+{
+    "question":"Must I join the competition to be able to attend the Advanced Photoshop Workshop on 5 February 2022?",
+    "answer":"No, however priority will be given to students who have signed up for a challenge in CREATION 2022.  A deposit of $5 needs to be paid by the student which will be returned to the student after he/she made a submission of the designs."
 },
 {
     "question": "Can I join the competition as a team?",
@@ -28,10 +36,14 @@
 },
 {
     "question": "What is the Newcomer Award and who is eligible for it?",
-    "answer":"Newcomer Award is an award given to ONE participant whose design is not a winning design for any of the challenge statements and is the judges' favorite among all the challenge statements. However, only participants who have attended Cyberia Camp 2019 and/or any of the NUSSU commIT's Adobe Photoshop Workshop (excluding the Advanced Photoshop Workshop on 8 February 2020) and/or any of the NUSSU commIT's Adobe Illustrator Workshop are eligible for the Newcomer Award."
+    "answer":"Newcomer Award is an award given to ONE participant whose design is not a winning design for any of the challenge statements and is the judges’ favorite among the 4 challenge statements. However, only participants who have attended Cyberia Camp 2021 and/ or any of the NUSSU commIT’s Adobe Photoshop Workshop (excluding the Advanced Photoshop Workshop on 5 February 2022) and / or any of the NUSSU commIT’s Adobe Illustrator Workshop are eligible for the Newcomer Award."
 },
 {
     "question": "Can I use a software other than Adobe Photoshop or Adobe Illustrator?",
-    "answer":"No, participants are strictly required to use Adobe Photoshop and/or Adobe Illustrator or stated otherwise. Please check with the requirement of each challenge statement. Participants can use the computers at NUSSU commIT's computer centers at YIH Level 3 or AS8 Level 2 to work on their designs, if they do not have the software installed on their computers."
+    "answer":"No, participants are strictly required to use Adobe Photoshop and/or Adobe Illustrator or stated otherwise. Please check with the requirement of each challenge statement. Participants can use the computers at the NUSSU commIT computer centers at YIH Level 3 or AS8 Level 2 to work on their designs, if they do not have the software installed on their computers."
+},
+{
+    "question":"Is it compulsory for the participants to upload their CVs?",
+    "answer":"No, it is voluntary for the participants to share their CVs with the startups supported by NUS Enterprise  for potential internship opportunities. With the submission should the participants consent to allow their CVs to be shared though. Please also note that the internship is not guaranteed, and the decision lies with the startup.  This initiative is a value-add to participants that the competition does not stop when it is over, but it can extend beyond."
 }
 ]
