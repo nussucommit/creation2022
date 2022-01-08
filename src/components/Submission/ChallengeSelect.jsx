@@ -9,6 +9,13 @@ import Select from "@mui/material/Select";
 import { db } from "../../firebase/firebase-config";
 import AuthContext from "../../store/auth-context";
 
+const challengeStatements = [
+  "Key Visual for NUS Commencement Class Giving 2023",
+  "Digital Poster for Phishing via Email, Calls and SMS",
+  "Digital Poster for Business Email Compromise",
+  "Digital Poster to Raise Awareness of Ransomware",
+];
+
 function ChallengeSelect({ onSelect }) {
   const authCtx = useContext(AuthContext);
 
@@ -55,9 +62,9 @@ function ChallengeSelect({ onSelect }) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {challengeSubmitStatus.map((unSubmittedIndex) => (
+        {challengeSubmitStatus.map((unSubmittedIndex, index) => (
           <MenuItem key={unSubmittedIndex} value={unSubmittedIndex}>
-            {unSubmittedIndex}
+            {`${unSubmittedIndex}: ${challengeStatements[index]}`}
           </MenuItem>
         ))}
       </Select>
