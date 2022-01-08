@@ -32,6 +32,13 @@ const styles = {
   },
 };
 
+const challengeStatements = [
+  "Key Visual for NUS Commencement Class Giving 2023",
+  "Digital Poster for Phishing via Email, Calls and SMS",
+  "Digital Poster for Business Email Compromise",
+  "Digital Poster to Raise Awareness of Ransomware",
+];
+
 function SubmittedFileList() {
   const authCtx = useContext(AuthContext);
   const snackbarCtx = useContext(SnackbarContext);
@@ -121,7 +128,9 @@ function SubmittedFileList() {
                 sx={{ display: "flex", flexDirection: "column", width: "100%" }}
               >
                 <CardHeader
-                  title={`Challenge ${file.challenge} Submission`}
+                  title={`Challenge ${file.challenge}: ${
+                    challengeStatements[file.challenge - 1]
+                  }`}
                   titleTypographyProps={{ fontFamily: "Raider Crusader" }}
                   subheader={file.dateTime}
                   action={
