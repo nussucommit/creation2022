@@ -71,8 +71,10 @@ li {
 
 .creationLogo {
   margin-top: 4%;
-  width: 80%;
+  width: 100%;
   animation: float 4s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
 }
 
 .homeContent {
