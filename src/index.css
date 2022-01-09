@@ -72,9 +72,9 @@ li {
 .creationLogo {
   margin-top: 4%;
   width: 100%;
-  animation: float 4s ease-in-out infinite;
   position: relative;
   z-index: 2;
+  animation: float 4s ease-in-out infinite;
 }
 
 .homeContent {
@@ -83,6 +83,17 @@ li {
   position: relative;
   padding: 1rem;
   z-index: 1;
+}
+
+.challenge {
+  padding: 2rem 10rem;
+}
+
+.homeChallenge {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 3rem 2rem;
+  width: 400px;
+  color: white;
 }
 
 .challenge::before {
@@ -96,7 +107,7 @@ li {
 }
 
 .timeline {
-  padding: 1rem 2rem;
+  padding: 2rem;
   position: relative;
 }
 
@@ -136,18 +147,14 @@ li {
   .homeBody {
     background-repeat: no-repeat;
     width: 100vw;
-    /* height:100%; */
   }
 }
 
-.homeChallenge {
-  background-image: url(./images/homeChallengeBackground.png);
-  background-size: cover;
-  padding: 30px;
-  width: 400px;
-  min-width: 350px;
-  min-height: 350px;
-  height: 400px;
+/* Mobile display */
+@media screen and (max-width: 600px) {
+  .challenge {
+    padding: 2rem;
+  }
 }
 
 .homeTimeline {
@@ -200,9 +207,9 @@ li {
 
 .secondaryTitle {
   color: white;
-  font-family: 'Raider Crusader';
-  margin: 10px;
-  margin-bottom: 20px;
+  font-family: 'Poppins';
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .contactInput {
