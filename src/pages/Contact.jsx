@@ -28,7 +28,7 @@ function Contact() {
       name: name,
       email: email,
       inquiry: inquiry,
-      to: ["daffa26@gmail.com","suyatinglaura@gmail.com"],
+      to: ["creation.committee@nussucommit.com"],
       message: {
         subject: "New inquiry for CREATION 2022",
         html: "From " + name + " (" + email + "): " + inquiry,

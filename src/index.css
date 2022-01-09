@@ -134,6 +134,7 @@ li {
   .homeBody {
     background-repeat: no-repeat;
     width: 100vw;
+    /* height:100%; */
   }
 }
 
