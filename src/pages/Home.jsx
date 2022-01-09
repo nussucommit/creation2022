@@ -147,7 +147,7 @@ function Home() {
           <Prize imageURL={"googleNestAudio.jpg"} title={"Google Nest Audio"} awardType={"Second Prize"}></Prize>
           <Prize imageURL={"toshibaHardDrive.jpeg"} title={"Toshiba Canvio 1TB External Hard Drive"} awardType={"Third Prize"}></Prize>
           <Prize imageURL={"wacomIntuos.jpg"} title={"Wacom Intuos S"} awardType={"Newcomer Award"}></Prize>
-          <Prize imageURL={"prize_CV.png"} title={"CV to be shared with startups supported by NUS enterprise"} awardType={"CV Collection"}></Prize>
+          <Prize imageURL={"prize_CV.png"} title={"CV to be shared with startups\nsupported by NUS enterprise"} awardType={"CV Collection"}></Prize>
 
 
         </div>
@@ -156,8 +156,7 @@ function Home() {
         <div style={{margin:"50px"}}>
         <p style={{color:"white", lineHeight:"30px", padding:"30px"}}>Note that ONE Newcomer Award will be given to ONE eligible participant whose design is the judges’ favorite among the 4 CHALLENGE STATEMENTS. Eligibility criteria for Newcomer Award can be found under <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.</p>
         <p style={{color:"white", lineHeight:"30px", padding:"30px"}}>
-        Note that All participants can voluntarily share their CVs with the startups supported by NUS Enterprise.  CV collection is not a winning entry for any of the challenge statements. More information can be found under 
-        <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.
+        Note that All participants can voluntarily share their CVs with the startups supported by NUS Enterprise.  CV collection is not a winning entry for any of the challenge statements. More information can be found under <a href={"https://creation-2022.herokuapp.com/rules"} style={{color:"white"}}>Rules and Regulations</a>.
           </p>
 
         </div>
