@@ -42,11 +42,12 @@ li {
 
 @media screen and (max-width: 1650px) {
   .homeBody {
-    background-image: url(./images/poster_lower.png);
-    background-position: top;
+    background-image: url(./images/poster_lower_original.png);
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
+    /* height:100%; */
   }
 
   .headGradient {
