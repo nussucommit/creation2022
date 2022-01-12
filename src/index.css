@@ -4,77 +4,157 @@
   padding: 0;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 p {
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
 }
 
 span {
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
 }
 
 li {
   color: white;
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
   line-height: 40px;
 }
 
+.navItem::before {
+  content: url(./images/magic-circle.png);
+  transform: scale(0.1);
+  position: relative;
+  z-index: 1;
+  width: 0px;
+  height: 0px;
+  mix-blend-mode: color-dodge;
+  position: relative;
+  top: -34px;
+  left: -34px;
+  opacity: 0;
+  transition: opacity 750ms ease-in-out;
+}
+
+.navItem:hover::before {
+  opacity: 1;
+}
+
+.navItem {
+  transition: color 750ms ease-in-out;
+}
+
+.navItem:hover {
+  color: rgb(255, 150, 150);
+}
+
+.homeBody {
+  background-color: black;
+}
+
+.coverPage {
+  background-image: url(./images/wallpaper.png);
+  background-size: cover;
+  padding-top: 60px;
+  position: relative;
+}
+
+.coverPage::after {
+  content: '';
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  bottom: 0;
+}
+
+.creationLogo {
+  margin-top: 4%;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  animation: float 4s ease-in-out infinite;
+}
+
+.homeContent {
+  background-image: url('./images/poster_blank.png');
+  background-size: cover;
+  position: relative;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.challenge {
+  padding: 2rem 10rem;
+}
+
+.homeChallenge {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 3rem 2rem;
+  width: 400px;
+  color: white;
+}
+
+.challenge::before {
+  content: '';
+  background: linear-gradient(180deg, black, rgba(0, 0, 0, 0));
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.timeline {
+  padding: 2rem;
+  position: relative;
+}
+
+.timeline::after {
+  content: '';
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+}
+
+.prizes {
+  padding: 1rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.prize {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media screen and (min-width: 1650px) {
-  
   .homeBody {
-    background-image: url(./images/poster.png);
-    background-position: top;
-    background-size: contain;
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
-    max-width:100%;
-  }
-
-  .headGradient {
-    background: linear-gradient(0deg, #111111 0%, rgba(255, 255, 255, 0) 20%);
-    height: 700px;
-  }
-  .challenge {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 30px;
+    max-width: 100%;
   }
 }
 
 @media screen and (max-width: 1650px) {
   .homeBody {
-    background-image: url(./images/poster_lower_original.png);
-    background-position: center;
-    background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
-    /* height:100%; */
-  }
-
-  .headGradient {
-    background-image: url(./images/poster_head.jpeg) !important;
-    background-position: center;
-    background-size: contain !important;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 0;
-    padding-top: 40.08%; /* (img-height / img-width * container-width) */
-    /* (853 / 1280 * 100) */
-  }
-
-  .challenge {
-    padding: 30px;
-    background: linear-gradient(180deg, #111111 0%, rgba(255, 255, 255, 0) 20%);
   }
 }
 
-.homeChallenge {
-  background-image: url(./images/homeChallengeBackground.png);
-  background-size: cover;
-  padding: 30px;
-  width: 400px;
-  min-width: 350px;
-  min-height: 350px;
-  height: 400px;
+/* Mobile display */
+@media screen and (max-width: 600px) {
+  .challenge {
+    padding: 2rem;
+  }
 }
 
 .homeTimeline {
@@ -85,14 +165,14 @@ li {
 }
 
 .timelineDate {
-  font-family: "Raider Crusader";
+  font-family: 'Raider Crusader';
   font-size: 32px;
   color: white;
   margin-bottom: 10px;
 }
 
 .timelineTitle {
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
   color: white;
   font-size: 20px;
   line-height: 24px;
@@ -101,28 +181,10 @@ li {
 }
 
 .timelineContent {
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
   color: white;
   font-size: 14px;
   line-height: 20px;
-}
-
-.hexagon {
-  clip-path: polygon(25% 10%, 75% 10%, 95% 50%, 75% 90%, 25% 90%, 5% 50%);
-  background-color: white;
-  width: 253px;
-  height: 250px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hexagonShadow {
-  filter: drop-shadow(0px 0px 10px #7000ff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .mainBody {
@@ -138,23 +200,23 @@ li {
   color: white;
   justify-content: center;
   margin: 30px;
-  font-family: "Raider Crusader";
+  font-family: 'Raider Crusader';
   font-size: 56px;
   text-align: center;
 }
 
 .secondaryTitle {
   color: white;
-  font-family: "Raider Crusader";
-  margin: 10px;
-  margin-bottom: 20px;
+  font-family: 'Poppins';
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .contactInput {
   outline: none;
   background: none;
   color: white;
-  font-family: "Nova Flat";
+  font-family: 'Poppins';
   border-color: white;
   border-bottom: white;
   border: 0px;
@@ -164,102 +226,102 @@ li {
   width: 80%;
   margin-bottom: 20px;
   line-height: 20px;
-  font-size:inherit;
+  font-size: inherit;
 }
 
 @font-face {
-  font-family: "Raider Crusader";
-  src: local("raidercrusader"),
-    url("./fonts/raidercrusader.ttf") format("truetype");
+  font-family: 'Raider Crusader';
+  src: local('raidercrusader'),
+    url('./fonts/raidercrusader.ttf') format('truetype');
   font-weight: normal;
 }
 
 @font-face {
-  font-family: "Nova Flat";
-  src: local("NovaFlat-Regular"),
-    url("./fonts/NovaFlat-Regular.ttf") format("truetype");
+  font-family: 'Nova Flat';
+  src: local('NovaFlat-Regular'),
+    url('./fonts/NovaFlat-Regular.ttf') format('truetype');
   font-weight: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Thin"),
-    url("./fonts/Poppins/Poppins-Thin.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Thin'),
+    url('./fonts/Poppins/Poppins-Thin.ttf') format('truetype');
   font-weight: 100;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-ExtraLight"),
-    url("./fonts/Poppins/Poppins-ExtraLight.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-ExtraLight'),
+    url('./fonts/Poppins/Poppins-ExtraLight.ttf') format('truetype');
   font-weight: 200;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Light"),
-    url("./fonts/Poppins/Poppins-Light.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Light'),
+    url('./fonts/Poppins/Poppins-Light.ttf') format('truetype');
   font-weight: 300;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Regular"),
-    url("./fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Regular'),
+    url('./fonts/Poppins/Poppins-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Medium"),
-    url("./fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Medium'),
+    url('./fonts/Poppins/Poppins-Medium.ttf') format('truetype');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-SemiBold"),
-    url("./fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-SemiBold'),
+    url('./fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
   font-weight: 600;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Bold"),
-    url("./fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Bold'),
+    url('./fonts/Poppins/Poppins-Bold.ttf') format('truetype');
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-ExtraBold"),
-    url("./fonts/Poppins/Poppins-ExtraBold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-ExtraBold'),
+    url('./fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
   font-weight: 800;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: local("Poppins-Black"),
-    url("./fonts/Poppins/Poppins-Black.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: local('Poppins-Black'),
+    url('./fonts/Poppins/Poppins-Black.ttf') format('truetype');
   font-weight: 900;
 }
 
 .challengeContent {
   padding-left: 15vw;
   padding-right: 15vw;
-  color:#fff;
+  color: #fff;
 }
 
 .challengeNumPicLeft {
-    height:18vw;
-    margin-top:50px;
-    float:left;
+  height: 18vw;
+  margin-top: 50px;
+  float: left;
 }
 
 .challengeNumPicRight {
-  height:18vw;
-  margin-top:50px;
-  float:right;
+  height: 18vw;
+  margin-top: 50px;
+  float: right;
 }
 
 .challengeContentLeft {
@@ -271,20 +333,20 @@ li {
 }
 
 .challengeFindMore {
-  float:right;
-  margin:2vw;
+  float: right;
+  margin: 2vw;
   font-family: Nova Flat;
 }
 
 .notFoundContent {
-  width:70vw;
-  margin:2vw auto;
+  width: 70vw;
+  margin: 2vw auto;
   font-family: Nova Flat;
 }
 
 .notFoundPic {
-  float:left;
-  width:5vw;
+  float: left;
+  width: 5vw;
 }
 
 .notFoundTitle {
@@ -296,19 +358,19 @@ li {
 .notFoundDescription {
   font-size: 2.5vw;
   margin-top: 2vw;
-  border-top: 0.3vw rgba(256,256,256,0.1) solid;
+  border-top: 0.3vw rgba(256, 256, 256, 0.1) solid;
   padding-top: 3vw;
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .challengeTitle {
     font-size: 30px;
-    margin:2vw;
+    margin: 2vw;
   }
 
   .challengeSecondaryTitle {
     font-size: 24px;
-    margin:10px auto;
+    margin: 10px auto;
   }
 
   .challengeContent {
@@ -317,42 +379,43 @@ li {
   }
 
   .challengeNumPicLeft {
-    float:none;
+    float: none;
     margin-top: 2vw;
   }
 
   .challengeNumPicRight {
-    float:none;
+    float: none;
     margin-top: 2vw;
   }
 
   .challengeContentLeft {
-    margin:0;
+    margin: 0;
   }
 
   .challengeContentRight {
-    margin:0;
+    margin: 0;
   }
 
   .challengeFindMore {
-    margin:20px;
+    margin: 20px;
   }
 
   .challengeTertiaryTitle {
     font-size: 18px;
   }
 
-  .challenge span,.challenge li {
+  .challenge span,
+  .challenge li {
     font-size: 14px;
     line-height: 24px;
   }
 
   .notFoundContent {
-    width:90vw;
+    width: 90vw;
   }
 
   .notFoundPic {
-    width:40px;
+    width: 40px;
   }
 
   .notFoundTitle {
@@ -364,5 +427,17 @@ li {
   .notFoundDescription {
     font-size: 15px;
     margin-top: 20px;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  50% {
+    transform: translate(0%, -4%);
+  }
+  100% {
+    transform: translate(0%, 0%);
   }
 }
