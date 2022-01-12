@@ -237,7 +237,7 @@ li {
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Nova Flat';
   src: local('NovaFlat-Regular'),
     url('./fonts/NovaFlat-Regular.ttf') format('truetype');
   font-weight: normal;
