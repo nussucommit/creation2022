@@ -56,6 +56,7 @@ function Contact() {
       </h1>
 <br/>
       <form
+        className="mainContent"
         onSubmit={Validate}
      
         style={{

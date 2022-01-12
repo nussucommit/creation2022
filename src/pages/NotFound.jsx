@@ -6,7 +6,7 @@ export default class NotFound extends React.Component{
     render() {
         return (
             <div className='mainBody' style={{height:'100vh',color:'#fff'}}>
-                <div className='notFoundContent'>
+                <div className='mainContent notFoundContent'>
                     <div>
                         <div><img className='notFoundPic' src={sadface} alt='sad face'/></div>
                         <div className='notFoundTitle'>404 Page not found</div>

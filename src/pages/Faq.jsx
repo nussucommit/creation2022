@@ -10,7 +10,7 @@ function Faq() {
         Frequently Asked Questions
       </h1>
       <br />
-      <div style={{ paddingLeft: '15vw', paddingRight: '15vw' }}>
+      <div className="mainContent" style={{padding: "0 15vw"}}>
         {faqs.map((faq, index) => (
           <div key={index} style={{ marginBottom: '80px' }}>
             <h2 className="secondaryTitle" style={{ letterSpacing: '1px' }}>

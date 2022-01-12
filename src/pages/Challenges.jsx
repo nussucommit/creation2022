@@ -25,7 +25,7 @@ export default class Challenge extends React.Component {
         return (
             <div className='mainBody challenge' style={{overflow:'hidden'}}>
                 <h1 className='mainTitle challengeTitle' style={{ textShadow: "0px 0px 16px #00C2FF" }}>Challenge Statements</h1>
-                <div>
+                <div className='mainContent'>
                     {
                         challenge.map((section,index) => (
                             <div>

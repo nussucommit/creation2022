@@ -10,7 +10,7 @@ function Rules() {
         Rules and Regulations
       </h1>
       <br />
-      <div style={{ paddingLeft: "15vw", paddingRight: "15vw" }}>
+      <div className="mainContent" style={{padding: "0 15vw"}}>
         {rules.map((rule, i) =>
           rule.sectionTitle === "Selection Process" ? (
             <div key={i}>
