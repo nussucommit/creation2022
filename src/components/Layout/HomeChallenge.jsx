@@ -1,7 +1,7 @@
 function Challenge({ title, content }) {
   return (
     <div
-      className={"homeChallenge"}
+      className={'homeChallenge'}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -14,10 +14,7 @@ function Challenge({ title, content }) {
           flexDirection: 'column',
         }}
       >
-        <h2
-          className={"secondaryTitle"}
-          style={{ color: '#434343', textAlign: 'center' }}
-        >
+        <h2 className={'secondaryTitle'} style={{ textAlign: 'center' }}>
           {title}
         </h2>
         <span
