@@ -106,9 +106,9 @@ function AnnouncementList({ isAdmin }) {
         )}
         <CardContent>
           <Typography
-            paragraph
             sx={{
               fontFamily: "Nova Flat",
+              whiteSpace: "pre-line",
             }}
           >
             {announcement.detail}
