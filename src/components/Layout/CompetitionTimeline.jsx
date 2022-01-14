@@ -19,6 +19,8 @@ export default function Timeline({ date, title, content, index }) {
         justifyContent: "center",
         margin: "20px",
         alignItems: "center",
+        position: "relative",
+        zIndex: 2,
       }}
     >
       <span className={"timelineDate"}>{date}</span>

@@ -1,24 +1,26 @@
-import React from "react";
+import React from 'react';
 
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
 
-import DesktopMenuItems from "./DesktopMenuItems";
-import MobileMenuItems from "./MobileMenuItems";
-import ResponsiveLogoLink from "./ResponsiveLogoLink";
-import RightMenuItems from "./RightMenuItems";
-import UserMenuItems from "./UserMenuItems";
+import DesktopMenuItems from './DesktopMenuItems';
+import MobileMenuItems from './MobileMenuItems';
+import ResponsiveLogoLink from './ResponsiveLogoLink';
+import RightMenuItems from './RightMenuItems';
+import UserMenuItems from './UserMenuItems';
 
 function NavigationBar() {
   return (
     <AppBar
-      position="static"
+      position='absolute'
       style={{
-        backgroundColor: '#323232',
+        backgroundColor: 'transparent',
+        background: 'linear-gradient(180deg, black, rgba(0, 0, 0, 0))',
+        boxShadow: 'none',
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <ResponsiveLogoLink isDesktop />
           <DesktopMenuItems />
