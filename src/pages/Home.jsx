@@ -198,7 +198,7 @@ function Home() {
               Note that All participants can voluntarily share their CVs with
               the startups supported by NUS Enterprise. CV collection is not a
               winning entry for any of the challenge statements. More
-              information can be found under
+              information can be found under {' '}
               <a
                 href={'https://creation-2022.herokuapp.com/rules'}
                 style={{ color: 'white' }}
