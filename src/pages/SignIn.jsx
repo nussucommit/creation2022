@@ -3,7 +3,7 @@ import FormContainer from "../components/Container/FormContainer";
 
 function SignIn() {
   return (
-    <FormContainer
+    <FormContainer className="mainContent"
       childComponents={[
         <h1
           className={"mainTitle"}

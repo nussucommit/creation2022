@@ -34,7 +34,7 @@ function Submission() {
   );
 
   return (
-    <PageContainer
+    <PageContainer className="mainContent"
       childComponents={[
         <PageTitle />,
         <AddSubmissionButton />,

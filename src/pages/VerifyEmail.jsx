@@ -16,7 +16,7 @@ function VerifyEmail() {
   return (
     <div className="mainBody" style={{height:"100vh"}}>
       <h1 className='mainTitle challengeTitle' style={{ textShadow: "0px 0px 16px #fdf252" }}>Verifying Email</h1>
-      <div style={{width:'70vw',maxWidth:'800px',margin:'20px auto',fontFamily:'Nova Flat',color:'#fff',border:'2px #fff solid',padding:'2vw',borderRadius:'10px'}}>
+      <div className='mainContent' style={{width:'70vw',maxWidth:'800px',margin:'20px auto',fontFamily:'Nova Flat',color:'#fff',border:'2px #fff solid',padding:'2vw',borderRadius:'10px'}}>
         <div>
           You must verify your email first before submitting.
         </div>
