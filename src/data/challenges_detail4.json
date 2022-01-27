@@ -1,10 +1,12 @@
 [
 	{
 		"title":"Challenge Background",
-		"content":["Ransomware is a type of cyber-attack that encrypts files or the entire computer itself once infected. Ransomware is often circulated by means of a link or attachment within a phishing email or an attachment A ransom payment is demanded by the hackers to make the files or computer accessible again.",
-			"Part of the campaigns of NUS IT Security is to promote awareness of Social Engineering. Ransomware is one of the serious threats that is becoming prevalent among institutions today. Creating more user awareness over the concept of Ransomware through salient points outlined on a poster as a media can help in constantly reminding the NUS community about the impact of this growing threat.",
-			"The poster that will be created for this challenge requires a design that is impactful when viewed by audiences. Design elements should be catchy and memorable to help the audience remember the topics and key points.",
-			"Details of the poster will be provided by NUS IT Security and will be incorporated in the poster by the challenge participants."
+		"content":["Ransomware is a type of malware that encrypts files and folders on a computer, resulting in the owner not being able to access them. It is often circulated by means of a malicious link or attachment within a phishing email. A ransom payment is demanded by the attackers in exchange for the key to decrypt the files to render them accessible again.",
+			"NUS users store and handle large amounts of digital data such as personal data, examination grades and research papers. Should any of these be compromised through a ransomware attack, the impact could cause substantial reputation loss for the University. Hence, it is important to educate our users on this threat.",
+			"Your poster should drive user awareness in the following areas:",
+			["What is ransomware?","How is it spread?","How to protect yourself from ransomware?","What are the impacts of ransomware?","What should you do if you are infected?"],
+			"Your poster should convey an overall message which is easily understood by all NUS staff and students, and leave them with a clear understanding of the various concepts outlined.",
+			"For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg"
 			]
 	},
 	{
