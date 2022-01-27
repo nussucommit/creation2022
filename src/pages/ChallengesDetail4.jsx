@@ -12,7 +12,7 @@ export default class ChallengesDetail extends React.Component{
             <div className='mainBody challenge'>
                 <h1 className='mainTitle challengeSecondaryTitle' style={{color:'#4DAAFF'}}>#4 Digital Poster to Raise Awareness of Ransomware</h1>
                 <div className='challengeContent'>
-                    <span>Create a poster for Ransomware. The poster should be impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering.</span>
+                    <span>Create a poster for NUS IT with a theme of Ransomware. You are to design a poster on ransomware that is appealing, impactful and memorable to the NUS community. The poster will be circulated in the campus digitally and physically as part of the University’s security awareness campaign.</span>
                     <br/>
                     <br/>
                     <br/>
