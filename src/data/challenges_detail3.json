@@ -1,14 +1,14 @@
 [
 	{
 		"title":"Challenge Background",
-		"content":["Part of the campaigns of NUS IT Security is to promote awareness of Social Engineering.",
-			"Business Email Compromise (BEC) is a type of phishing attack which requires the attacker to use an existing email as means to follow-through, trick and manipulate targeted parties. Attackers uses advance hacking techniques that may include:",
-			["password attacks to take over a targeted mailbox;","disclosure of credentials using sophisticated targeted phishing (or spear phishing) by means of either email or fake websites; or","look-alike email domains to trick users about making the source of the email appear legitimate."],
-			"Often an attacker gains access to information such as email conversation or personal details of the impersonated party. It will be then used to establish trust until a fraudulent request is made by the attacker:",
-			["ask for sensitive information; or","make payments based on exploited opportunity between the targets.","purchase items as a request"],
-			"Creating more user awareness over the concept of Business Email Compromise (BEC) through salient points outlined on a poster as a media can help in constantly reminding the NUS community about the impact of this threat.",
-			"The poster that will be created for this challenge requires a design that is impactful when viewed by audiences. Design elements should be catchy and memorable to help the audience remember the topics and key points.",
-			"Details of the poster will be provided by NUS IT Security and will be incorporated in the poster by the challenge participants."]
+		"content":["Business Email Compromise (BEC) is a social engineering technique where attackers impersonate a known individual, usually someone of importance within an organization, in an attempt to trick their victims into performing a fraudulent transaction.",
+			"In NUS, the BEC cases we handled involved scammers impersonating a Head of Department using fake email addresses created on free webmail accounts, and reaching out to various staff from that department, trying to gain their trust through a series of email conversations that eventually led to a request for the unsuspecting staff to purchase iTunes gift cards on their behalf.",
+			"For more information, please refer to our previous advisory on this subject at https://nusit.nus.edu.sg/its/alerts/becjun2020/",
+			"Your poster should drive user awareness in the following areas:",
+			["What is Business Email Compromise (BEC)?","How to identify a BEC email?","What are the impacts of falling prey?","What should you do/not do if you receive a BEC email?"],
+			"Your poster should convey an overall message which is easily understood by all NUS staff and students, and leave them with a clear understanding of the various concepts outlined.",
+			"For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg"
+			]
 	},
 	{
 		"title":"Requirements of Artwork",
