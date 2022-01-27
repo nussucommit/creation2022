@@ -12,37 +12,72 @@ export default class ChallengesDetail extends React.Component{
             <div className='mainBody challenge'>
                 <h1 className='mainTitle challengeSecondaryTitle' style={{color:'#FB8500'}}>#2 Digital Poster for Phishing via Email, Calls and SMS</h1>
                 <div className='challengeContent'>
-                    <span>Create a poster about Phishing being targeted via email, call and SMS. The poster should be impactful, catchy and memorable to the NUS audience. The poster will be circulated in NUS digitally and physically (subject to return to the premise) as part of the university’s security awareness campaign on social engineering.</span>
+                    <span>Create a poster for NUS IT with a theme of Phishing in its different forms (email, voice calls and SMS). You are to design a poster on phishing that is appealing, impactful and memorable to the NUS community. The poster will be circulated in the campus digitally and physically as part of the University’s security awareness campaign on social engineering.</span>
                     <br/>
                     <br/>
                     <br/>
                     <div>
                         {challengesdetail.map((details) =>
                         details.title === "Challenge Background" ? (
-                        <div>
-                        <h1 className='challengeTertiaryTitle' style={{textDecoration:'underline',textAlign:'center',fontFamily:'Nova Flat'}}>{details.title}</h1>
-                        <br/>
-                        <br/>
-                        <div>
-                            {details.content.map((paragraph) =>
-                            typeof paragraph === "string" ? (
-                                <div>
-                                    <span>{paragraph}</span>
-                                    <br/>
-                                    <br/>
-                                </div>
-                            ) : (
-                                paragraph.map((point) => (
+                            <div>
+                            <h1
+                              className='challengeTertiaryTitle'
+                              style={{
+                                textDecoration: 'underline',
+                                textAlign: 'center',
+                                fontFamily: 'Nova Flat',
+                              }}
+                            >
+                              {details.title}
+                            </h1>
+                            <br />
+                            <br />
+                            <div>
+                                <span>
+                                    Phishing is one of the most common cyberattacks used against organizations today to obtain sensitive information or to deploy malware. These attacks can originate from emails, SMS, Whatsapp (IM) messages or calls.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    NUS users receive a fair share of phishing attacks daily, and it remains as one of the cybersecurity threats we are most concerned with. Being a form of social engineering attack, phishing techniques are constantly evolving and getting more sophisticated. In response to this, we need to heighten our users’ awareness in tandem with the latest techniques used.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    Your design should be based on one or more of the following forms of phishing and reflect on the latest techniques used by attackers:
+                                </span>
+                                <br />
+                                <br />
+                                <ol type="a" style={{marginLeft:'3vw'}}>
+                                    <li>Email phishing</li>
+                                    <li>SMS phishing (SMShing)</li>
+                                    <li>Voice phishing (vishing)</li>
+                                </ol>
+                                <span>
+                                    Your poster should drive user awareness in the following areas:
+                                </span>
+                                <br />
+                                <br />
                                 <ul style={{marginLeft:'3vw'}}>
-                                    <li>{point}</li>
+                                    <li>What is phishing?</li>
+                                    <li>How to identify a phishing email?</li>
+                                    <li>What are the impacts of falling prey?</li>
+                                    <li>What should you do/not do if you receive a phishing email?</li>
                                 </ul>
-                                ))
-                            )
-                            )}
-                        </div>
-                        <br/>
-                        <br/>
-                        </div>
+                                <span>
+                                    Your poster should convey an overall message which is easily understood by all NUS staff and students, and leave them with a clear understanding of the various concepts outlined.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg
+                                </span>
+                                <br />
+                                <br />
+                            </div>
+                            <br/>
+                            <br/>
+                            </div>
                     ) : (
                     details.title === "Requirements of Artwork" ? (
                         <div>

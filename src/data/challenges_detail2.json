@@ -1,11 +1,14 @@
 [
 	{
 		"title":"Challenge Background",
-		"content":["Part of the campaigns of NUS IT Security is to promote awareness of Social Engineering. Phishing is one of the most common attack methods of hackers which every staff and student should be made aware of. Phishing is used against organizations today mainly to obtain sensitive information or use an attachment or link to download malicious software – such a method aims to the attacker’s objective to cause financial loss or cause system harm. Improving the behaviours through posters as media helps in constantly reminding the target audience through salient points outlined.",
-			"The poster that will be created for this challenge requires a design that is impactful when viewed by audiences. Design elements should be catchy and memorable to help the audience remember the topics and key points.",
-			"This design challenge in-scope is to choose to design a poster based on either of the topics below:",
-			["Phishing Email","Phishing SMS (SMShing)","Phishing Calls"],
-			"Details of the poster will be provided by NUS IT Security and will be incorporated in the poster by the challenge participants."
+		"content":["Phishing is one of the most common cyberattacks used against organizations today to obtain sensitive information or to deploy malware. These attacks can originate from emails, SMS, Whatsapp (IM) messages or calls.",
+			"NUS users receive a fair share of phishing attacks daily, and it remains as one of the cybersecurity threats we are most concerned with. Being a form of social engineering attack, phishing techniques are constantly evolving and getting more sophisticated. In response to this, we need to heighten our users’ awareness in tandem with the latest techniques used.",
+			"Your design should be based on one or more of the following forms of phishing and reflect on the latest techniques used by attackers:",
+			["Email phishing","SMS phishing (SMShing)","Voice phishing (vishing)"],
+			"Your poster should drive user awareness in the following areas:",
+			["What is phishing?","How to identify a phishing email?","What are the impacts of falling prey?","What should you do/not do if you receive a phishing email?"],
+			"Your poster should convey an overall message which is easily understood by all NUS staff and students, and leave them with a clear understanding of the various concepts outlined.",
+			"For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg"
 			]
 	},
 	{
