@@ -70,6 +70,18 @@ export default class ChallengesDetail extends React.Component{
                                 <br />
                                 <br />
                                 <span>
+                                    Please find the details needed to be incorporated in the poster{' '}
+                                    <a
+                                        href='https://docs.google.com/document/d/1ZtOuP2iW8tfUe47o9hL8Y_ZFmu-6EAnI/edit?usp=sharing&ouid=117399904563563708660&rtpof=true&sd=true'
+                                        style={{ color: '#fff' }}
+                                    >
+                                        here
+                                    </a>
+                                    , and you may still enhance it or use your own text as long as it meets the objective of the challenge statement.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
                                     For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg
                                 </span>
                                 <br />

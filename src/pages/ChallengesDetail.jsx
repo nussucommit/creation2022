@@ -62,8 +62,14 @@ export default class ChallengesDetail extends React.Component {
                       >
                         this video
                       </a>{' '}
-                      and past Commencement Class Giving collaterals in the
-                      appendix for more information.
+                      and past Commencement Class Giving collaterals{' '}
+                      <a
+                        href='https://docs.google.com/document/d/1e7mCv8vJCLlC0S8_I1QLsaxBSq3PT1T5/edit?usp=sharing&ouid=117399904563563708660&rtpof=true&sd=true'
+                        style={{ color: '#fff' }}
+                      >
+                        here
+                      </a>{' '}
+                      for more information.
                     </span>
                     <br />
                     <br />
