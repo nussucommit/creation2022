@@ -1,4 +1,5 @@
 import React, { Suspense, useContext } from "react";
+import HttpsRedirect from 'react-https-redirect'
 
 import { Helmet } from "react-helmet";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -82,92 +83,94 @@ function App() {
   const isVerified = authCtx.isVerified;
 
   return (
-    <ThemeProvider theme={theme}>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Creation 2022</title>
-        <link
-          rel="canonical"
-          href="https://creation2022.nussucommit.com/home"
-        />
-        <meta
-          name="description"
-          content="Creation 2022 organized by NUSSU CommIT"
-        />
-      </Helmet>
-      <NavigationBar />
-      <CustomSnackbar />
-      <Suspense
-        fallback={
-          <Centered className="mainBody">
-            <CircularProgress />
-          </Centered>
-        }
-      >
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/announcement" element={<Announcement />} />
-          <Route path="/challenges" element={<Challenges />} />
-          <Route
-            path="/challengesdetail"
-            element={isSignedIn ? <ChallengesDetail /> : <Navigate to="/signin" />}
+    <HttpsRedirect>
+      <ThemeProvider theme={theme}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Creation 2022</title>
+          <link
+            rel="canonical"
+            href="https://creation2022.nussucommit.com/home"
           />
-          <Route
-            path="/challengesdetail2"
-            element={isSignedIn ? <ChallengesDetail2 /> : <Navigate to="/signin" />}
+          <meta
+            name="description"
+            content="Creation 2022 organized by NUSSU CommIT"
           />
-          <Route
-            path="/challengesdetail3"
-            element={isSignedIn ? <ChallengesDetail3 /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/challengesdetail4"
-            element={isSignedIn ? <ChallengesDetail4 /> : <Navigate to="/signin" />}
-          />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="/refresh" element={<Navigate to="/submission" />} />
-          <Route
-            path="/submission"
-            element={
-              isVerified ? (
-                <Submission />
-              ) : isSignedIn ? (
-                <VerifyEmail />
-              ) : (
-                <Navigate to="/signin" />
-              )
-            }
-          />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/signin"
-            element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
-          />
-          <Route
-            path="/profile"
-            element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/change-password"
-            element={
-              isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />
-            }
-          />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/signup"
-            element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
-          />
-          <Route
-            path="/verify-email"
-            element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </ThemeProvider>
+        </Helmet>
+        <NavigationBar />
+        <CustomSnackbar />
+        <Suspense
+          fallback={
+            <Centered className="mainBody">
+              <CircularProgress />
+            </Centered>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/announcement" element={<Announcement />} />
+            <Route path="/challenges" element={<Challenges />} />
+            <Route
+              path="/challengesdetail"
+              element={isSignedIn ? <ChallengesDetail /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/challengesdetail2"
+              element={isSignedIn ? <ChallengesDetail2 /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/challengesdetail3"
+              element={isSignedIn ? <ChallengesDetail3 /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/challengesdetail4"
+              element={isSignedIn ? <ChallengesDetail4 /> : <Navigate to="/signin" />}
+            />
+            <Route path="/rules" element={<Rules />} />
+            <Route path="/refresh" element={<Navigate to="/submission" />} />
+            <Route
+              path="/submission"
+              element={
+                isVerified ? (
+                  <Submission />
+                ) : isSignedIn ? (
+                  <VerifyEmail />
+                ) : (
+                  <Navigate to="/signin" />
+                )
+              }
+            />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/signin"
+              element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
+            />
+            <Route
+              path="/profile"
+              element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/change-password"
+              element={
+                isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />
+              }
+            />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/signup"
+              element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
+            />
+            <Route
+              path="/verify-email"
+              element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </ThemeProvider>
+    </HttpsRedirect>
   );
 }
 
