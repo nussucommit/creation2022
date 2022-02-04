@@ -19,30 +19,68 @@ export default class ChallengesDetail extends React.Component{
                     <div>
                         {challengesdetail.map((details) =>
                         details.title === "Challenge Background" ? (
-                        <div>
-                        <h1 className='challengeTertiaryTitle' style={{textDecoration:'underline',textAlign:'center',fontFamily:'Nova Flat'}}>{details.title}</h1>
-                        <br/>
-                        <br/>
-                        <div>
-                            {details.content.map((paragraph) =>
-                            typeof paragraph === "string" ? (
-                                <div>
-                                    <span>{paragraph}</span>
-                                    <br/>
-                                    <br/>
-                                </div>
-                            ) : (
-                                paragraph.map((point) => (
+                            <div>
+                            <h1
+                              className='challengeTertiaryTitle'
+                              style={{
+                                textDecoration: 'underline',
+                                textAlign: 'center',
+                                fontFamily: 'Nova Flat',
+                              }}
+                            >
+                              {details.title}
+                            </h1>
+                            <br />
+                            <br />
+                            <div>
+                                <span>
+                                    Ransomware is a type of malware that encrypts files and folders on a computer, resulting in the owner not being able to access them. It is often circulated by means of a malicious link or attachment within a phishing email. A ransom payment is demanded by the attackers in exchange for the key to decrypt the files to render them accessible again.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    NUS users store and handle large amounts of digital data such as personal data, examination grades and research papers. Should any of these be compromised through a ransomware attack, the impact could cause substantial reputation loss for the University. Hence, it is important to educate our users on this threat.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    Your poster should drive user awareness in the following areas:
+                                </span>
+                                <br />
+                                <br />
                                 <ul style={{marginLeft:'3vw'}}>
-                                    <li>{point}</li>
+                                    <li>What is ransomware?</li>
+                                    <li>How is it spread?</li>
+                                    <li>How to protect yourself from ransomware?</li>
+                                    <li>What are the impacts of ransomware?</li>
+                                    <li>What should you do if you are infected?</li>
                                 </ul>
-                                ))
-                            )
-                            )}
-                        </div>
-                        <br/>
-                        <br/>
-                        </div>
+                                <span>
+                                    Your poster should convey an overall message which is easily understood by all NUS staff and students, and leave them with a clear understanding of the various concepts outlined.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    Please find the details needed to be incorporated in the poster{' '}
+                                    <a
+                                        href='https://docs.google.com/document/d/1pTq1AgAfIoMbHfw0lAImkLr8x6Prqw7T/edit?usp=sharing&ouid=117399904563563708660&rtpof=true&sd=true'
+                                        style={{ color: '#fff' }}
+                                    >
+                                        here
+                                    </a>
+                                    , and you may still enhance it or use your own text as long as it meets the objective of the challenge statement.
+                                </span>
+                                <br />
+                                <br />
+                                <span>
+                                    For more details or clarifications, you can contact Lynn Mher at lynnmher@nus.edu.sg
+                                </span>
+                                <br />
+                                <br />
+                            </div>
+                            <br/>
+                            <br/>
+                            </div>
                     ) : (
                     details.title === "Requirements of Artwork" ? (
                         <div>
