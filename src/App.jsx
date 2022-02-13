@@ -91,6 +91,10 @@ function App() {
           href="https://creation2022.nussucommit.com/home"
         />
         <meta
+          name="keywords"
+          content="creation 2022, nus, commIT, creation competition"
+        />
+        <meta
           name="description"
           content="Creation 2022 organized by NUSSU CommIT"
         />
