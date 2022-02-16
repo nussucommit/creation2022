@@ -113,22 +113,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/announcement" element={<Announcement />} />
           <Route path="/challenges" element={<Challenges />} />
-          <Route
-            path="/challengesdetail"
-            element={isSignedIn ? <ChallengesDetail /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/challengesdetail2"
-            element={isSignedIn ? <ChallengesDetail2 /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/challengesdetail3"
-            element={isSignedIn ? <ChallengesDetail3 /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/challengesdetail4"
-            element={isSignedIn ? <ChallengesDetail4 /> : <Navigate to="/signin" />}
-          />
+          <Route path="/challengesdetail" element={<ChallengesDetail />} />
+          <Route path="/challengesdetail2" element={<ChallengesDetail2 />} />
+          <Route path="/challengesdetail3" element={<ChallengesDetail3 />} />
+          <Route path="/challengesdetail4" element={<ChallengesDetail4 />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/refresh" element={<Navigate to="/submission" />} />
           <Route
