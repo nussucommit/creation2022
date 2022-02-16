@@ -1,50 +1,50 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 
-import { db } from "../firebase/firebase-config";
-import { collection, addDoc } from "firebase/firestore";
+// import { db } from "../firebase/firebase-config";
+// import { collection, addDoc } from "firebase/firestore";
 
 function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [inquiry, setInquiry] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [inquiry, setInquiry] = useState("");
 
-  function Validate(e) {
-    e.preventDefault();
-    if (name === "" || email === "" || inquiry === "") {
-      alert("Please provide us your name, email, and your inquiry");
-    } else if (email.includes("@") === false) {
-      return alert("Please provide us a valid email");
-    } else {
-      HandleSubmit(e);
-    }
-  }
+  // function Validate(e) {
+  //   e.preventDefault();
+  //   if (name === "" || email === "" || inquiry === "") {
+  //     alert("Please provide us your name, email, and your inquiry");
+  //   } else if (email.includes("@") === false) {
+  //     return alert("Please provide us a valid email");
+  //   } else {
+  //     HandleSubmit(e);
+  //   }
+  // }
 
-  function HandleSubmit(e) {
-    e.preventDefault();
+  // function HandleSubmit(e) {
+  //   e.preventDefault();
 
-    addDoc(collection(db, "contact"), {
-      name: name,
-      email: email,
-      inquiry: inquiry,
-      to: ["creation.committee@nussucommit.com"],
-      message: {
-        subject: "New inquiry for CREATION 2022",
-        html: "From " + name + " (" + email + "): " + inquiry,
-      },
-    })
-      .then(() => {
-        alert("Your message has been submitted👍");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  //   addDoc(collection(db, "contact"), {
+  //     name: name,
+  //     email: email,
+  //     inquiry: inquiry,
+  //     to: ["creation.committee@nussucommit.com"],
+  //     message: {
+  //       subject: "New inquiry for CREATION 2022",
+  //       html: "From " + name + " (" + email + "): " + inquiry,
+  //     },
+  //   })
+  //     .then(() => {
+  //       alert("Your message has been submitted👍");
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
 
-    setName("");
-    setEmail("");
-    setInquiry("");
-  }
+  //   setName("");
+  //   setEmail("");
+  //   setInquiry("");
+  // }
 
   return (
     <div className="mainBody" style={{ height: "100vh" }}>
@@ -55,7 +55,7 @@ function Contact() {
         Contact Us
       </h1>
 <br/>
-      <form
+      {/* <form
         onSubmit={Validate}
      
         style={{
@@ -94,7 +94,8 @@ function Contact() {
         <Button  type="submit"  variant="contained" width={"80%"}>
           Submit
         </Button>
-      </form>
+      </form> */}
+      <p style={{color:"white", textAlign:"center"}}>Please submit your inquiry to <a style={{color:"white"}} href="mailto:creation.committee@nussucommit.com">creation.committee@nussucommit.com</a>. Thank you :).</p>
     </div>
   );
 }

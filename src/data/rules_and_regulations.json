@@ -5,7 +5,7 @@
     },
     {
         "sectionTitle": "Registration",
-        "contentRule":["To register for CREATION 2022, participant can register themselves by signing up on CREATION 2022 website",
+        "contentRule":["To participate in CREATION 2022, participants can directly submit the design through Microsoft Form under Submission page, participants are not required to register for CREATION 2022",
         "Registration for the challenge will open on 17 Jan 2022 and will close on 25 Feb 2022 18:00.",
         "Participation in CREATION 2022 is FREE of charge."]
     },
@@ -16,8 +16,7 @@
     },
     {
         "sectionTitle": "Competition",
-        "contentRule":["Participants should sign up through CREATION 2022 website by 25 February 2022 18:00 which is also the deadline for submission.",
-        "Only registered participants are allowed to submit an entry.",
+        "contentRule":[
         "Each participant can choose to sign up for multiple challenges.",
         "Each participant can submit multiple times per challenge before the deadline, but only the last submission will be taken and shortlisted by the CREATION committee and judged by a panel of judges during the closing ceremony on 12 March 2022.",
         "All entries should fulfill the requirements specified in their respective challenge statements.",
