@@ -152,7 +152,7 @@ function Home() {
           >
             <Prize
               imageURL={'iPad.png'}
-              title={'Apple iPad (64GB) & \n Apple Pencil (1st Generation)'}
+              title={'Apple iPad'}
               awardType={'First Prize'}
             ></Prize>
             <Prize
