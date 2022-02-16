@@ -56,7 +56,7 @@
 // export default React.memo(Submission);
 
 import React from 'react'
-export default class ChallengesDetail extends React.Component{
+export default class Submission extends React.Component{
     render() {
         return (
             <div className='mainBody challenge challengeContent' style={{overflow:'hidden'}}>
