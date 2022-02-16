@@ -26,7 +26,7 @@ function NavigationBar() {
           <DesktopMenuItems />
           <MobileMenuItems />
           <ResponsiveLogoLink isDesktop={false} />
-          <RightMenuItems />
+          {/* <RightMenuItems /> */}
           <UserMenuItems />
         </Toolbar>
       </Container>

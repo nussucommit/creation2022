@@ -1,4 +1,4 @@
-import React, { Suspense, useContext } from "react";
+import React, { Suspense} from "react";
 
 import { Helmet } from "react-helmet";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -9,24 +9,24 @@ import styled from "styled-components";
 
 import RaiderCrusaderTtf from "./fonts/raidercrusader.ttf";
 import NovaFlatRegularTtf from "./fonts/NovaFlat-Regular.ttf";
-import AuthContext from "./store/auth-context";
+// import AuthContext from "./store/auth-context";
 import CustomSnackbar from "./components/Messages/CustomSnackbar";
 import NavigationBar from "./components/Layout/NavigationBar";
 
 const Announcement = React.lazy(() => import("./pages/Announcement"));
 const Challenges = React.lazy(() => import("./pages/Challenges"));
-const ChangePassword = React.lazy(() => import("./pages/ChangePassword"));
+// const ChangePassword = React.lazy(() => import("./pages/ChangePassword"));
 const Contact = React.lazy(() => import("./pages/Contact"));
 const Faq = React.lazy(() => import("./pages/Faq"));
 const Home = React.lazy(() => import("./pages/Home"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Profile = React.lazy(() => import("./pages/Profile"));
+// const Profile = React.lazy(() => import("./pages/Profile"));
 const Rules = React.lazy(() => import("./pages/Rules"));
-const ResetPassword = React.lazy(() => import("./pages/ResetPassword"));
-const SignIn = React.lazy(() => import("./pages/SignIn"));
-const SignUp = React.lazy(() => import("./pages/SignUp"));
+// const ResetPassword = React.lazy(() => import("./pages/ResetPassword"));
+// const SignIn = React.lazy(() => import("./pages/SignIn"));
+// const SignUp = React.lazy(() => import("./pages/SignUp"));
 const Submission = React.lazy(() => import("./pages/Submission"));
-const VerifyEmail = React.lazy(() => import("./pages/VerifyEmail"));
+// const VerifyEmail = React.lazy(() => import("./pages/VerifyEmail"));
 const ChallengesDetail = React.lazy(() => import("./pages/ChallengesDetail"))
 const ChallengesDetail2 = React.lazy(() => import("./pages/ChallengesDetail2"))
 const ChallengesDetail3 = React.lazy(() => import("./pages/ChallengesDetail3"))
@@ -76,10 +76,10 @@ const theme = createTheme({
  * @author [Desmond To](https://github.com/DesmondTo)
  */
 function App() {
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
 
-  const isSignedIn = authCtx.isSignedIn;
-  const isVerified = authCtx.isVerified;
+  // const isSignedIn = authCtx.isSignedIn;
+  // const isVerified = authCtx.isVerified;
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,40 +122,41 @@ function App() {
           <Route
             path="/submission"
             element={
-              isVerified ? (
-                <Submission />
-              ) : isSignedIn ? (
-                <VerifyEmail />
-              ) : (
-                <Navigate to="/signin" />
-              )
+              <Submission />
+              // isVerified ? (
+              //   <Submission />
+              // ) : isSignedIn ? (
+              //   <VerifyEmail />
+              // ) : (
+              //   <Navigate to="/signin" />
+              // )
             }
           />
           <Route path="/faq" element={<Faq />} />
           <Route path="/contact" element={<Contact />} />
-          <Route
+          {/* <Route
             path="/signin"
             element={isSignedIn ? <Navigate to="/home" /> : <SignIn />}
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/profile"
             element={isSignedIn ? <Profile /> : <Navigate to="/signin" />}
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/change-password"
             element={
               isSignedIn ? <ChangePassword /> : <Navigate to="/signin" />
             }
-          />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
+          /> */}
+          {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
+          {/* <Route
             path="/signup"
             element={isSignedIn ? <Navigate to="/home" /> : <SignUp />}
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/verify-email"
             element={isSignedIn ? <VerifyEmail /> : <Navigate to="/home" />}
-          />
+          /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

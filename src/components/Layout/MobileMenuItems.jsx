@@ -10,7 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import AuthContext from "../../store/auth-context";
 import menuItems from "../../constants/Navigation/navbar_menu_items";
-import authMenuItems from "../../constants/Navigation/auth_menu_items";
+// import authMenuItems from "../../constants/Navigation/auth_menu_items";
 
 function MobileMenuItems() {
   const authCtx = useContext(AuthContext);
@@ -66,14 +66,14 @@ function MobileMenuItems() {
             </MenuItem>
           );
         })}
-        {!authCtx.isSignedIn &&
+        {/* {!authCtx.isSignedIn &&
           authMenuItems.map((item, index) => (
             <MenuItem key={index} component={NavLink} to={item.pageURL}>
               <Typography style={{ fontFamily: "Poppins", fontWeight: 400 }}>
                 {item.pageTitle}
               </Typography>
             </MenuItem>
-          ))}
+          ))} */}
       </Menu>
     </Box>
   );
