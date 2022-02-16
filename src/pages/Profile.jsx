@@ -13,7 +13,7 @@ import SnackbarContext from "../store/snackbar-context";
 import FormContainer from "../components/Container/FormContainer";
 import AvatarChooser from "../components/Input/AvatarChooser";
 import InputTextField from "../components/Input/InputTextField";
-import CVSubmissionNote from "../components/Input/CVSubmissionNote";
+// import CVSubmissionNote from "../components/Input/CVSubmissionNote";
 
 function Profile() {
   /* ------------------------------ Context ------------------------------ */
@@ -101,7 +101,7 @@ function Profile() {
           {`Hi there, ${username}`}
         </h1>,
         <AvatarChooser src={profilePhotoURL} onChange={uploadPhotoHandler} />,
-        <CVSubmissionNote />,
+        // <CVSubmissionNote />,
         <form onSubmit={updateProfileHandler}>
           <CardContent>
             <InputTextField
