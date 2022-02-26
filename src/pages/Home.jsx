@@ -109,7 +109,7 @@ function Home() {
               ></Timeline>
               <Timeline
                 index={4}
-                date={'25 Feb 2022'}
+                date={'6 Mar 2022'}
                 title={'Deadline for Submission   '}
                 content={
                   'Participants can submit their design through our website by logging in. Submissions must be done before 25 February 2022 at 18:00.'
@@ -117,7 +117,7 @@ function Home() {
               ></Timeline>
               <Timeline
                 index={5}
-                date={'5 Mar 2022'}
+                date={'9 Mar 2022'}
                 title={'Announcement of Finalists'}
                 content={
                   'After the submission deadline (25th of February 2022), participants’ submissions for each challenge statement will be assessed by the CREATION 2022 Committee and shortlisted into the final round of the closing ceremony.'
