@@ -88,7 +88,7 @@ function Home() {
                 date={'17 Jan 2022'}
                 title={'Challenge Statement Release'}
                 content={
-                  'The problem statements will be released on our website on 17 Jan 2022. Sign-up will open on this website from 17 Jan 2022 until the deadline of submission on 25 Feb 2022.'
+                  'The problem statements will be released on our website on 17 Jan 2022. Sign-up will open on this website from 17 Jan 2022 until the deadline of submission on 6 Mar 2022.'
                 }
               ></Timeline>
               <Timeline
@@ -112,7 +112,7 @@ function Home() {
                 date={'6 Mar 2022'}
                 title={'Deadline for Submission   '}
                 content={
-                  'Participants can submit their design through our website by logging in. Submissions must be done before 25 February 2022 at 18:00.'
+                  'Participants can submit their design through our website by logging in. Submissions must be done before 6 March 2022 at 18:00.'
                 }
               ></Timeline>
               <Timeline
@@ -120,7 +120,7 @@ function Home() {
                 date={'9 Mar 2022'}
                 title={'Announcement of Finalists'}
                 content={
-                  'After the submission deadline (25th of February 2022), participants’ submissions for each challenge statement will be assessed by the CREATION 2022 Committee and shortlisted into the final round of the closing ceremony.'
+                  'After the submission deadline (6th of March 2022), participants’ submissions for each challenge statement will be assessed by the CREATION 2022 Committee and shortlisted into the final round of the closing ceremony.'
                 }
               ></Timeline>
               <Timeline
